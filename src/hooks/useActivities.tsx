@@ -1,14 +1,12 @@
-'use client';
-
 import { useQuery } from '@tanstack/react-query';
 import instance from '@/lib/api';
 import { Activities } from '@/lib/types';
-import usePaginationStore from '@/stores/usePaginationStore'; // 페이지네이션 상태 추가
 
-// API 요청 - 페이지네이션
-const fetchActivities = async (page: number): Promise<Activities[]> => {
+// API 요청 함수
+const fetchActivities = async (): Promise<Activities[]> => {
   try {
-    const response = await instance.get(`/activities?page=${page}`); // 페이지 번호
+    const response = await instance.get('/activities');
+    console.log('API 응답 데이터:', response.data); // 응답 데이터 확인
     return response.data.activities;
   } catch (error: unknown) {
     console.error('API 요청 실패:', error);

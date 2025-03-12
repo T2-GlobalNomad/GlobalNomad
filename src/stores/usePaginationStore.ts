@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { Pagination } from "@/lib/types";
+import { create } from 'zustand';
+import { Pagination } from '@/lib/types';
 
 const usePaginationStore = create<Pagination>((set) => ({
   currentPage: 1, //현재 페이지 기본값

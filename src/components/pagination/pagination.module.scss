@@ -1,0 +1,45 @@
+
+.prevGroup{
+    border-radius: 15px;
+    width: 55px;
+    height: 55px;
+    //background-color: white;
+    background-image: url('./images/pagination_prevarrow.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 7px 12px;
+    //border: 1px solid green;
+}
+.nextGroup{
+    border-radius: 15px;
+    width: 55px;
+    height: 55px;
+    //background-color: white;
+    background-image: url('./images/pagination_arrow.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 7px 12px;
+    //border: 1px solid green;
+
+}
+
+
+.pagebutton{
+    border-radius: 15px;
+    width: 55px;
+    height: 55px;
+    //color: green; 
+    //background=-color: white;
+    cursor: pointer;
+    //border: 1px solid green;
+}
+
+.pagebuttonactive{
+    border-radius: 15px;
+    width: 55px;
+    height: 55px;
+    //color: white; 
+    //background-color: green;
+    //border: 1px solid green;
+    cursor: pointer;
+}

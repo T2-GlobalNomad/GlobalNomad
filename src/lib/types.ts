@@ -14,15 +14,6 @@ export interface tokens {
   refreshToken: string;
 }
 
-export interface Pagination {
-  currentPage: number;
-  totalPages: number;
-  pageSize: number;
-  setPageSize: (page: number) => void;
-  setPage: (page: number) => void;
-  setTotalPages: (page: number) => void;
-}
-
 /* Activities */
 
 type SubImages = {
@@ -130,17 +121,17 @@ export interface Reservation {
 
 /* Notification */
 
-export type Notifications = {
-  id: number;
+type Notifications = {
+  id?: number;
   userId?: number;
   teamId?: number;
-  content: string;
-  createdAt: string;
+  content?: string;
+  createdAt?: string;
   updatedAt?: string;
   deletedAt?: string;
 };
 
 export interface Notification {
-  notifications?: Notifications[];
+  notifications: Notifications[];
   totalCount?: number;
 }

@@ -1,11 +1,10 @@
-"use client"
+'use client';
 
-export default function MyActivities(){
-
-    return(
-        <div>
-            {/* <ProfileCard /> */}
-            {/* <MyActivityList> */}
-        </div>
-    )
+export default function MyActivities() {
+  return (
+    <div>
+      {/* <ProfileCard /> */}
+      {/* <MyActivityList> */}
+    </div>
+  );
 }

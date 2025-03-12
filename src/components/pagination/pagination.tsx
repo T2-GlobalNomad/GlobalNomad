@@ -1,5 +1,5 @@
-import usePaginationStore from "@/stores/usePaginationStore";
-import styles from "./pagination.module.css";
+import usePaginationStore from '@/stores/usePaginationStore';
+import styles from './pagination.module.css';
 
 export default function Pagination() {
   // 한번에 5 페이지 씩 보여주게끔 설계했어요. 첫번째 페이지는 1-5, 화살표 누르면 6-10 이 보이게 했습니다.
@@ -16,7 +16,7 @@ export default function Pagination() {
   //페이지 배열 생성
   const pages = Array.from(
     { length: endPage - startPage + 1 },
-    (_, i) => startPage + i
+    (_, i) => startPage + i,
   );
 
   //이전페이지로이동
@@ -30,7 +30,7 @@ export default function Pagination() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <button
         onClick={handlePrevGroup}
         disabled={startPage === 1}
@@ -42,9 +42,11 @@ export default function Pagination() {
           key={page}
           onClick={() => setPage(page)}
           className={`${styles.pagebutton} ${
-            currentPage === page ? styles.pagebuttonactive : ""
+            currentPage === page ? styles.pagebuttonactive : ''
           }`}
-        />
+        >
+          {page}
+        </button>
       ))}
       <button
         onClick={handleNextGroup}

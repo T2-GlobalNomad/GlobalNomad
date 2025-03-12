@@ -10,7 +10,7 @@ export default function NavProfileCard() {
       </div>
       <ul className={styles.menuContainer}>
         <li className={styles.menu}>
-          <Link href='/mypage' className={styles.link}>
+          <Link href="/mypage" className={styles.link}>
             <Image
               src='/images/icon_menu1.svg'
               width={24}

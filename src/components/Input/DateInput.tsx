@@ -19,42 +19,52 @@ import "react-datepicker/dist/react-datepicker.css"; // 날짜 선택 UI를 위�
  *
  * @author 남기연 <getam101@naver.com>
  */
-
 interface DateInputProps {
   label?: string;
   id?: string;
   onChange?: (date: Date | null) => void;
 }
 
-export default function DateInput({ label, id, onChange }: DateInputProps) {
+export default function DateInput({
+  label,
+  id = "date",
+  onChange,
+}: DateInputProps) {
   // 기본값을 null로 해야 placeholder가 보입니다.
-  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [date, setDate] = useState<Date | null>(null);
 
   const handleChange = (date: Date | null) => {
-    setStartDate(date);
+    setDate(date);
     if (onChange) {
       onChange(date);
     }
   };
 
+  // 아이콘 클릭 시 해당 input에 포커스를 주고 클릭 이벤트를 발생시켜 달력 팝업을 열도록 함
+  const handleIconClick = () => {
+    const inputElem = document.getElementById(id);
+    if (inputElem) {
+      inputElem.focus();
+      inputElem.click();
+    }
+  };
+
   return (
     <div className={styles.container}>
-      {/* label이 있으면 표시 */}
       {label && (
         <label className={styles.label} htmlFor={id}>
           {label}
         </label>
       )}
-
       <div className={styles.subContainer}>
         <DatePicker
           id={id}
-          selected={startDate} // 선택된 날짜 상태
+          selected={date} // 선택된 날짜 상태
           onChange={handleChange} // 날짜 변경 시 상태 업데이트
           dateFormat="yy/MM/dd" // 표시 형식 (예: 23/03/12)
           placeholderText="YY/MM/DD" // 플레이스홀더
           wrapperClassName={styles.datePickerWrapper}
-          className={styles.input}
+          className={styles.input} // 커스텀 스타일 클래스
         />
         <Image
           className={styles.dateIcon}
@@ -62,6 +72,7 @@ export default function DateInput({ label, id, onChange }: DateInputProps) {
           alt="달력 아이콘"
           width={32}
           height={32}
+          onClick={handleIconClick}
         />
       </div>
     </div>

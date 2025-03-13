@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import instance from '@/lib/api';
 import { Activities } from '@/lib/types';
@@ -7,7 +9,7 @@ const fetchMyActivities = async (): Promise<Activities[]> => {
   try {
     const response = await instance.get('/my-activities');
     console.log('API 응답 데이터:', response.data);
-    return response.data.reservations;
+    return response.data.activities;
   } catch (error: unknown) {
     console.error('API 요청 실패:', error);
     throw new Error('데이터를 불러오는 데 실패했습니다.');
@@ -17,7 +19,7 @@ const fetchMyActivities = async (): Promise<Activities[]> => {
 // React Query 훅
 const useMyActivities = () => {
   return useQuery<Activities[]>({
-    queryKey: ['activities'],
+    queryKey: ['myActivities'],
     queryFn: fetchMyActivities,
   });
 };

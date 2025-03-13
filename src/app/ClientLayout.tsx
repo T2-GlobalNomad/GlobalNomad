@@ -2,7 +2,6 @@
 
 import { usePathname } from 'next/navigation';
 import Nav from '@/components/nav/Nav';
-import Footer from '@/components/footer/Footer';
 
 export default function ClientLayout({
   children,
@@ -19,7 +18,6 @@ export default function ClientLayout({
       <div className={`${!signHideLayout && 'app'}`}>
         <div className={`${!mainHideLayout && 'layout'}`}>{children}</div>
       </div>
-      {!signHideLayout && <Footer />}
     </>
   );
 }

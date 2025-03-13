@@ -1,0 +1,42 @@
+.imgContainer {
+  position: relative;
+  width: 100%;
+  height: 550px; 
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+    url('/images/landingpage_img.svg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 448px) {
+    height: 240px;
+  }
+}
+.textContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (max-width: 1248px) { 
+    max-width: auto; 
+    padding: 0 24px;
+  } 
+  @media (max-width: 744px) {
+    gap: 8px; 
+  }
+  @media (max-width: 375px) { 
+    padding: 0 20px; 
+  }
+}
+
+.mainContainer {
+  max-width: 1200px;
+  margin: 0 auto; 
+}

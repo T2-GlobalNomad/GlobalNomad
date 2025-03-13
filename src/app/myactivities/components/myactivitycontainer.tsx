@@ -1,6 +1,5 @@
 'use client';
 import styles from '../myactivities.module.css';
-
 import CustomButton from '@/components/CustomButton';
 import ActivityList from './activitylist';
 

@@ -1,0 +1,7 @@
+.confirmed {
+  color: var(--blue);
+}
+
+.decilined {
+  color: var(--red);
+}

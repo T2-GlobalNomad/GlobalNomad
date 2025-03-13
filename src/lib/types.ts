@@ -134,7 +134,7 @@ export type Notifications = {
   id?: number;
   userId?: number;
   teamId?: number;
-  content?: string;
+  content: string;
   createdAt: string;
   updatedAt?: string;
   deletedAt?: string;

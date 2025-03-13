@@ -1,16 +1,35 @@
-import { Notifications } from '@/lib/types';
 import { useEffect, useState } from 'react';
 import instance from '@/lib/api';
+import { Notifications } from '@/lib/types';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import 'dayjs/locale/ko'; // 한국어
+import 'dayjs/locale/ko';
+import { FaCircle } from 'react-icons/fa';
+import styles from './NotificationCard.module.css';
 
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
-// 시간차이 계산
-function timeDiff(dateString: string): string {
+function timeAgo(dateString: string): string {
   return dayjs(dateString).fromNow();
+}
+
+function highlightText(content: string) {
+  return content.split(/(승인|거절)/g).map((text, index) => {
+    if (text === '승인')
+      return (
+        <span key={index} className={styles.confirmed}>
+          {text}
+        </span>
+      );
+    if (text === '거절')
+      return (
+        <span key={index} className={styles.declined}>
+          {text}
+        </span>
+      );
+    return text;
+  });
 }
 
 export default function NotificationCard() {
@@ -22,10 +41,9 @@ export default function NotificationCard() {
       setLoading(true);
       try {
         const response = await instance.get('/my-notifications');
-        const data = response.data;
-        setNotifications(data.notifications);
-      } catch (error: unknown) {
-        throw new Error('알림을 불러오는 데 실패했습니다.');
+        setNotifications(response.data.notifications);
+      } catch (error) {
+        console.error('알림을 불러오는 데 실패했습니다.', error);
       } finally {
         setLoading(false);
       }
@@ -34,21 +52,19 @@ export default function NotificationCard() {
   }, []);
 
   return (
-    <>
-      <div>
-        {loading ? (
-          <div>로딩중...</div>
-        ) : (
-          <ul>
-            {notifications.map((notification) => (
-              <li key={notification.id}>
-                <p>{notification.content}</p>
-                <p>{timeDiff(notification.createdAt)}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </>
+    <div>
+      {loading ? (
+        <div>로딩중...</div>
+      ) : (
+        <ul>
+          {notifications.map((notification) => (
+            <li key={notification.id}>
+              <p>{highlightText(notification.content)}</p>
+              <p>{timeAgo(notification.createdAt)}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }

@@ -22,7 +22,7 @@ export default function NavProfileCard() {
           </Link>
         </li>
         <li className={styles.menu}>
-          <Link href='/reservation' className={styles.link}>
+          <Link href='/myReservation' className={styles.link}>
             <Image
               src='/images/icon_menu2.svg'
               width={24}

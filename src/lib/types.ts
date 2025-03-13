@@ -57,7 +57,7 @@ export interface Activities {
   userId?: number;
   title?: string;
   description?: string;
-  category?: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category?: '문화 · 예술' | '식음료' | '스포츠' | '투어' | '관광' | '웰빙';
   price?: number;
   address?: string;
   bannerImageUrl?: string;
@@ -117,7 +117,7 @@ export interface Reservation {
   userId?: number;
   activityId?: number;
   scheduleId?: number;
-  status?: "pending" | "confirmed" | "declined";
+  status?: 'pending' | 'confirmed' | 'declined';
   reviewSubmitted?: boolean;
   totalPrice?: number;
   headCount?: number;
@@ -130,12 +130,12 @@ export interface Reservation {
 
 /* Notification */
 
-type Notifications = {
+export type Notifications = {
   id?: number;
   userId?: number;
   teamId?: number;
   content?: string;
-  createdAt?: string;
+  createdAt: string;
   updatedAt?: string;
   deletedAt?: string;
 };

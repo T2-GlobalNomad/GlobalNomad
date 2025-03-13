@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import styles from "./styles.module.css";
-import NavProfileCard from "./NavProfileCard";
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import styles from './nav.module.css';
+import NavProfileCard from './NavProfileCard';
 
 export default function Nav() {
   const [isProfileCard, setIsProfileCard] = useState(false);
@@ -20,9 +20,9 @@ export default function Nav() {
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -30,12 +30,12 @@ export default function Nav() {
     <nav className={styles.nav}>
       <div className={styles.navContainer}>
         <div className={styles.logo}>
-          <Link href="/">
+          <Link href='/'>
             <Image
-              src="/images/nav_globalNomad.svg"
+              src='/images/nav_globalNomad.svg'
               width={172}
               height={30}
-              alt="Global Nomad"
+              alt='Global Nomad'
             />
           </Link>
         </div>
@@ -48,10 +48,10 @@ export default function Nav() {
         <div className={styles.hasTokenUI}>
           <div className={styles.notice}>
             <Image
-              src="/images/icon_notification.svg"
+              src='/images/icon_notification.svg'
               width={20}
               height={20}
-              alt="알림"
+              alt='알림'
               className={styles.iconNotice}
             />
           </div>
@@ -61,16 +61,16 @@ export default function Nav() {
             onClick={() => setIsProfileCard((prev) => !prev)}
           >
             <Image
-              src="/images/no_profileImg.svg"
+              src='/images/no_profileImg.svg'
               width={32}
               height={32}
-              alt="프로필 이미지"
+              alt='프로필 이미지'
               className={styles.noProfileImg}
             />
             <p className={styles.nickname}>닉네임</p>
             <div
               className={`${styles.dropdown}  ${
-                isProfileCard ? styles.active : ""
+                isProfileCard ? styles.active : ''
               }`}
             >
               {isProfileCard && <NavProfileCard />}

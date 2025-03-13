@@ -155,19 +155,26 @@ textarea::-webkit-scrollbar {
 }
 
 body {
+  position:relative;
   background-color: var(--gray-bg);
   color: var(--black);
 }
 
 .app {
   padding-top: 75px;
-  height: calc(100vh - calc(env(safe-area-inset-bottom)  + 160px));
 }
 
 .layout{
-  height:100%;
   max-width: 1200px;
-    margin: 0 auto;
+  height:100%;
+  min-height: calc(100vh - calc(env(safe-area-inset-bottom)) - 75px);
+  -webkit-dispaly:flex;
+  display:flex;
+  -webkit-flex-direction:column;
+  flex-direction:column;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding-bottom:160px;
 
     @media (max-width: 1248px) {
       max-width: auto;

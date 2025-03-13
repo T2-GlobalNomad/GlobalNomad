@@ -1,5 +1,5 @@
-import Image from "next/image";
-import styles from "./styles.module.css";
+import Image from 'next/image';
+import styles from './footer.module.css';
 
 export default function Footer() {
   return (
@@ -13,34 +13,34 @@ export default function Footer() {
         <ul className={styles.socialSection}>
           <li className={styles.btn}>
             <Image
-              src="/images/icon_facebook.svg"
+              src='/images/icon_facebook.svg'
               width={20}
               height={20}
-              alt="Facebook"
+              alt='Facebook'
             />
           </li>
           <li className={styles.btn}>
             <Image
-              src="/images/icon_twitter.svg"
+              src='/images/icon_twitter.svg'
               width={20}
               height={20}
-              alt="Twitter"
+              alt='Twitter'
             />
           </li>
           <li className={styles.btn}>
             <Image
-              src="/images/icon_youtube.svg"
+              src='/images/icon_youtube.svg'
               width={20}
               height={20}
-              alt="Youtube"
+              alt='Youtube'
             />
           </li>
           <li className={styles.btn}>
             <Image
-              src="/images/icon_insta.svg"
+              src='/images/icon_insta.svg'
               width={20}
               height={20}
-              alt="Instagram"
+              alt='Instagram'
             />
           </li>
         </ul>

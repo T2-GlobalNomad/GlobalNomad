@@ -161,5 +161,20 @@ body {
 
 .app {
   padding-top: 75px;
-  height: calc(100vh - 160px);
+  height: calc(100vh - calc(env(safe-area-inset-bottom)  + 160px));
+}
+
+.layout{
+  height:100%;
+  max-width: 1200px;
+    margin: 0 auto;
+
+    @media (max-width: 1248px) {
+      max-width: auto;
+      padding: 0 24px;
+    }
+
+    @media (max-width: 375px) {
+      padding: 0 20px;
+    }
 }

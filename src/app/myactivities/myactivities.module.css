@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    
+
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.title p{
+    font-size: 32px;
+    font-style: bold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 42px;
+}
+
+.custombutton{
+    width: 120px;
+    height: 48px;
+    display:flex;
+    text-align: center;
+    align-items:center;
+    justify-content:center;
+}

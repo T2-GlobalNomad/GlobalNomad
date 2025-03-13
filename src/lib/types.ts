@@ -131,7 +131,7 @@ export interface Reservation {
 /* Notification */
 
 export type Notifications = {
-  id?: number;
+  id: number;
   userId?: number;
   teamId?: number;
   content: string;
@@ -141,6 +141,6 @@ export type Notifications = {
 };
 
 export interface Notification {
-  notifications: Notifications[];
+  notifications?: Notifications[];
   totalCount?: number;
 }

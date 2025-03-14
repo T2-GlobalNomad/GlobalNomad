@@ -1,30 +1,17 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './nav.module.css';
 import NavProfileCard from './NavProfileCard';
+import useClickOutside from '@/utils/useClickOutside';
 
 export default function Nav() {
   const [isProfileCard, setIsProfileCard] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        profileRef.current &&
-        !profileRef.current.contains(event.target as Node)
-      ) {
-        setIsProfileCard(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  useClickOutside({ ref: profileRef, setter: setIsProfileCard });
 
   return (
     <nav className={styles.nav}>

@@ -12,13 +12,22 @@
   }
   
   .modalContent {
+    position:relative;
     background-color: var(--white);
     min-width: 368px;
+    min-height:204px;
     padding: 30px 24px;
-    border-radius: 16px;
+    border-radius: 8px;
+
+    @media (max-width:400){
+      width:100%;
+      min-width:auto;
+      margin:0 20px;
+    }
   }
   
   .contents {
+    padding-top:10px;
     text-align: center;
     font-size: 16px;
     font-weight:400;
@@ -33,6 +42,20 @@
 
       .iconCheck{
         vertical-align: bottom;
+      }
+    }
+  }
+
+  .contents.type2{
+    padding:45px;
+
+    .buttonContainer button{
+      position:absolute;
+      bottom:28px;
+      right:28px;
+
+      @media (max-width:480px){
+        position:inherit
       }
     }
   }

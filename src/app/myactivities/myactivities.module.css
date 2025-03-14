@@ -24,7 +24,7 @@
 .custombutton{
     width: 120px;
     height: 48px;
-    display:flex;
+    display:flex !important;
     text-align: center;
     align-items:center;
     justify-content:center;

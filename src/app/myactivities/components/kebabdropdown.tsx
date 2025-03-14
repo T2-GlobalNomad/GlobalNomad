@@ -1,27 +1,35 @@
-"use client"
-import { useRouter } from "next/router"
+'use client';
+import { useRouter } from 'next/router';
+import { MoreVertical } from 'lucide-react';
+import Dropdown from '@/components/Dropdown';
+import { useState } from 'react';
 
+export default function KebabDropdown() {
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
-import Dropdown from "@/components/Dropdown"
-
-export default function KebabDropdown(){
-    const router = useRouter();
-
-
-    return(
+  return (
+    <div>
+      <div>
+        {/* <button onClick={() => setIsOpen(true)}>
+           
+        </button> */}
+      </div>
+      {isOpen && (
         <div>
-            <Dropdown selected="체험등록하기" options={["수정하기", "삭제하기"]} 
-            onChange={(value)=>
-            {
-                if (value === '수정하기'){
-                    router.push('/eidt/page.tsx')
-                } else if (value === '삭제하기'){
-                    // 삭제하기 모달창 팝업
-                }
-            }
-            }>
-                
-            </Dropdown>
+          <Dropdown
+            selected={ <MoreVertical />}
+            options={['수정하기', '삭제하기']}
+            onChange={(value) => {
+              if (value === '수정하기') {
+                router.push('/editMyActivity/page.tsx');
+              } else if (value === '삭제하기') {
+                // 삭제하기 모달창 팝업
+              }
+            }}
+          ></Dropdown>
         </div>
-    )
+      )}
+    </div>
+  );
 }

@@ -1,10 +1,14 @@
+'use client';
+
 import CustomButton from '@/components/CustomButton';
 import PageController from './PageController';
 import styles from './style.module.css';
 import Image from 'next/image';
+import ModalType1 from '@/components/modal/ModalType1';
+import { modalController } from '@/app/utils/modalController';
 
 export default function MyReservationList() {
-  const reservationCancelButton: React.CSSProperties = {
+  const cancelReservationButton: React.CSSProperties = {
     padding: '8px 20px',
     background: '#fff',
     color: '#112211',
@@ -15,9 +19,24 @@ export default function MyReservationList() {
     padding: '8px 20px',
     fontWeight: '700',
   };
-  
+
+  const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
+    modalController();
+
+  const handleCancelReservation = () => {
+    setShowModal(true);
+    setIsModalMessage('예약을 취소하시겠어요?');
+  };
+
   return (
     <>
+      {showModal && (
+        <ModalType1
+          showModal={showModal}
+          setShowModal={setShowModal}
+          isModalMessage={isModalMessage}
+        />
+      )}
       <PageController />
       <div className={styles.listContainer}>
         <div className={styles.reservationBox}>
@@ -26,6 +45,8 @@ export default function MyReservationList() {
               src='/images/testActivity.png'
               alt='테스트'
               fill
+              sizes='100vw'
+              priority
               className={styles.img}
             />
           </div>
@@ -43,8 +64,11 @@ export default function MyReservationList() {
             </div>
             <div className={styles.bottom}>
               <div className={styles.price}>₩10,000</div>
-              <CustomButton style={reservationCancelButton}>
-                후기 작성
+              <CustomButton
+                style={cancelReservationButton}
+                onClick={handleCancelReservation}
+              >
+                예약 취소
               </CustomButton>
             </div>
           </div>

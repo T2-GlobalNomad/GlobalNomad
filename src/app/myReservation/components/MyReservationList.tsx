@@ -5,7 +5,7 @@ import PageController from './PageController';
 import styles from './style.module.css';
 import Image from 'next/image';
 import ModalType1 from '@/components/modal/ModalType1';
-import { modalController } from '@/app/utils/modalController';
+import { useModalController } from '@/app/utils/useModalController';
 
 export default function MyReservationList() {
   const cancelReservationButton: React.CSSProperties = {
@@ -15,13 +15,13 @@ export default function MyReservationList() {
     border: '1px solid #112211',
     fontWeight: '700',
   };
-  const writeReviewButton: React.CSSProperties = {
-    padding: '8px 20px',
-    fontWeight: '700',
-  };
+  // const writeReviewButton: React.CSSProperties = {
+  //   padding: '8px 20px',
+  //   fontWeight: '700',
+  // };
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
-    modalController();
+    useModalController();
 
   function handleCancelReservation () {
     setShowModal(true);

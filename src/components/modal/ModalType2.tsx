@@ -1,3 +1,4 @@
+import CustomButton from '../CustomButton';
 import CustomModal from './CustomModal';
 import styles from './customModal.module.css';
 
@@ -20,14 +21,39 @@ export default function ModalType2({
   setShowModal,
   isModalMessage,
 }: Props) {
+  const confirmationButton: React.CSSProperties = {
+    width: 'calc(100vw * (120/1200))',
+    minWidth: '120px',
+    maxWidth: '138px',
+    fontWeight: '700',
+    background: '#121',
+  };
+
   if (!showModal) return null;
+
+  /**
+   * 버튼 클릭 시 필요한 액션은 아래의 함수를 이용해주세요. 각 페이지 별 차별화된 액션이 필요한 경우 위에 안내된 boolean 타입의 prop을 이용해 조건문으로 작성해주세요.
+   */
+  const handleConfirmationButton = () => {
+    setShowModal(false);
+  };
 
   return (
     <>
       <CustomModal isOpen={showModal} onClose={() => setShowModal(false)}>
-        <div className={styles.contents}>
+        <div className={`${styles.contents} ${styles.type2}`}>
           <div className={styles.message}>{isModalMessage}</div>
-          <div className={styles.buttonContainer}></div>
+          <div className={styles.buttonContainer}>
+            <CustomButton
+              type='button'
+              fontSize='sm'
+              variant='black'
+              style={confirmationButton}
+              onClick={handleConfirmationButton}
+            >
+              확인
+            </CustomButton>
+          </div>
         </div>
       </CustomModal>
     </>

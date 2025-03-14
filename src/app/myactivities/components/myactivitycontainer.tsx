@@ -2,6 +2,7 @@
 import styles from "../myactivities.module.css"
 
 import CustomButton from "@/components/CustomButton"
+import ActivityList from "./activitylist"
 
 export default function MyActivityContainer(){
 
@@ -19,7 +20,7 @@ export default function MyActivityContainer(){
                     </CustomButton>
             </div>
             <div>
-                {/* <ActivityListCard /> */}
+                <ActivityList /> 
             </div>
         </div>
     )

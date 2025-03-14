@@ -34,7 +34,7 @@ export default function ModalType2({
   /**
    * 버튼 클릭 시 필요한 액션은 아래의 함수를 이용해주세요. 각 페이지 별 차별화된 액션이 필요한 경우 위에 안내된 boolean 타입의 prop을 이용해 조건문으로 작성해주세요.
    */
-  const handleConfirmationButton = () => {
+  function handleConfirmationButton () {
     setShowModal(false);
   };
 

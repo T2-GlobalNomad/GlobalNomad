@@ -1,10 +1,12 @@
 import Empty from '@/components/empty/Empty';
 import Footer from '@/components/footer/Footer';
+import MyReservationList from './components/MyReservationList';
 
 export default function MyReservation() {
   return (
     <>
-      <Empty myReservation />
+      <MyReservationList />
+      {/* <Empty myReservation /> */}
       <Footer />
     </>
   );

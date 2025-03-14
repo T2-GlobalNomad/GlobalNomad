@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import styles from './layout.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: 'GlobalNomad',
@@ -24,6 +25,7 @@ export default function AuthLayout({
         />
       </Link>
       {children}
+      <Toaster position='bottom-center' />
     </div>
   );
 }

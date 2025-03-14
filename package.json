@@ -21,6 +21,7 @@
     "react-datepicker": "^8.2.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
+    "react-hot-toast": "^2.5.2",
     "react-select": "^5.10.1",
     "sass": "^1.85.1",
     "scss": "^0.2.4",

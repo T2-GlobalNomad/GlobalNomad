@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function modalController() {
+export function useModalController() {
   const [showModal, setShowModal] = useState(false);
   const [isModalMessage, setIsModalMessage] = useState("");
 

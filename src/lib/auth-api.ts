@@ -15,6 +15,9 @@ export async function signUp(newUser: NewUser) {
     console.log('회원가입 성공:', response.data);
   } catch (error) {
     if (error instanceof AxiosError) {
+      if (error.response?.status === 409) {
+        console.error('회원가입 오류: 이메일이 중복되었습니다.');
+      }
       console.error('회원가입 오류:', error.response?.data || error.message);
       throw new Error(
         error.response?.data?.message || '회원가입에 실패했습니다.',

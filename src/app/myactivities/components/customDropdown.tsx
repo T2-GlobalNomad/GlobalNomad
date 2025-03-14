@@ -1,12 +1,11 @@
   "use client";
 
   import { useState, useRef, useEffect } from "react";
-  import { ChevronDown, ChevronUp } from "lucide-react"; // 리액트 아이콘(화살표)
-  import styles from "./Dropdown.module.css";
+  import styles from "@/components/Dropdown.module.css";
 
   type DropdownProps<T> = {
     options: T[];
-    selected: T;
+    
     onChange: (value: T) => void;
     dropdownClassName?: string;
     toggleClassName?: string;
@@ -14,13 +13,11 @@
     menuItemClassName?: string;
   };
 
-  export default function Dropdown<T extends string | number>({
+  export default function CustomDropdown<T extends string | number>({
     options,
-    selected,
     onChange,
     // 스타일 변경을 위한 props
     dropdownClassName,
-    toggleClassName,
     menuClassName,
     menuItemClassName,
   }: DropdownProps<T>) {
@@ -49,15 +46,6 @@
         className={`${styles.dropdown} ${dropdownClassName}`}
         ref={dropdownRef}
       >
-        <button
-          className={`${styles.toggleBtn} ${toggleClassName}`}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {selected}
-          {/* 화살표 - 리액트아이콘 사용 */}
-          {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-        </button>
-
         {isOpen && (
           <ul className={`${styles.menu} ${menuClassName}`}>
             {options.map((option) => (

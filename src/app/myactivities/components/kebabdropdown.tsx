@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/router';
 import { MoreVertical } from 'lucide-react';
-import Dropdown from '@/components/Dropdown';
+import CustomDropdown from './customDropDown';
 import { useState } from 'react';
 
 export default function KebabDropdown() {
@@ -11,14 +11,13 @@ export default function KebabDropdown() {
   return (
     <div>
       <div>
-        {/* <button onClick={() => setIsOpen(true)}>
-           
-        </button> */}
+        <button onClick={() => setIsOpen(true)}>
+            <MoreVertical />
+        </button>
       </div>
       {isOpen && (
         <div>
-          <Dropdown
-            selected={ <MoreVertical />}
+          <CustomDropdown
             options={['수정하기', '삭제하기']}
             onChange={(value) => {
               if (value === '수정하기') {
@@ -27,7 +26,8 @@ export default function KebabDropdown() {
                 // 삭제하기 모달창 팝업
               }
             }}
-          ></Dropdown>
+          >
+            </CustomDropdown>
         </div>
       )}
     </div>

@@ -23,7 +23,7 @@ export default function MyReservationList() {
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
     modalController();
 
-  const handleCancelReservation = () => {
+  function handleCancelReservation () {
     setShowModal(true);
     setIsModalMessage('예약을 취소하시겠어요?');
   };

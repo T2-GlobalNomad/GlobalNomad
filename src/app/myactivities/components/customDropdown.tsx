@@ -5,23 +5,26 @@
 
   type DropdownProps<T> = {
     options: T[];
-    
     onChange: (value: T) => void;
     dropdownClassName?: string;
     toggleClassName?: string;
     menuClassName?: string;
     menuItemClassName?: string;
+    isOpen: boolean;
+    setIsOpen: () => void;
   };
 
   export default function CustomDropdown<T extends string | number>({
     options,
     onChange,
+    isOpen,
+    setIsOpen,
     // 스타일 변경을 위한 props
     dropdownClassName,
     menuClassName,
     menuItemClassName,
   }: DropdownProps<T>) {
-    const [isOpen, setIsOpen] = useState(false);
+ 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     // 드롭다운 바깥 클릭 시 닫기
@@ -31,7 +34,7 @@
           dropdownRef.current &&
           !dropdownRef.current.contains(event.target as Node)
         ) {
-          setIsOpen(false);
+          setIsOpen();
         }
       }
 
@@ -54,7 +57,7 @@
                 className={`${styles.menuItem} ${menuItemClassName}`}
                 onClick={() => {
                   onChange(option);
-                  setIsOpen(false);
+                  setIsOpen();
                 }}
               >
                 {option}

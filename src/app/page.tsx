@@ -13,15 +13,36 @@ export default function Home() {
   const [activities, setActivities] = useState<ActivitiesArray>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [windowWidth, setWindowWidth] = useState<number>(0);
+
+  useEffect(() => {
+    // 화면 크기 감지
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchActivities = async () => {
       try {
+        let size = 8; // 기본값은 8개
+        if (windowWidth <= 768) {
+          size = 9; // 768px 이하일 때 9개 가져오기
+        }
+        if (windowWidth <= 450) {
+          size = 4; // 450px 이하일 때 4개 가져오기
+        }
+
         const response = await axios.get('/activities', {
           params: {
             method: 'offset',
             page: 1,
-            size: 8,
+            size: size,
           },
         });
         setActivities(response.data.activities);
@@ -33,7 +54,7 @@ export default function Home() {
     };
 
     fetchActivities();
-  }, []);
+  }, [windowWidth]);
 
   return (
     <>

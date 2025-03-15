@@ -16,14 +16,36 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, auto);
   gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 16px;
+  }
+  @media (max-width: 450px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 8px;
+  }
 }
 .activityItem {
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 12px;
+  }
+
+  @media (max-width: 450px) {
+    gap: 8px;
+  }
 }
 
+/* 체험 이미지 */
 .activityImage {
   position: relative;
   /* 백그라운드 임시로 지정 */
@@ -35,6 +57,7 @@
   border-radius: 20px;
 }
 
+/* 평점 */
 .activitiesRating {
   display: flex;
   align-items: center;
@@ -50,13 +73,15 @@
   color: var(--gray-light);
 }
 
+/* 제목 및 가격 */
 .activityItem h1 {
   color: var(--black);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 32px;
   
   @media (max-width: 768px) {
+    font-size: 20px;
     line-height: 28px;
   }
   @media (max-width: 450px) {
@@ -70,6 +95,10 @@
   font-weight: 700;
   line-height: 32px;
 
+  @media (max-width: 768px) {
+    font-size: 18px;
+    line-height: 28px;
+  }
   @media (max-width: 450px) {
     font-size: 16px;
     line-height: 24px;
@@ -80,6 +109,9 @@
   font-size: 18px;
   font-weight: 400;
 
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
   @media (max-width: 450px) {
     font-size: 14px;
   }

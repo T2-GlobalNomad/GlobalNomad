@@ -26,6 +26,7 @@ export default function ActivitiesList({
           !error &&
           activities.map((activity) => (
             <li key={activity.id} className={styles.activityItem}>
+              {/* 체험 이미지 */}
               <div className={styles.activityImage}>
                 <Image
                   src={activity?.bannerImageUrl || '/images/not_found.png'}
@@ -35,6 +36,7 @@ export default function ActivitiesList({
                   priority
                 />
               </div>
+              {/* 평점 */}
               <div className={styles.activitiesRating}>
                 <FaStar color='var(--yellow)' size={16} />
                 <p>
@@ -42,6 +44,7 @@ export default function ActivitiesList({
                   <span> ({activity.reviewCount})</span>
                 </p>
               </div>
+              {/* 제목 및 가격 */}
               <h1>{activity.title}</h1>
               <p className={styles.price}>
                 ₩ {activity.price} <span>/ 인</span>

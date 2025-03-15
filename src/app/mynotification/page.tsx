@@ -1,6 +1,7 @@
 'use client';
 
 import Dropdown from '@/components/Dropdown';
+import MyNotificationCalendar from './components/Calendar';
 import useMyActivities from '@/hooks/useMyActivities';
 import { useEffect, useState } from 'react';
 import styles from './MyNotification.module.css';
@@ -22,9 +23,9 @@ export default function MyNotification() {
   if (error) return <p>에러 발생: {error.message}</p>;
 
   return (
-    <>
+    <div>
       <Dropdown
-        className={styles.dropdown}
+        className={styles.dropdown ?? ''}
         options={
           activities?.map((activity) => ({
             id: activity.id,
@@ -34,6 +35,7 @@ export default function MyNotification() {
         selected={selectedActivity}
         onChange={(value) => setSelectedActivity(value)}
       />
-    </>
+      <MyNotificationCalendar />
+    </div>
   );
 }

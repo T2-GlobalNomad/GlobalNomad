@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import moment from 'moment';
 
 type Value = Date | null | [Date | null, Date | null];
 
@@ -24,7 +23,6 @@ export default function MyNotificationCalendar() {
           date.toLocaleString('en', { day: 'numeric' })
         }
       />
-      <div>{moment(value).format('YYYY년 MM월 DD일')}</div>
     </div>
   );
 }

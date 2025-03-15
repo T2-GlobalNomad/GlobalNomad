@@ -1,12 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from '@/lib/api';
+import { ActivitiesArray } from '@/lib/types';
+import ActivitiesList from './landingComponents/ActivitiesList';
 import Dropdown from '@/components/Dropdown';
 // import Footer from '@/components/footer/Footer';
 import styles from './LandingPage.module.css';
 
 export default function Home() {
   const [selectedSort, setSelectedSort] = useState('최신순');
+  const [activities, setActivities] = useState<ActivitiesArray>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const response = await axios.get('/activities', {
+          params: {
+            method: 'offset',
+            page: 1,
+            size: 8,
+          },
+        });
+        setActivities(response.data.activities);
+        setIsLoading(false);
+      } catch {
+        setError('데이터를 가져오는 데 실패했습니다.');
+        setIsLoading(false);
+      }
+    };
+
+    fetchActivities();
+  }, []);
 
   return (
     <>
@@ -37,6 +64,13 @@ export default function Home() {
           onChange={setSelectedSort}
         />
       </div>
+
+      {/* 활동 목록 영역 */}
+      <ActivitiesList
+        activities={activities}
+        isLoading={isLoading}
+        error={error}
+      />
       {/* <Footer /> */}
     </>
   );

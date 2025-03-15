@@ -57,7 +57,7 @@ export interface Activities {
   userId?: number;
   title?: string;
   description?: string;
-  category?: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category?: '문화 · 예술' | '식음료' | '스포츠' | '투어' | '관광' | '웰빙';
   price?: number;
   address?: string;
   bannerImageUrl?: string;
@@ -68,6 +68,9 @@ export interface Activities {
   createdAt?: string;
   updatedAt?: string;
 }
+
+// Activities 배열 타입을 명확히 정의
+export type ActivitiesArray = Activities[];
 
 /* User */
 
@@ -117,7 +120,7 @@ export interface Reservation {
   userId?: number;
   activityId?: number;
   scheduleId?: number;
-  status?: "pending" | "confirmed" | "declined";
+  status?: 'pending' | 'confirmed' | 'declined';
   reviewSubmitted?: boolean;
   totalPrice?: number;
   headCount?: number;

@@ -63,6 +63,31 @@ export default function MyNotificationCalendar({
     onDateClick?.(date);
   };
 
+  // 예약 데이터를 바탕으로 날짜별 스타일 설정
+  useEffect(() => {
+    const dateMap: Record<string, string> = {};
+
+    schedule.forEach(({ date, reservations }) => {
+      if (reservations.pending > 0) {
+        dateMap[date] = 'pending'; // 예약 대기 (파란색)
+      } else if (reservations.confirmed > 0) {
+        dateMap[date] = 'confirmed'; // 승인 완료 (주황색)
+      } else if (reservations.completed > 0) {
+        dateMap[date] = 'completed'; // 예약 완료 (회색)
+      }
+    });
+
+    setMarkedDates(dateMap);
+  }, [schedule]);
+
+  // 점 색상 결정 함수 (CSS 클래스 대신 인라인 스타일 적용)
+  const getStatusColor = (status: string) => {
+    if (status === 'pending') return '#007bff'; // 예약 (파란색)
+    if (status === 'confirmed') return '#ff9800'; // 승인 (주황색)
+    if (status === 'completed') return '#a0a0a0'; // 완료 (회색)
+    return '#ccc'; // 기본 회색
+  };
+
   return (
     <div>
       <Calendar

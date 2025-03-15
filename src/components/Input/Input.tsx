@@ -1,4 +1,4 @@
-import styles from "./Input.module.css";
+import styles from './Input.module.css';
 
 interface InputProps {
   label: string;
@@ -6,6 +6,7 @@ interface InputProps {
   id: string;
   type: string;
   placeholder: string;
+  isErrored?: boolean;
 }
 
 /**
@@ -43,18 +44,19 @@ interface InputProps {
  */
 
 export default function Input({
-  type = "text",
-  placeholder = "이메일을 입력하세요",
-  label = "이메일",
-  labelSize = "",
-  id = "email",
+  type = 'text',
+  placeholder = '이메일을 입력하세요',
+  label = '이메일',
+  labelSize = '',
+  id = 'email',
+  isErrored = false,
   ...props
 }: InputProps) {
   return (
     <div className={styles.container}>
       <label
         className={`${styles.label} ${
-          labelSize === "large" ? styles.largeLabel : ""
+          labelSize === 'large' ? styles.largeLabel : ''
         }`}
         htmlFor={id}
       >
@@ -63,7 +65,7 @@ export default function Input({
       <div className={styles.subContainer}>
         <input
           id={id}
-          className={styles.input}
+          className={`${styles.input} ${isErrored ? styles.errorBorder : ''}`}
           type={type}
           placeholder={placeholder}
           {...props}

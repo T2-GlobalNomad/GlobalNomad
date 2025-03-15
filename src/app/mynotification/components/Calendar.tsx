@@ -12,7 +12,6 @@ type ScheduleData = {
     pending: number;
   };
 };
-
 interface MyNotificationCalendarProps {
   activeStartDate?: Date;
   schedule?: ScheduleData[];
@@ -67,7 +66,7 @@ export default function MyNotificationCalendar({
   useEffect(() => {
     const dateMap: Record<string, string> = {};
 
-    schedule.forEach(({ date, reservations }) => {
+    (schedule ?? []).forEach(({ date, reservations }) => {
       if (reservations.pending > 0) {
         dateMap[date] = 'pending'; // 예약 대기 (파란색)
       } else if (reservations.confirmed > 0) {

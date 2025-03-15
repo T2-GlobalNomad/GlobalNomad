@@ -42,7 +42,7 @@
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, []);
+    }, [setIsOpen]);
 
     return (
       <div

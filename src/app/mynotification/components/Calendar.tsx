@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import moment from 'moment';
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+type Value = Date | null | [Date | null, Date | null];
 
 export default function MyNotificationCalendar() {
-  const [value, onChange] = useState<Value | null>(null);
+  const [value, setValue] = useState<Date | null>(null);
 
-  return <Calendar onChange={onChange} value={value} />;
+  // 타입을 맞춘 핸들러 함수
+  const handleChange = (selectedValue: Value) => {
+    if (selectedValue instanceof Date) {
+      setValue(selectedValue);
+    }
+  };
+
+  return (
+    <div>
+      <Calendar
+        onChange={handleChange}
+        value={value}
+        formatDay={(locale, date) =>
+          date.toLocaleString('en', { day: 'numeric' })
+        }
+      />
+      <div>{moment(value).format('YYYY년 MM월 DD일')}</div>
+    </div>
+  );
 }

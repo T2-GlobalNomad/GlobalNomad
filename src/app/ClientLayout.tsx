@@ -15,7 +15,7 @@ export default function ClientLayout({
   const signHideLayout = pathname === '/signin' || pathname === '/signup';
   const mainHideLayout = pathname === '/';
 
-  // ✅ QueryClient가 리렌더링될 때마다 새로 생성되지 않도록 useState 사용
+  // QueryClient가 리렌더링될 때마다 새로 생성되지 않도록 useState 사용
   const [queryClient] = useState(() => new QueryClient());
 
   return (

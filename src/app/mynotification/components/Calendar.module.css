@@ -1,0 +1,54 @@
+.reservationContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.iconWrapper {
+  position: absolute;
+  top: 3px;
+  left: 16px;
+  font-size: 8px;
+}
+
+.faCircle {
+  width: 6px;
+  height: 6px;
+}
+
+.pending {
+  display: flex;
+  text-align: left;
+  background-color: var(--blue);
+  border-radius: 4px;
+  padding: 3px 4px;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 400;
+  width: 100px;
+}
+
+.confirmed {
+  display: flex;
+  text-align: left;
+  background-color: var(--light-orange);
+  border-radius: 4px;
+  padding: 3px 4px;
+  color: var(--orange);
+  font-size: 14px;
+  font-weight: 400;
+  width: 100px;
+}
+
+.completed {
+  text-align: left;
+  background-color: var(--light-gray);
+  border-radius: 4px;
+  padding: 3px 4px;
+  color: var(--gray);
+  font-size: 14px;
+  font-weight: 400;
+  width: 100px;
+}

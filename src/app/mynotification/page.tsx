@@ -3,6 +3,7 @@
 import Dropdown from '@/components/Dropdown';
 import useMyActivities from '@/hooks/useMyActivities';
 import { useEffect, useState } from 'react';
+import styles from './MyNotification.module.css';
 
 export default function MyNotification() {
   const { data: activities, isLoading, error } = useMyActivities();
@@ -23,6 +24,7 @@ export default function MyNotification() {
   return (
     <>
       <Dropdown
+        className={styles.dropdown}
         options={
           activities?.map((activity) => ({
             id: activity.id,

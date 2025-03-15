@@ -1,19 +1,19 @@
-import Image from "next/image";
-import styles from "./not-found.module.css";
-import CustomButton from "@/components/CustomButton";
+import Image from 'next/image';
+import styles from './not-found.module.css';
+import CustomButton from '@/components/CustomButton';
 
 export default function NotFoundPage() {
   const buttonStyles: React.CSSProperties = {
-    padding: "8px 15px",
-    backgroundColor: "#0b3b2d",
-    fontWeight: "400",
+    padding: '8px 15px',
+    backgroundColor: '#0b3b2d',
+    fontWeight: '600',
   };
 
   return (
     <div className={styles.container}>
       <Image
-        src="/images/not_found.png"
-        alt="NotFound"
+        src='/images/not_found.png'
+        alt='NotFound'
         width={100}
         height={100}
         className={styles.notFoundImg}
@@ -25,9 +25,9 @@ export default function NotFoundPage() {
         </span>
       </p>
       <CustomButton
-        href="/"
-        type={"button"}
-        fontSize={"md"}
+        href='/'
+        type={'button'}
+        fontSize={'md'}
         style={buttonStyles}
         className={styles.link}
       >

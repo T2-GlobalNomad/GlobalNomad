@@ -1,5 +1,9 @@
 .footer {
-  height: calc(env(safe-area-inset-bottom) + 160px);
+  position:absolute;
+  bottom:calc(env(safe-area-inset-bottom) + 0px);
+  left:0;
+  right:0;
+  height:160px;
   font-size: 16px;
   font-weight: 400;
   background: var(--nomad-black);

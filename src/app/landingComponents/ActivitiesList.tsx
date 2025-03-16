@@ -4,6 +4,7 @@ import { FaStar } from 'react-icons/fa';
 import Image from 'next/image';
 import styles from './ActivitiesList.module.css';
 import { ActivitiesArray } from '@/lib/types';
+import Link from 'next/link';
 
 interface ActivitiesListProps {
   activities: ActivitiesArray;
@@ -26,29 +27,31 @@ export default function ActivitiesList({
           !error &&
           activities.map((activity) => (
             <li key={activity.id} className={styles.activityItem}>
-              {/* 체험 이미지 */}
-              <div className={styles.activityImage}>
-                <Image
-                  src={activity?.bannerImageUrl || '/images/not_found.png'}
-                  alt={activity.title || '체험 이미지 입니다.'}
-                  fill
-                  style={{ objectFit: 'contain' }}
-                  priority
-                />
-              </div>
-              {/* 평점 */}
-              <div className={styles.activitiesRating}>
-                <FaStar color='var(--yellow)' size={16} />
-                <p>
-                  {activity.rating}
-                  <span> ({activity.reviewCount})</span>
+              <Link href={`/activities/${activity.id}`}>
+                {/* 체험 이미지 */}
+                <div className={styles.activityImage}>
+                  <Image
+                    src={activity?.bannerImageUrl || '/images/not_found.png'}
+                    alt={activity.title || '체험 이미지 입니다.'}
+                    fill
+                    style={{ objectFit: 'contain' }}
+                    priority
+                  />
+                </div>
+                {/* 평점 */}
+                <div className={styles.activitiesRating}>
+                  <FaStar color='var(--yellow)' size={16} />
+                  <p>
+                    {activity.rating}
+                    <span> ({activity.reviewCount})</span>
+                  </p>
+                </div>
+                {/* 제목 및 가격 */}
+                <h1>{activity.title}</h1>
+                <p className={styles.price}>
+                  ₩ {activity.price?.toLocaleString()} <span>/ 인</span>
                 </p>
-              </div>
-              {/* 제목 및 가격 */}
-              <h1>{activity.title}</h1>
-              <p className={styles.price}>
-                ₩ {activity.price?.toLocaleString()} <span>/ 인</span>
-              </p>
+              </Link>
             </li>
           ))}
       </ul>

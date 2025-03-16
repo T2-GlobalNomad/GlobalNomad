@@ -6,6 +6,7 @@ import { FaStar } from 'react-icons/fa';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ActivitiesArray } from '@/lib/types';
 import styles from './PopularActivities.module.css';
+import Link from 'next/link';
 
 interface Props {
   activities: ActivitiesArray;
@@ -76,30 +77,32 @@ export default function PopularActivities({ activities }: Props) {
           )
           .map((activity) => (
             <div key={activity.id} className={styles.card}>
-              <div className={styles.activityImage}>
-                <Image
-                  src={activity.bannerImageUrl || '/images/not_found.png'}
-                  alt={activity.title || '체험 이미지 입니다.'}
-                  fill
-                  style={{ objectFit: 'contain' }}
-                  priority
-                />
-              </div>
-              <div className={styles.info}>
-                {/* 평점 */}
-                <div className={styles.activitiesRating}>
-                  <FaStar color='var(--yellow)' size={14} />
-                  <p>
-                    {activity.rating}
-                    <span> ({activity.reviewCount})</span>
+              <Link href={`/activities/${activity.id}`}>
+                <div className={styles.activityImage}>
+                  <Image
+                    src={activity.bannerImageUrl || '/images/not_found.png'}
+                    alt={activity.title || '체험 이미지 입니다.'}
+                    fill
+                    style={{ objectFit: 'contain' }}
+                    priority
+                  />
+                </div>
+                <div className={styles.info}>
+                  {/* 평점 */}
+                  <div className={styles.activitiesRating}>
+                    <FaStar color='var(--yellow)' size={14} />
+                    <p>
+                      {activity.rating}
+                      <span> ({activity.reviewCount})</span>
+                    </p>
+                  </div>
+
+                  <h3>{activity.title}</h3>
+                  <p className={styles.price}>
+                    ₩ {activity.price?.toLocaleString()} <span>/ 인</span>
                   </p>
                 </div>
-
-                <h3>{activity.title}</h3>
-                <p className={styles.price}>
-                  ₩ {activity.price?.toLocaleString()} <span>/ 인</span>
-                </p>
-              </div>
+              </Link>
             </div>
           ))}
       </div>

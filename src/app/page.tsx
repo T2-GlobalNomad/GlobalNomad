@@ -82,7 +82,6 @@ export default function Home() {
           <li className={styles.item}>관광</li>
           <li className={styles.item}>웰빙</li>
         </ul>
-
         <Dropdown
           options={['최신순', '낮은가격순', '높은가격순']}
           selected={selectedSort}

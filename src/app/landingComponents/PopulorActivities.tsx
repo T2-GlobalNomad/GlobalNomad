@@ -54,13 +54,13 @@ export default function PopularActivities({ activities }: Props) {
     <div className={styles.container}>
       {/* 인기 체험 + 좌우 버튼 */}
       <div className={styles.header}>
-        <h2 className={styles.title}>🔥 인기 체험</h2>
+        <h1>🔥 인기 체험</h1>
         <div className={styles.controls}>
           <button onClick={prevSlide} className={styles.prevButton}>
-            <ChevronLeft size={28} />
+            <ChevronLeft size={24} />
           </button>
           <button onClick={nextSlide} className={styles.nextButton}>
-            <ChevronRight size={28} />
+            <ChevronRight size={24} />
           </button>
         </div>
       </div>

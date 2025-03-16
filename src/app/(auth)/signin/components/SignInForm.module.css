@@ -1,13 +1,19 @@
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 28px;
 
   max-width: 640px;
   width: 100%;
 }
 
+.input {
+  width: 100%;
+}
+
 .btn {
+  width: 100%;
   padding: 14px;
 }
 

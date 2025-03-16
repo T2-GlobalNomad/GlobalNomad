@@ -13,23 +13,23 @@ interface Props {
 
 export default function PopularActivities({ activities }: Props) {
   const [index, setIndex] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [itemsSize, setItemsSize] = useState(3);
 
   // 화면 사이즈 별 데이터 업로드 갯수
   useEffect(() => {
-    const updateItemsPerPage = () => {
+    const updateSize = () => {
       if (window.innerWidth <= 450) {
-        setItemsPerPage(1);
+        setItemsSize(1);
       } else if (window.innerWidth <= 768) {
-        setItemsPerPage(2);
+        setItemsSize(2);
       } else {
-        setItemsPerPage(3);
+        setItemsSize(3);
       }
     };
 
-    updateItemsPerPage(); // 초기 실행
-    window.addEventListener('resize', updateItemsPerPage);
-    return () => window.removeEventListener('resize', updateItemsPerPage);
+    updateSize(); // 초기 실행
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
   }, []);
 
   // 인기목록 자동 스크롤
@@ -68,10 +68,10 @@ export default function PopularActivities({ activities }: Props) {
       {/* 인기 체험 목록 */}
       <div className={styles.carousel}>
         {activities
-          .slice(index, index + itemsPerPage)
+          .slice(index, index + itemsSize)
           .concat(
-            index + itemsPerPage > activities.length
-              ? activities.slice(0, (index + itemsPerPage) % activities.length)
+            index + itemsSize > activities.length
+              ? activities.slice(0, (index + itemsSize) % activities.length)
               : [],
           )
           .map((activity) => (

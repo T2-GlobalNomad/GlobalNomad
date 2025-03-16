@@ -14,48 +14,45 @@ export default function Home() {
   const [activities, setActivities] = useState<ActivitiesArray>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [windowWidth, setWindowWidth] = useState<number>(0);
+  const [size, setSize] = useState(8); // 기본값 8개
 
   useEffect(() => {
-    // 화면 크기 감지
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    if (typeof window !== 'undefined') {
+      const updateSize = () => {
+        if (window.innerWidth <= 450) {
+          setSize(4);
+        } else if (window.innerWidth <= 768) {
+          setSize(9);
+        } else {
+          setSize(8);
+        }
+      };
 
-    return () => window.removeEventListener('resize', handleResize);
+      updateSize(); // 초기 실행
+      window.addEventListener('resize', updateSize);
+
+      return () => window.removeEventListener('resize', updateSize);
+    }
   }, []);
 
   useEffect(() => {
     const fetchActivities = async () => {
-      // 사이즈별 데이터 갯수
       try {
-        let size = 8;
-        if (windowWidth <= 768) {
-          size = 9;
-        }
-        if (windowWidth <= 450) {
-          size = 4;
-        }
-
         const response = await axios.get('/activities', {
-          params: {
-            method: 'offset',
-            page: 1,
-            size: size,
-          },
+          params: { method: 'offset', page: 1, size: size },
         });
+
         setActivities(response.data.activities);
         setIsLoading(false);
-      } catch {
+      } catch (error) {
+        console.error('데이터 가져오기 실패:', error);
         setError('데이터를 가져오는 데 실패했습니다.');
         setIsLoading(false);
       }
     };
 
     fetchActivities();
-  }, [windowWidth]);
+  }, [size]); // size가 변경될 때만 API 호출
 
   return (
     <>
@@ -69,7 +66,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 인기상품 */}
+      {/* 인기 체험 */}
       <PopularActivities activities={activities} />
 
       {/* 카테고리 영역 */}
@@ -89,12 +86,13 @@ export default function Home() {
         />
       </div>
 
-      {/* 활동 목록 영역 */}
+      {/* 활동 목록 */}
       <ActivitiesList
         activities={activities}
         isLoading={isLoading}
         error={error}
       />
+
       {/* <Footer /> */}
     </>
   );

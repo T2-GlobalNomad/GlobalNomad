@@ -47,7 +47,7 @@ export default function ActivitiesList({
               {/* 제목 및 가격 */}
               <h1>{activity.title}</h1>
               <p className={styles.price}>
-                ₩ {activity.price} <span>/ 인</span>
+                ₩ {activity.price?.toLocaleString()} <span>/ 인</span>
               </p>
             </li>
           ))}

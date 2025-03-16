@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import axios from '@/lib/api';
 import { ActivitiesArray } from '@/lib/types';
+import PopularActivities from './landingComponents/PopulorActivities';
 import ActivitiesList from './landingComponents/ActivitiesList';
 import Dropdown from '@/components/Dropdown';
 // import Footer from '@/components/footer/Footer';
@@ -20,7 +21,6 @@ export default function Home() {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     handleResize();
     window.addEventListener('resize', handleResize);
 
@@ -29,13 +29,14 @@ export default function Home() {
 
   useEffect(() => {
     const fetchActivities = async () => {
+      // 사이즈별 데이터 갯수
       try {
-        let size = 8; // 기본값은 8개
+        let size = 8;
         if (windowWidth <= 768) {
-          size = 9; // 768px 이하일 때 9개 가져오기
+          size = 9;
         }
         if (windowWidth <= 450) {
-          size = 4; // 450px 이하일 때 4개 가져오기
+          size = 4;
         }
 
         const response = await axios.get('/activities', {
@@ -67,6 +68,9 @@ export default function Home() {
           <p className={styles.text2}>1월의 인기체험 BEST</p>
         </div>
       </div>
+
+      {/* 인기상품 */}
+      <PopularActivities activities={activities} />
 
       {/* 카테고리 영역 */}
       <div className={styles.categoryContainer}>

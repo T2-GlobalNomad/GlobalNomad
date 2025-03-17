@@ -6,6 +6,7 @@ import MyNotificationCalendar from './components/Calendar';
 import useMyActivities from '@/hooks/useMyActivities';
 import instance from '@/lib/api';
 import styles from './MyNotification.module.css';
+import Empty from '@/components/empty/Empty';
 
 export default function MyNotification() {
   const { data: activities, isLoading, error } = useMyActivities();
@@ -70,20 +71,24 @@ export default function MyNotification() {
   return (
     <div className={styles.container}>
       <p className={styles.title}>예약 현황</p>
-      <p className={styles.dropdownTitle}>체험명 선택</p>
-      <Dropdown
-        dropdownClassName={styles.dropdownList ?? ''}
-        options={
-          activities?.map((activity) => ({
-            id: activity.id,
-            title: activity.title,
-          })) || []
-        }
-        selected={selectedActivity}
-        onChange={(value) => setSelectedActivity(value)}
-      />
-      {/* 달력에 예약 데이터를 전달 */}
-      <MyNotificationCalendar schedule={schedule} />
+      {activities && activities.length > 0 ? (
+        <>
+          <p className={styles.dropdownTitle}>체험명 선택</p>
+          <Dropdown
+            dropdownClassName={styles.dropdownList ?? ''}
+            options={activities.map((activity) => ({
+              id: activity.id,
+              title: activity.title,
+            }))}
+            selected={selectedActivity}
+            onChange={(value) => setSelectedActivity(value)}
+          />
+          {/* 달력에 예약 데이터를 전달 */}
+          <MyNotificationCalendar schedule={schedule} />
+        </>
+      ) : (
+        <Empty />
+      )}
     </div>
   );
 }

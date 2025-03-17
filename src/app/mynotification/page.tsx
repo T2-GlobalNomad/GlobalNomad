@@ -9,6 +9,7 @@ import useScheduleByMonth from '@/hooks/query/useScheduleByMonth';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
 import Footer from '@/components/footer/Footer';
 import styles from './MyNotification.module.css';
+import Empty from '@/components/empty/Empty';
 
 type Activity = {
   id: number;

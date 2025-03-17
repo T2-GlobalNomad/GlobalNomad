@@ -77,12 +77,6 @@ export default function MyNotification() {
 
   if (errorMessage) return <p>에러 발생: {errorMessage}</p>;
 
-  // ✅ 캘린더에서 연/월이 변경될 때 처리
-  const handleMonthChange = (activeStartDate: Date) => {
-    setCurrentYear(activeStartDate.getFullYear());
-    setCurrentMonth(String(activeStartDate.getMonth() + 1).padStart(2, '0'));
-  };
-
   return (
     <>
       <div className={styles.wrapper}>

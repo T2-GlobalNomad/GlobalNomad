@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import styles from "./Input.module.css";
-import { useState } from "react";
+import Image from 'next/image';
+import styles from './Input.module.css';
+import { useState } from 'react';
 
 /**
  *  공용 PasswordInput
@@ -15,7 +15,19 @@ import { useState } from "react";
  * @author 남기연 <getam101@naver.com>
  */
 
-export default function PasswordInput({ ...props }) {
+interface PasswordInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  isErrored?: boolean;
+  label?: string;
+  id: string;
+}
+
+export default function PasswordInput({
+  isErrored = false,
+  label = '비밀번호',
+  id = '',
+  ...props
+}: PasswordInputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -24,14 +36,15 @@ export default function PasswordInput({ ...props }) {
 
   return (
     <div className={styles.container}>
-      <label className={styles.label} htmlFor="password">
-        비밀번호
+      <label className={styles.label} htmlFor={id}>
+        {label}
       </label>
       <div className={styles.subContainer}>
         <input
-          className={styles.input}
-          type={isPasswordVisible ? "text" : "password"}
-          placeholder="비밀번호를 입력해주세요"
+          id={id}
+          className={`${styles.input} ${isErrored ? styles.errorBorder : ''}`}
+          type={isPasswordVisible ? 'text' : 'password'}
+          placeholder='비밀번호를 입력해주세요'
           {...props}
         />
         <Image
@@ -39,12 +52,12 @@ export default function PasswordInput({ ...props }) {
           onClick={toggleVisibility}
           src={
             isPasswordVisible
-              ? "/images/passwordOn.svg"
-              : "/images/passwordOff.svg"
+              ? '/images/passwordOn.svg'
+              : '/images/passwordOff.svg'
           }
           width={24}
           height={24}
-          alt="비밀번호 보기 아이콘"
+          alt='비밀번호 보기 아이콘'
         />
       </div>
     </div>

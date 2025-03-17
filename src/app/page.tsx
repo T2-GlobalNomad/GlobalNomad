@@ -10,11 +10,20 @@ import Dropdown from '@/components/Dropdown';
 import styles from './LandingPage.module.css';
 
 export default function Home() {
-  const [selectedSort, setSelectedSort] = useState('최신순');
+  const [selectedSort, setSelectedSort] = useState<{
+    id: number;
+    title: string;
+  } | null>(null);
   const [activities, setActivities] = useState<ActivitiesArray>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [size, setSize] = useState(8); // 기본값 8개
+
+  const sortOptions = [
+    { id: 1, title: '최신순' },
+    { id: 2, title: '낮은가격순' },
+    { id: 3, title: '높은가격순' },
+  ];
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -80,7 +89,7 @@ export default function Home() {
           <li className={styles.item}>웰빙</li>
         </ul>
         <Dropdown
-          options={['최신순', '낮은가격순', '높은가격순']}
+          options={sortOptions}
           selected={selectedSort}
           onChange={setSelectedSort}
         />

@@ -40,7 +40,7 @@ export default function Dropdown<T extends { id: number; title: string }>({
           .join(' ')}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selected?.title ?? '선택하세요'}
+        {selected?.title ?? '필터'}
         {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </button>
 

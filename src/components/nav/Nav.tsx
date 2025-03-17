@@ -6,7 +6,6 @@ import Link from 'next/link';
 import styles from './nav.module.css';
 import NavProfileCard from './NavProfileCard';
 import NotificationModal from '../notification/NotificationModal';
-import useClickOutside from '@/utils/useClickOutside';
 
 export default function Nav() {
   const [isProfileCard, setIsProfileCard] = useState(false);

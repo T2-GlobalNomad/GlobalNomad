@@ -13,13 +13,9 @@ interface Props<T extends { value: string; label: string }> {
   options: T[];
 }
 
-export default function PageController<T extends { value: string; label: string }>({
-  reservationsData,
-  status,
-  value,
-  setValue,
-  options,
-}: Props<T>) {
+export default function PageController<
+  T extends { value: string; label: string },
+>({ reservationsData, status, value, setValue, options }: Props<T>) {
   return (
     <>
       <div className={styles.head}>

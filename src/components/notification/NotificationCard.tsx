@@ -55,7 +55,10 @@ export default function NotificationCard() {
       try {
         const response = await instance.get('/my-notifications');
         setNotifications(response.data.notifications);
+<<<<<<< HEAD
         console.log('알림 데이터: ', response.data.notifications);
+=======
+>>>>>>> dd7202e0 (chore: 컨플릭트 해결)
       } catch (error) {
         console.error('알림을 불러오는 데 실패했습니다.', error);
       } finally {

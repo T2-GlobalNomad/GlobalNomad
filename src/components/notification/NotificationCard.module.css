@@ -12,7 +12,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+<<<<<<< HEAD
   padding: 8px 12px 12px;
+=======
+  padding: 16px 12px;
+>>>>>>> dd7202e0 (chore: 컨플릭트 해결)
   background-color: var(--white);
   border-radius: 5px;
   border: 1px solid var(--gray-muted);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import instance from '@/lib/api';
 import { Notification } from '@/lib/types';
+<<<<<<< HEAD
 import CloseButton from '../CloseButton';
 import NotificationCard from './NotificationCard';
 import styles from './NotificationModal.module.css';
@@ -14,6 +15,11 @@ export default function NotificationModal({
   isOpen,
   onClose,
 }: NotificationModalProps) {
+=======
+import NotificationCard from './NotificationCard';
+
+export default function NotificationModal() {
+>>>>>>> dd7202e0 (chore: 컨플릭트 해결)
   const [totalCount, setTotalCount] = useState<Notification>({});
 
   useEffect(() => {
@@ -28,6 +34,7 @@ export default function NotificationModal({
     fetchNotificationsCount();
   }, []);
 
+<<<<<<< HEAD
   if (!isOpen) return null;
 
   return (
@@ -41,6 +48,12 @@ export default function NotificationModal({
           <NotificationCard />
         </div>
       </div>
+=======
+  return (
+    <div>
+      <p>{totalCount.totalCount}</p>
+      <NotificationCard />
+>>>>>>> dd7202e0 (chore: 컨플릭트 해결)
     </div>
   );
 }

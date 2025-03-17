@@ -1,0 +1,33 @@
+.container {
+  padding: 100px 0;
+  text-align: center;
+
+  @media (max-width: 1248px) {
+    padding: 100px 24px;
+  }
+  @media (max-width: 375px) {
+    padding: 100px 20px;
+  }
+
+  .notFoundImg {
+    filter: opacity(0.5) drop-shadow(0 0 0 #0b3b2d);
+  }
+
+  .description {
+    margin: 20px 0 40px;
+    font-size: 30px;
+    font-weight: 600;
+
+    .subText {
+      display: block;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--gray);
+    }
+  }
+}
+
+.link:hover {
+  color: var(--white);
+}

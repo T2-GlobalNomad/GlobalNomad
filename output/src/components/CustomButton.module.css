@@ -1,0 +1,42 @@
+.customButton {
+  font-weight: 700;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.customButton:disabled {
+  cursor: none;
+  background-color: var(--gray-medium);
+  color: var(--white);
+  border: none;
+}
+
+.customButton-black {
+  background-color: var(--nomad-black);
+  color: var(--white);
+}
+
+.customButton-white {
+  background-color: var(--white);
+  border: 1px solid var(--nomad-black);
+  color: var(--nomad-black);
+}
+
+.customButton-sm {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.customButton-md {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.customButton-lg {
+  font-size: 18px;
+  line-height: 26px;
+}

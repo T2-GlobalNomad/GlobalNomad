@@ -1,0 +1,11 @@
+import { __require } from '../chunk-42AJV46F.mjs';
+import { dirname, resolve, sep, join } from 'node:path';
+import semver from 'semver';
+import 'storybook/internal/common';
+import 'next/constants';
+import 'next/dist/server/config';
+import 'webpack';
+
+var getNextjsVersion=()=>__require(scopedResolve("next/package.json")).version;var scopedResolve=id=>{let scopedModulePath;try{scopedModulePath=__require.resolve(id,{paths:[resolve()]});}catch{scopedModulePath=__require.resolve(id);}let idWithNativePathSep=id.replace(/\//g,sep);if(scopedModulePath.endsWith(idWithNativePathSep))return scopedModulePath;let beginningOfMainScriptPath=scopedModulePath.lastIndexOf(idWithNativePathSep)+id.length;return scopedModulePath.substring(0,beginningOfMainScriptPath)};var mapping={"<14.1.0":{"next/dist/shared/lib/segment":"@storybook/nextjs/dist/compatibility/segment.compat"},"<14.0.4":{"next/dist/client/components/redirect-status-code":"@storybook/nextjs/dist/compatibility/redirect-status-code.compat"},"<15.0.0":{"next/dist/server/request/headers":"next/dist/client/components/headers","next/dist/server/request/draft-mode":"@storybook/nextjs/dist/compatibility/draft-mode.compat"}},getCompatibilityAliases=()=>{let version=getNextjsVersion(),result={};return Object.keys(mapping).forEach(key=>{semver.intersects(version,key)&&Object.assign(result,mapping[key]);}),result};var mapping2={"next/headers":"/dist/export-mocks/headers/index","@storybook/nextjs/headers.mock":"/dist/export-mocks/headers/index","next/navigation":"/dist/export-mocks/navigation/index","@storybook/nextjs/navigation.mock":"/dist/export-mocks/navigation/index","next/router":"/dist/export-mocks/router/index","@storybook/nextjs/router.mock":"/dist/export-mocks/router/index","next/cache":"/dist/export-mocks/cache/index","@storybook/nextjs/cache.mock":"/dist/export-mocks/cache/index",...getCompatibilityAliases()},getPackageAliases=({useESM=!1}={})=>{let extension=useESM?"mjs":"js",packageLocation=dirname(__require.resolve("@storybook/nextjs/package.json")),getFullPath=path=>path.startsWith("next")?path:join(packageLocation,path.replace("@storybook/nextjs",""));return Object.fromEntries(Object.entries(mapping2).map(([originalPath,aliasedPath])=>[originalPath,typeof aliasedPath=="string"?getFullPath(`${aliasedPath}.${extension}`):aliasedPath]))};
+
+export { getPackageAliases };

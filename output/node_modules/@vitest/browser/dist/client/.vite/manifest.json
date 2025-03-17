@@ -1,0 +1,24 @@
+{
+  "_utils-CBFLDkwI.js": {
+    "file": "__vitest_browser__/utils-CBFLDkwI.js",
+    "name": "utils"
+  },
+  "orchestrator.html": {
+    "file": "__vitest_browser__/orchestrator-C0dFtnHa.js",
+    "name": "orchestrator",
+    "src": "orchestrator.html",
+    "isEntry": true,
+    "imports": [
+      "_utils-CBFLDkwI.js"
+    ]
+  },
+  "tester/tester.html": {
+    "file": "__vitest_browser__/tester-CHxkAhrF.js",
+    "name": "tester",
+    "src": "tester/tester.html",
+    "isEntry": true,
+    "imports": [
+      "_utils-CBFLDkwI.js"
+    ]
+  }
+}

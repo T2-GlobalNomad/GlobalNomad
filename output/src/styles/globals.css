@@ -1,0 +1,186 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-style: normal;
+  font-weight: 300 400 500 600 700;
+  font-display: swap;
+  src: url(/fonts/PretendardVariable.woff2) format("woff2-variations");
+}
+
+/* 여백 초기화 */
+body,
+div,
+ul,
+li,
+dl,
+dd,
+dt,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+fieldset,
+legend,
+p,
+select,
+table,
+th,
+td,
+tr,
+textarea,
+button,
+form,
+figure,
+figcaption {
+  margin: 0;
+  padding: 0;
+}
+
+/* a 링크 초기화 */
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #2698cb;
+}
+
+/* 폰트 초기화 */
+body,
+input,
+textarea,
+select,
+button,
+table {
+  font-family: "Pretendard Variable", sans-serif;
+}
+
+/* 폰트 스타일 초기화 (기울임) */
+em,
+address {
+  font-style: normal;
+}
+
+/* 블릿기호 초기화 */
+ul,
+li,
+ol {
+  list-style: none;
+}
+
+/* 제목 태그 초기화 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* 버튼 초기화 */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* box-sizing 초기화 */
+* {
+  box-sizing: border-box;
+}
+
+/* input, textarea 기본설정 제거 */
+input,
+textarea {
+  outline: none;
+  box-shadow: none;
+}
+
+textarea {
+  overflow: auto; /* 스크롤이 필요할 때만 나타나도록 설정 */
+  resize: none; /* 크기 조절 비활성화 */
+}
+
+textarea::-webkit-scrollbar {
+  display: none; /* 스크롤바 숨기기 */
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:root {
+  /** 색상 **/
+  --white: #ffffff;
+
+  --black: #1b1b1b;
+  --nomad-black: #112211;
+  --gray-dark: #4b4b4b;
+  --gray: #79747e;
+  --gray-light: #a1a1a1;
+  --gray-medium: #a4a1aa;
+  --gray-soft: #adaeb8;
+  --gray-muted: #cbc9cf;
+  --gray-lighter: #dddddd;
+  --gray-lightest: #eeeeee;
+  --gray-bg: #fafafa;
+
+  --green: #0b3b2d;
+  --light-green: #00ac07;
+  --gray-green: #ced8d5;
+
+  --red: #ff472e;
+  --light-red: #ffc2ba;
+  --soft-red: #ffe4e0;
+
+  --orange: #ff7c1d;
+  --light-orange: #fff4e8;
+  --yellow: #ffc23d;
+
+  --blue: #0085ff;
+  --light-blue: #2eb4ff;
+  --soft-blue: #e5f3ff;
+}
+
+body {
+  position:relative;
+  background-color: var(--gray-bg);
+  color: var(--black);
+}
+
+.app {
+  padding-top: 75px;
+}
+
+.layout{
+  max-width: 1200px;
+  height:100%;
+  min-height: calc(100vh - calc(env(safe-area-inset-bottom)) - 75px);
+  -webkit-dispaly:flex;
+  display:flex;
+  -webkit-flex-direction:column;
+  flex-direction:column;
+  margin: 0 auto;
+  padding-bottom:160px;
+
+    @media (max-width: 1248px) {
+      max-width: auto;
+      padding: 0 24px 160px;
+    }
+
+    @media (max-width: 375px) {
+      padding: 0 20px 160px;
+    }
+}

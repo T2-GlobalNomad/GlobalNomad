@@ -1,0 +1,12 @@
+import '../../chunk-42AJV46F.mjs';
+import { fn } from '@storybook/test';
+import { draftMode } from 'next/dist/server/request/draft-mode';
+import * as headers3 from 'next/dist/server/request/headers';
+export * from 'next/dist/server/request/headers';
+import { HeadersAdapter } from 'next/dist/server/web/spec-extension/adapters/headers';
+import { headers as headers$1 } from '@storybook/nextjs/headers.mock';
+import { RequestCookies } from 'next/dist/compiled/@edge-runtime/cookies';
+
+var HeadersAdapterMock=class extends HeadersAdapter{constructor(){super({});this.append=fn(super.append.bind(this)).mockName("next/headers::headers().append");this.delete=fn(super.delete.bind(this)).mockName("next/headers::headers().delete");this.get=fn(super.get.bind(this)).mockName("next/headers::headers().get");this.has=fn(super.has.bind(this)).mockName("next/headers::headers().has");this.set=fn(super.set.bind(this)).mockName("next/headers::headers().set");this.forEach=fn(super.forEach.bind(this)).mockName("next/headers::headers().forEach");this.entries=fn(super.entries.bind(this)).mockName("next/headers::headers().entries");this.keys=fn(super.keys.bind(this)).mockName("next/headers::headers().keys");this.values=fn(super.values.bind(this)).mockName("next/headers::headers().values");}},headersAdapterMock,headers=()=>(headersAdapterMock||(headersAdapterMock=new HeadersAdapterMock),headersAdapterMock);headers.mockRestore=()=>{headersAdapterMock=new HeadersAdapterMock;};var RequestCookiesMock=class extends RequestCookies{constructor(){super(...arguments);this.get=fn(super.get.bind(this)).mockName("next/headers::cookies().get");this.getAll=fn(super.getAll.bind(this)).mockName("next/headers::cookies().getAll");this.has=fn(super.has.bind(this)).mockName("next/headers::cookies().has");this.set=fn(super.set.bind(this)).mockName("next/headers::cookies().set");this.delete=fn(super.delete.bind(this)).mockName("next/headers::cookies().delete");}},requestCookiesMock,cookies=fn(()=>(requestCookiesMock||(requestCookiesMock=new RequestCookiesMock(headers$1())),requestCookiesMock)).mockName("next/headers::cookies()"),originalRestore=cookies.mockRestore.bind(null);cookies.mockRestore=()=>{originalRestore(),headers$1.mockRestore(),requestCookiesMock=new RequestCookiesMock(headers$1());};var draftMode2=fn(draftMode??headers3.draftMode).mockName("draftMode");
+
+export { cookies, draftMode2 as draftMode, headers };

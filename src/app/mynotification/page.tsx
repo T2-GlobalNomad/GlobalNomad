@@ -9,7 +9,6 @@ import useScheduleByMonth from '@/hooks/query/useScheduleByMonth';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
 import Footer from '@/components/footer/Footer';
 import styles from './MyNotification.module.css';
-import Empty from '@/components/empty/Empty';
 
 type Activity = {
   id: number;
@@ -77,6 +76,12 @@ export default function MyNotification() {
     (scheduleError instanceof Error ? scheduleError.message : '');
 
   if (errorMessage) return <p>에러 발생: {errorMessage}</p>;
+
+  // ✅ 캘린더에서 연/월이 변경될 때 처리
+  const handleMonthChange = (activeStartDate: Date) => {
+    setCurrentYear(activeStartDate.getFullYear());
+    setCurrentMonth(String(activeStartDate.getMonth() + 1).padStart(2, '0'));
+  };
 
   return (
     <>

@@ -15,11 +15,7 @@ export default function ClientLayout({
   const signHideLayout = pathname === '/signin' || pathname === '/signup';
   const mainHideLayout = pathname === '/';
 
-<<<<<<< HEAD
   // QueryClient가 리렌더링될 때마다 새로 생성되지 않도록 useState 사용
-=======
-  // ✅ QueryClient가 리렌더링될 때마다 새로 생성되지 않도록 useState 사용
->>>>>>> dd7202e0 (chore: 컨플릭트 해결)
   const [queryClient] = useState(() => new QueryClient());
 
   return (

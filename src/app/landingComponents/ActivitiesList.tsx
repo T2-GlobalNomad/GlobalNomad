@@ -27,7 +27,7 @@ export default function ActivitiesList({
           !error &&
           activities.map((activity) => (
             <li key={activity.id} className={styles.activityItem}>
-              <Link href={`/activities/${activity.id}`}>
+              <Link href={`/activities/${activity.id}`} className={styles.link}>
                 {/* 체험 이미지 */}
                 <div className={styles.activityImage}>
                   <Image

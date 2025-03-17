@@ -37,7 +37,7 @@ export default function PopularActivities({ activities }: Props) {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % activities.length);
-    }, 2000);
+    }, 4000);
     return () => clearInterval(interval);
   }, [activities.length]);
 

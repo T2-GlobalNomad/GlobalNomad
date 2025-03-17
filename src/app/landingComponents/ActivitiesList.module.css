@@ -29,14 +29,27 @@
   }
 }
 .activityItem {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 16px; */
   margin-bottom: 24px;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, auto);
+    /* gap: 12px; */
+  }
+
+  @media (max-width: 450px) {
+    /* gap: 8px; */
+  }
+}
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (max-width: 768px) {
     gap: 12px;
   }
 
@@ -55,6 +68,7 @@
   height: auto;
   aspect-ratio: 1 / 1;
   border-radius: 20px;
+  overflow: hidden;
 }
 
 /* 평점 */

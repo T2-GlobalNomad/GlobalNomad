@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import '@/styles/Calendar.css';
 import { FaCircle } from 'react-icons/fa';
 import styles from './Calendar.module.css';
 

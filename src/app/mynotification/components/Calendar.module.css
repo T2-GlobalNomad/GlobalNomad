@@ -58,19 +58,19 @@
 
 @media (max-width: 768px) {
 .pending {
-  min-width: 55px;
+  min-width: 72px;
   width: auto;
-  max-width: 100%;
+  max-width: 80%;
 }
 
 .confirmed {
-  min-width: 55px;
+  min-width: 72px;
   width: auto;
   max-width: 100%;
 }
 
 .completed {
-  min-width: 55px;
+  min-width: 72px;
   width: auto;
   max-width: 100%;
 }

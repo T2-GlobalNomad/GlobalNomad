@@ -1,0 +1,9 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+  width: 100%;
+  margin-top: 118px;
+  margin-bottom: 70px;
+}

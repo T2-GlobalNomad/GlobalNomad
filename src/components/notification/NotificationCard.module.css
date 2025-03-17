@@ -1,0 +1,58 @@
+.wrapper {
+  display: flex;
+  /* top: 16px;
+  right: 16px;
+  z-index: 1000;
+  display: flex; */
+  flex-direction: column;
+  gap: 8px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 12px;
+  background-color: var(--white);
+  border-radius: 5px;
+  border: 1px solid var(--gray-muted);
+  max-width: 328px;
+}
+
+.header {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+.closeBtn {
+  color: #a1a1a1 !important;
+  cursor: pointer !important;
+}
+
+.confirmed {
+  color: var(--blue);
+}
+
+.declined {
+  color: var(--red);
+}
+
+.faCircle {
+  width: 5px;
+  height: 5px;
+}
+
+.content {
+  color: var(--black);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.time {
+  color: var(--gray-medium);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+}

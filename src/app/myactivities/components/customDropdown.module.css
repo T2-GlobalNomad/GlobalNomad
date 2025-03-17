@@ -1,0 +1,9 @@
+.kebabIcon{
+    position: relative;
+}
+
+.customDropdown{
+    position: absolute;
+    top: 5px;
+    left: -100px;
+}

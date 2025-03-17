@@ -93,7 +93,7 @@ export default function Nav() {
                   />
                 </div>
               )}
-
+              
               <div
                 className={`${styles.dropdown}  ${
                   isProfileCard ? styles.active : ''

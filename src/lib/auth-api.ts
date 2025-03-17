@@ -63,7 +63,7 @@ export async function login(loginData: LoginFormData): Promise<LoginResponse> {
     toast.success('로그인 성공!');
 
     Cookies.set('accessToken', response.data.accessToken, { expires: 1 });
-    Cookies.set('refreshToken', response.data.refreshToken, { expires: 1 });
+    Cookies.set('refreshToken', response.data.refreshToken, { expires: 2 });
 
     return response.data;
   } catch (error) {

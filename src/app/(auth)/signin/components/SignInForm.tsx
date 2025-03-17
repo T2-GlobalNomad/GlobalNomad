@@ -5,8 +5,8 @@ import styles from './SignInForm.module.css';
 import Input from '@/components/Input/Input';
 import PasswordInput from '@/components/Input/PasswordInput';
 import { useForm } from 'react-hook-form';
-import { login } from '@/lib/auth-api';
 import { useRouter } from 'next/navigation';
+import useAuthStore from '@/stores/useAuthStore';
 
 interface LoginFormValues {
   email: string;
@@ -21,12 +21,12 @@ export default function SignInForm() {
   } = useForm<LoginFormValues>({ mode: 'onChange' });
 
   const router = useRouter();
+  const login = useAuthStore((state) => state.login);
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
-      const response = await login(data);
-      console.log('로그인 성공', response);
-      // router.push('/');
+      await login(data);
+      router.push('/');
     } catch (error) {
       console.error(error);
     }

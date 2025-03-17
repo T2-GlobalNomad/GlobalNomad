@@ -47,6 +47,7 @@ export default function SignUpForm() {
           placeholder='이메일을 입력해 주세요'
           label='이메일'
           id='email'
+          isErrored={!!errors.email}
           {...register('email', {
             required: '이메일은 필수 입력입니다.',
             pattern: {
@@ -63,6 +64,7 @@ export default function SignUpForm() {
           placeholder='닉네임을 입력해 주세요'
           label='닉네임'
           id='nickname'
+          isErrored={!!errors.nickname}
           {...register('nickname', {
             required: '닉네임은 필수 입력입니다.',
             maxLength: {
@@ -77,6 +79,9 @@ export default function SignUpForm() {
       </div>
       <div>
         <PasswordInput
+          isErrored={!!errors.password}
+          label='비밀번호'
+          id='password'
           {...register('password', {
             required: '비밀번호는 필수 입력입니다.',
             minLength: { value: 8, message: '8자 이상 입력하세요.' },
@@ -88,6 +93,9 @@ export default function SignUpForm() {
       </div>
       <div>
         <PasswordInput
+          isErrored={!!errors.passwordConfirmation}
+          label='비밀번호 확인'
+          id='passwordConfirmation'
           {...register('passwordConfirmation', {
             required: '비밀번호 확인은 필수 입력입니다.',
             validate: (value) =>

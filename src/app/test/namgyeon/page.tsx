@@ -32,7 +32,7 @@ export default function Page() {
         />
       </div>
       <div>
-        <PasswordInput />
+        <PasswordInput id='password' />
       </div>
       <div>
         <SelectInput />

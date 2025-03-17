@@ -53,9 +53,9 @@ type Schedules = {
  * @type {string} updatedAt - 수정일
  */
 export interface Activities {
-  id?: number;
+  id: number;
   userId?: number;
-  title?: string;
+  title: string;
   description?: string;
   category?: '문화 · 예술' | '식음료' | '스포츠' | '투어' | '관광' | '웰빙';
   price?: number;
@@ -68,6 +68,9 @@ export interface Activities {
   createdAt?: string;
   updatedAt?: string;
 }
+
+// Activities 배열 타입을 명확히 정의
+export type ActivitiesArray = Activities[];
 
 /* User */
 

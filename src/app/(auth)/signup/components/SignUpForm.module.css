@@ -17,3 +17,7 @@
   font-weight: 400;
   color: var(--red);
 }
+
+.errorBorder {
+  border-color: var(--red);
+}

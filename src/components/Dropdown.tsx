@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react'; // 리액트 아이콘(화살표)
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import styles from './Dropdown.module.css';
 import useClickOutside from '@/utils/useClickOutside';
 
 type DropdownProps<T> = {
   options: T[];
-  selected: T;
+  selected: T | null;
   onChange: (value: T) => void;
   dropdownClassName?: string;
   toggleClassName?: string;
@@ -15,48 +15,49 @@ type DropdownProps<T> = {
   menuItemClassName?: string;
 };
 
-export default function Dropdown<T extends string | number>({
+export default function Dropdown<T extends { id: number; title: string }>({
   options,
   selected,
   onChange,
-  // 스타일 변경을 위한 props
-  dropdownClassName,
-  toggleClassName,
-  menuClassName,
-  menuItemClassName,
+  dropdownClassName = '',
+  toggleClassName = '',
+  menuClassName = '',
+  menuItemClassName = '',
 }: DropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // 드롭다운 바깥 클릭 시 닫기
   useClickOutside({ ref: dropdownRef, setter: setIsOpen });
 
   return (
     <div
-      className={`${styles.dropdown} ${dropdownClassName}`}
+      className={`${styles.dropdown} ${dropdownClassName}`.trim()}
       ref={dropdownRef}
     >
       <button
-        className={`${styles.toggleBtn} ${toggleClassName}`}
+        className={[styles.toggleBtn, toggleClassName]
+          .filter(Boolean)
+          .join(' ')}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selected}
-        {/* 화살표 - 리액트아이콘 사용 */}
+        {selected?.title ?? '필터'}
         {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </button>
 
       {isOpen && (
-        <ul className={`${styles.menu} ${menuClassName}`}>
+        <ul className={[styles.menu, menuClassName].filter(Boolean).join(' ')}>
           {options.map((option) => (
             <li
-              key={option.toString()}
-              className={`${styles.menuItem} ${menuItemClassName}`}
+              key={option.id}
+              className={[styles.menuItem, menuItemClassName]
+                .filter(Boolean)
+                .join(' ')}
               onClick={() => {
                 onChange(option);
                 setIsOpen(false);
               }}
             >
-              {option}
+              {option.title}
             </li>
           ))}
         </ul>

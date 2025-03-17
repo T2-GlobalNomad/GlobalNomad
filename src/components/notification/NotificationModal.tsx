@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import instance from '@/lib/api';
 import { Notification } from '@/lib/types';
+import CloseButton from '../CloseButton';
 import NotificationCard from './NotificationCard';
+import styles from './NotificationModal.module.css';
 
-export default function NotificationModal() {
+interface NotificationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function NotificationModal({
+  isOpen,
+  onClose,
+}: NotificationModalProps) {
   const [totalCount, setTotalCount] = useState<Notification>({});
 
   useEffect(() => {
@@ -18,10 +28,19 @@ export default function NotificationModal() {
     fetchNotificationsCount();
   }, []);
 
+  if (!isOpen) return null;
+
   return (
-    <div>
-      <p>{totalCount.totalCount}</p>
-      <NotificationCard />
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.header}>
+          <p className={styles.totalCount}>알림 {totalCount.totalCount}개</p>
+          <CloseButton onClick={onClose} className={styles.closeBtn} />
+        </div>
+        <div className={styles.notificationContainer}>
+          <NotificationCard />
+        </div>
+      </div>
     </div>
   );
 }

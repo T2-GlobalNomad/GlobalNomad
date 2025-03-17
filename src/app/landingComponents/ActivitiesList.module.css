@@ -1,0 +1,132 @@
+.activitiesContainer {
+  max-width: 1200px;
+  margin: 30px auto;
+
+  @media (max-width: 1248px) { 
+    max-width: auto; 
+    padding: 0 24px; 
+  } 
+  @media (max-width: 375px) { 
+    padding: 0 16px; 
+  }
+}
+
+.activitiesList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 16px;
+  }
+  @media (max-width: 450px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 8px;
+  }
+}
+.activityItem {
+  /* display: flex;
+  flex-direction: column;
+  gap: 16px; */
+  margin-bottom: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    /* gap: 12px; */
+  }
+
+  @media (max-width: 450px) {
+    /* gap: 8px; */
+  }
+}
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    gap: 12px;
+  }
+
+  @media (max-width: 450px) {
+    gap: 8px;
+  }
+}
+
+/* 체험 이미지 */
+.activityImage {
+  position: relative;
+  /* 백그라운드 임시로 지정 */
+  background-color: var(--gray-medium); 
+
+  max-width: 283px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* 평점 */
+.activitiesRating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.activitiesRating p {
+  color: var(--black);
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+.activitiesRating span {
+  color: var(--gray-light);
+}
+
+/* 제목 및 가격 */
+.activityItem h1 {
+  color: var(--black);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 32px;
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  @media (max-width: 450px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+.price {
+  color: var(--black);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  @media (max-width: 450px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+.price span {
+  color: var(--gray-light);
+  font-size: 18px;
+  font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+  @media (max-width: 450px) {
+    font-size: 14px;
+  }
+}

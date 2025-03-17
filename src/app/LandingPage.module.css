@@ -1,0 +1,119 @@
+.imgContainer {
+  position: relative;
+  width: 100%;
+  height: 550px; 
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+    url('/images/landingpage_img.svg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 450px) {
+    height: 240px;
+  }
+}
+
+/* 이미지영역 텍스트 */
+.textContainer {
+  font-weight: 700;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (max-width: 1248px) { 
+    max-width: auto; 
+    padding: 0 24px;
+  } 
+  @media (max-width: 768px) {
+    gap: 8px; 
+  }
+  @media (max-width: 375px) { 
+    padding: 0 16px; 
+  }
+}
+
+.text1 {
+  font-size: 68px;
+  
+  @media (max-width: 768px) {
+    font-size: 54px;
+  }
+  @media (max-width: 450px) { 
+    font-size: 24px;
+  }
+}
+.text2 {
+  font-size: 24px;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+  @media (max-width: 450px) { 
+    font-size: 14px;
+  }
+}
+
+/* 카테고리 영역 */
+.categoryContainer {
+  max-width: 1200px;
+  margin: 0 auto; 
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 1248px) { 
+    max-width: auto; 
+    padding: 0 24px; 
+  } 
+  @media (max-width: 375px) { 
+    padding: 0 16px; 
+  }
+}
+
+.category {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+  white-space: nowrap; 
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+.category::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.category .item {
+  background-color: var(--white);
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+  text-align: center;
+  width: 130px;
+  display: inline-block;
+  border: 1px solid var(--green);
+  border-radius: 15px;
+  padding: 11px 14px 8px 15px;
+  margin-right: 10px;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 20px;
+    width: 110px;
+    margin-right: 8px;
+  }
+  @media (max-width: 450px) {
+    font-size: 12px;
+    width: 90px;
+    padding: 9px 9px 6px 12px;
+    margin-right: 4px;
+  }
+}

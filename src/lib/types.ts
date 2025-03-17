@@ -69,6 +69,9 @@ export interface Activities {
   updatedAt?: string;
 }
 
+// Activities 배열 타입을 명확히 정의
+export type ActivitiesArray = Activities[];
+
 /* User */
 
 /**

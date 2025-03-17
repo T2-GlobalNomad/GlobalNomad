@@ -1,4 +1,5 @@
 'use client';
+<<<<<<< HEAD
 
 import { useState, useEffect } from 'react';
 import { User } from '@/lib/types';
@@ -117,4 +118,9 @@ export default function MyPage() {
       </footer>
     </>
   );
+=======
+
+export default function MyPage() {
+  return <></>;
+>>>>>>> dd7202e0 (chore: 컨플릭트 해결)
 }

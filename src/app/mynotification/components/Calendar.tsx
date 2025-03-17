@@ -23,24 +23,29 @@ export default function MyNotificationCalendar({
   onMonthChange,
 }: MyNotificationCalendarProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [markedDates, setMarkedDates] = useState<Record<string, string[]>>({});
+  const [markedDates, setMarkedDates] = useState<
+    Record<string, { completed: number; pending: number; confirmed: number }>
+  >({});
 
-  // ✅ 예약 데이터를 기반으로 markedDates 상태 업데이트
+  // 예약 데이터를 기반으로 markedDates 상태 업데이트
   useEffect(() => {
-    const dateMap: Record<string, string[]> = {};
+    const dateMap: Record<
+      string,
+      { completed: number; pending: number; confirmed: number }
+    > = {};
 
     schedule.forEach(({ date, reservations }) => {
-      const statusList: string[] = [];
-      if (reservations.completed > 0) statusList.push('completed');
-      if (reservations.pending > 0) statusList.push('pending');
-      if (reservations.confirmed > 0) statusList.push('confirmed');
-      dateMap[date] = statusList;
+      dateMap[date] = {
+        completed: reservations.completed,
+        pending: reservations.pending,
+        confirmed: reservations.confirmed,
+      };
     });
 
     setMarkedDates(dateMap);
   }, [schedule]);
 
-  // ✅ 예약 상태별 색상 반환 함수
+  // 예약 상태별 색상 반환 함수
   const getStatusColor = (statuses: string[] = []) => {
     if (statuses.includes('pending')) return '#007bff'; // 예약 (파란색)
     if (statuses.includes('confirmed')) return '#ff9800'; // 승인 (주황색)
@@ -48,7 +53,7 @@ export default function MyNotificationCalendar({
     return '#ccc'; // 기본 회색
   };
 
-  // ✅ onActiveStartDateChange 핸들러 수정 (오류 해결)
+  // onActiveStartDateChange 핸들러 수정 (오류 해결)
   const handleMonthChange = (value: { activeStartDate?: Date | null }) => {
     const activeDate = value.activeStartDate;
     if (activeDate) {
@@ -61,7 +66,7 @@ export default function MyNotificationCalendar({
       <Calendar
         onChange={(date) => setSelectedDate(date as Date)}
         value={selectedDate}
-        onActiveStartDateChange={handleMonthChange} // ✅ 수정된 함수 적용
+        onActiveStartDateChange={handleMonthChange} // 수정된 함수 적용
         tileContent={({ date }) => {
           const dateString = date.toISOString().split('T')[0];
           const statuses = markedDates[dateString];
@@ -70,28 +75,30 @@ export default function MyNotificationCalendar({
             <div className={styles.tileContainer}>
               {/* 날짜 오른쪽 위에 상태 점 표시 */}
               <div className={styles.iconWrapper}>
-                <FaCircle style={{ color: getStatusColor(statuses) }} />
+                <FaCircle
+                  style={{ color: getStatusColor(Object.keys(statuses)) }}
+                />
               </div>
 
               {/* 예약 상태 별 박스 표시 */}
               <div className={styles.reservationWrapper}>
-                {statuses.includes('completed') && (
+                {statuses.completed > 0 && (
                   <div
                     className={`${styles.reservationBox} ${styles.completed}`}
                   >
-                    완료
+                    완료 {statuses.completed}
                   </div>
                 )}
-                {statuses.includes('pending') && (
+                {statuses.pending > 0 && (
                   <div className={`${styles.reservationBox} ${styles.pending}`}>
-                    예약
+                    예약 {statuses.pending}
                   </div>
                 )}
-                {statuses.includes('confirmed') && (
+                {statuses.confirmed > 0 && (
                   <div
                     className={`${styles.reservationBox} ${styles.confirmed}`}
                   >
-                    승인
+                    승인 {statuses.confirmed}
                   </div>
                 )}
               </div>

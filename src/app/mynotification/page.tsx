@@ -25,11 +25,11 @@ export default function MyNotification() {
     }
   }, [activities]);
 
-  // ✅ API 요청을 별도 함수로 분리
+  // API 요청
   const fetchSchedule = useCallback(
     async (activityId: number, year: number, month: string) => {
       try {
-        console.log('📌 API 요청 params:', { activityId, year, month });
+        console.log('API 요청 params:', { activityId, year, month });
 
         const response = await instance.get(
           `/my-activities/${activityId}/reservation-dashboard?year=${year}&month=${month}`,
@@ -39,7 +39,7 @@ export default function MyNotification() {
           throw new Error('데이터가 없습니다.');
         }
 
-        console.log('📌 API 응답 데이터:', response.data);
+        console.log('API 응답 데이터:', response.data);
         setSchedule(response.data);
       } catch (error) {
         console.error('🚨 스케줄 데이터를 받아오는 중 에러 발생:', error);
@@ -57,7 +57,7 @@ export default function MyNotification() {
   if (isLoading) return <p>로딩 중...</p>;
   if (error) return <p>에러 발생: {error.message}</p>;
 
-  // ✅ 캘린더에서 연/월이 변경될 때 처리
+  // 캘린더에서 연/월이 변경될 때 전송
   const handleMonthChange = (activeStartDate: Date) => {
     setCurrentYear(activeStartDate.getFullYear());
     setCurrentMonth(String(activeStartDate.getMonth() + 1).padStart(2, '0'));
@@ -68,7 +68,8 @@ export default function MyNotification() {
       <p className={styles.title}>예약 현황</p>
       <p className={styles.dropdownTitle}>체험명 선택</p>
       <Dropdown
-        dropdownClassName={styles.dropdownList ?? ''}
+        //dropdownClassName={styles.dropdownList ?? ''}
+        toggleClassName={styles.dropdownList}
         options={
           activities?.map((activity) => ({
             id: activity.id,
@@ -76,7 +77,7 @@ export default function MyNotification() {
           })) || []
         }
         selected={selectedActivity}
-        onChange={setSelectedActivity} // ✅ 간소화
+        onChange={setSelectedActivity}
       />
       {/* 달력 컴포넌트에 데이터 및 변경 이벤트 전달 */}
       <MyNotificationCalendar

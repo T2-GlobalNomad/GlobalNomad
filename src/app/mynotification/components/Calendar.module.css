@@ -24,6 +24,7 @@
   background-color: var(--blue);
   border-radius: 4px;
   padding: 3px 4px;
+  margin: 3px auto;
   color: var(--white);
   font-size: 14px;
   font-weight: 400;
@@ -36,6 +37,7 @@
   background-color: var(--light-orange);
   border-radius: 4px;
   padding: 3px 4px;
+  margin: 3px auto;
   color: var(--orange);
   font-size: 14px;
   font-weight: 400;
@@ -47,8 +49,52 @@
   background-color: var(--light-gray);
   border-radius: 4px;
   padding: 3px 4px;
+  margin: 3px auto;
   color: var(--gray);
   font-size: 14px;
   font-weight: 400;
   width: 100px;
+}
+
+@media (max-width: 768px) {
+.pending {
+  min-width: 55px;
+  width: auto;
+  max-width: 100%;
+}
+
+.confirmed {
+  min-width: 55px;
+  width: auto;
+  max-width: 100%;
+}
+
+.completed {
+  min-width: 55px;
+  width: auto;
+  max-width: 100%;
+}
+}
+
+@media (max-width: 375px) {
+  .pending {
+    font-size: 12px;
+    min-width: 45px;
+    width: auto;
+    max-width: 100%;
+  }
+  
+  .confirmed {
+    font-size: 12px;
+    min-width: 45px;
+    width: auto;
+    max-width: 100%;
+  }
+  
+  .completed {    
+    font-size: 12px;
+    min-width: 45px;
+    width: auto;
+    max-width: 100%;
+  }
 }

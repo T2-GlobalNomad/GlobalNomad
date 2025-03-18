@@ -2,7 +2,7 @@ import styles from './Input.module.css';
 
 interface InputProps {
   label: string;
-  labelSize?: string;
+  labelSize?: boolean;
   id: string;
   type: string;
   placeholder: string;
@@ -35,7 +35,7 @@ interface InputProps {
  *  type="text"
  *  placeholder="이메일을 입력해주세요"
  *  label="이메일"
- *  labelSize="large"
+ *  labelSize={true}
  * />
  *
  * @returns {JSX.Element} 입력 필드 JSX 요소를 반환합니다.
@@ -47,7 +47,7 @@ export default function Input({
   type = 'text',
   placeholder = '이메일을 입력하세요',
   label = '이메일',
-  labelSize = '',
+  labelSize = false,
   id = 'email',
   isErrored = false,
   ...props
@@ -56,7 +56,7 @@ export default function Input({
     <div className={styles.container}>
       <label
         className={`${styles.label} ${
-          labelSize === 'large' ? styles.largeLabel : ''
+          labelSize === true ? styles.largeLabel : ''
         }`}
         htmlFor={id}
       >

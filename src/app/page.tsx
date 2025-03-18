@@ -15,9 +15,12 @@ export default function Home() {
     title: string;
   } | null>(null);
   const [activities, setActivities] = useState<ActivitiesArray>([]);
+  const [popularActivities, setPopularActivities] = useState<ActivitiesArray>(
+    [],
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [size, setSize] = useState(8); // 기본값 8개
+  const [size, setSize] = useState(8);
 
   const sortOptions = [
     { id: 1, title: '최신순' },
@@ -44,6 +47,7 @@ export default function Home() {
     }
   }, []);
 
+  // 체험 리스트 API호출
   useEffect(() => {
     const fetchActivities = async () => {
       try {
@@ -63,6 +67,23 @@ export default function Home() {
     fetchActivities();
   }, [size]); // size가 변경될 때만 API 호출
 
+  // 인기체험 API호출
+  useEffect(() => {
+    const fetchPopularActivities = async () => {
+      try {
+        const response = await axios.get('/activities', {
+          params: { method: 'offset', page: 1, size: 9 },
+        });
+
+        setPopularActivities(response.data.activities);
+      } catch (error) {
+        console.error('인기 체험 데이터 가져오기 실패:', error);
+      }
+    };
+
+    fetchPopularActivities();
+  }, []);
+
   return (
     <>
       <div className={styles.imgContainer}>
@@ -76,7 +97,7 @@ export default function Home() {
       </div>
 
       {/* 인기 체험 */}
-      <PopularActivities activities={activities} />
+      <PopularActivities activities={popularActivities} />
 
       {/* 카테고리 영역 */}
       <div className={styles.categoryContainer}>

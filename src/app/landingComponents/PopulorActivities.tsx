@@ -83,7 +83,7 @@ export default function PopularActivities({ activities }: Props) {
                     src={activity.bannerImageUrl || '/images/not_found.png'}
                     alt={activity.title || '체험 이미지 입니다.'}
                     fill
-                    style={{ objectFit: 'contain' }}
+                    style={{ objectFit: 'cover' }}
                     priority
                   />
                 </div>

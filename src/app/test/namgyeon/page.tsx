@@ -5,8 +5,11 @@ import Input from '@/components/Input/Input';
 import PasswordInput from '@/components/Input/PasswordInput';
 import SelectInput from '@/components/Input/SelectInput';
 import DateInput from '@/components/Input/DateInput';
+import Cookies from 'js-cookie';
 
 export default function Page() {
+  console.log('액세스토큰:', Cookies.get('accessToken'));
+  console.log('리프레쉬토큰:', Cookies.get('refreshToken'));
   return (
     <div className={styles.container}>
       <div>

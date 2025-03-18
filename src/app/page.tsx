@@ -66,7 +66,7 @@ export default function Home() {
     };
 
     fetchActivities();
-  }, [size, currentPage]); // size와 currentPage가 변경될 때마다 API 호출
+  }, [size, currentPage]);
 
   // 인기체험 API호출
   useEffect(() => {

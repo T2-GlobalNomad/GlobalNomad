@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import instance from './api';
 import { toast } from 'react-hot-toast';
-import Cookies from 'js-cookie';
+import { SignInData, SignInResponse } from './auth-types';
 
 // 회원가입 api
 interface NewUser {
@@ -15,6 +15,7 @@ export async function signUp(newUser: NewUser) {
     const response = await instance.post('/users', newUser);
     // ⬇️ 추후삭제
     console.log('회원가입 성공:', response.data);
+
     toast.success('회원가입 성공!');
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -38,33 +39,11 @@ export async function signUp(newUser: NewUser) {
 
 // 로그인 api
 
-interface LoginFormData {
-  email: string;
-  password: string;
-}
-
-interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-  user: {
-    createdAt: string;
-    email: string;
-    id: number;
-    nickname: string;
-    profileImageUrl: string;
-    updatedAt: string;
-  };
-}
-
-export async function login(loginData: LoginFormData): Promise<LoginResponse> {
+export async function signIn(loginData: SignInData): Promise<SignInResponse> {
   try {
     const response = await instance.post('/auth/login', loginData);
     console.log('로그인 성공', response.data);
     toast.success('로그인 성공!');
-
-    Cookies.set('accessToken', response.data.accessToken, { expires: 1 });
-    Cookies.set('refreshToken', response.data.refreshToken, { expires: 2 });
-
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {

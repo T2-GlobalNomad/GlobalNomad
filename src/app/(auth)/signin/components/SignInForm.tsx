@@ -6,7 +6,7 @@ import Input from '@/components/Input/Input';
 import PasswordInput from '@/components/Input/PasswordInput';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import useAuthStore from '@/stores/useAuthStore';
+import { signIn } from '@/lib/auth-api';
 
 interface LoginFormValues {
   email: string;
@@ -21,12 +21,11 @@ export default function SignInForm() {
   } = useForm<LoginFormValues>({ mode: 'onChange' });
 
   const router = useRouter();
-  const login = useAuthStore((state) => state.login);
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
-      await login(data);
-      router.push('/');
+      const response = await signIn(data);
+      // router.push('/');
     } catch (error) {
       console.error(error);
     }

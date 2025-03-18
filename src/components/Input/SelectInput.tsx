@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
-import styles from "./Input.module.css";
+import dynamic from 'next/dynamic';
+import styles from './Input.module.css';
 import {
   components,
   OptionProps,
   SingleValue,
   StylesConfig,
   GroupBase,
-} from "react-select";
-import Image from "next/image";
-import { useState } from "react";
+} from 'react-select';
+import Image from 'next/image';
+import { useState } from 'react';
 
 /**
  *  공용 SelectInput
@@ -29,42 +29,46 @@ interface OptionType {
   label: string;
 }
 
+interface SelectInputProps {
+  onChange?: (value: string) => void;
+}
+
 // SSR 문제 해결을 위해 클라이언트 전용으로 동적 임포트
-const Select = dynamic(() => import("react-select"), { ssr: false });
+const Select = dynamic(() => import('react-select'), { ssr: false });
 
 const options: OptionType[] = [
-  { value: "문화 예술", label: "문화 예술" },
-  { value: "식음료", label: "식음료" },
-  { value: "스포츠", label: "스포츠" },
-  { value: "투어", label: "투어" },
-  { value: "관광", label: "관광" },
+  { value: '문화 예술', label: '문화 예술' },
+  { value: '식음료', label: '식음료' },
+  { value: '스포츠', label: '스포츠' },
+  { value: '투어', label: '투어' },
+  { value: '관광', label: '관광' },
 ];
 
 const CustomSelect = {
   control: (provided) => ({
     ...provided,
-    border: "1px solid #79747E",
-    borderRadius: "4px",
-    padding: "7px 12px",
+    border: '1px solid #79747E',
+    borderRadius: '4px',
+    padding: '7px 12px',
   }),
   option: (provided, state) => ({
     ...provided,
-    padding: "8px 24px",
-    borderRadius: "6px",
-    backgroundColor: state.isFocused ? "black" : "white",
-    color: state.isFocused ? "white" : "black",
+    padding: '8px 24px',
+    borderRadius: '6px',
+    backgroundColor: state.isFocused ? 'black' : 'white',
+    color: state.isFocused ? 'white' : 'black',
   }),
 } as StylesConfig<unknown, false, GroupBase<unknown>>;
 
 const CustomOption = (
-  props: OptionProps<unknown, false, GroupBase<unknown>>
+  props: OptionProps<unknown, false, GroupBase<unknown>>,
 ) => {
   return (
     <components.Option {...props}>
       {props.isSelected && (
         <Image
-          src="/images/checkMark.svg"
-          alt="선택됨"
+          src='/images/checkMark.svg'
+          alt='선택됨'
           width={20}
           height={20}
           style={{ marginRight: 4 }}
@@ -75,20 +79,24 @@ const CustomOption = (
   );
 };
 
-export default function SelectInput() {
+export default function SelectInput({ onChange }: SelectInputProps) {
   // 선택된 value값 저장, eslint설정으로 오류가 나오는데 나중에 쓸때 사라집니다.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [currentValue, setCurrentValue] = useState<string>("");
+  const [currentValue, setCurrentValue] = useState<string>('');
 
   const handleSelect = (value: string) => {
     setCurrentValue(value);
+
+    if (onChange) {
+      onChange(value);
+    }
   };
 
   return (
     <div className={styles.container}>
       <Select
         options={options}
-        placeholder="카테고리"
+        placeholder='카테고리'
         styles={CustomSelect}
         isClearable
         onChange={(newValue: unknown) => {
@@ -96,7 +104,7 @@ export default function SelectInput() {
           if (option) {
             handleSelect(option.value);
           } else {
-            handleSelect("");
+            handleSelect('');
           }
         }}
         components={{ Option: CustomOption }}

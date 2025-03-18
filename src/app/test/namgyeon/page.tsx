@@ -6,10 +6,21 @@ import PasswordInput from '@/components/Input/PasswordInput';
 import SelectInput from '@/components/Input/SelectInput';
 import DateInput from '@/components/Input/DateInput';
 import Cookies from 'js-cookie';
+import instance from '@/lib/api';
+import { useEffect } from 'react';
 
 export default function Page() {
   console.log('액세스토큰:', Cookies.get('accessToken'));
   console.log('리프레쉬토큰:', Cookies.get('refreshToken'));
+
+  const getMyInfo = async () => {
+    const response = await instance.get('/users/me');
+    console.log(response.data);
+  };
+
+  useEffect(() => {
+    getMyInfo();
+  }, []);
   return (
     <div className={styles.container}>
       <div>

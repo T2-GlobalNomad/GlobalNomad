@@ -26,6 +26,7 @@ export default function SignInForm() {
     try {
       const response = await signIn(data);
       router.push('/');
+      return response;
     } catch (error) {
       console.error(error);
     }

@@ -8,13 +8,10 @@ import ActivitiesList from './landingComponents/ActivitiesList';
 import Dropdown from '@/components/Dropdown';
 import Pagination from './landingComponents/Pagination';
 // import Footer from '@/components/footer/Footer';
-import styles from './LandingPage.module.css';
+import styles from './landingComponents/LandingPage.module.css';
 
 export default function Home() {
-  const [selectedSort, setSelectedSort] = useState<{
-    id: number;
-    title: string;
-  } | null>(null);
+  const [selectedSort, setSelectedSort] = useState<string | null>(null);
   const [activities, setActivities] = useState<ActivitiesArray>([]);
   const [popularActivities, setPopularActivities] = useState<ActivitiesArray>(
     [],
@@ -26,9 +23,9 @@ export default function Home() {
   const [totalPages, setTotalPages] = useState(1);
 
   const sortOptions = [
-    { id: 1, title: '최신순' },
-    { id: 2, title: '낮은가격순' },
-    { id: 3, title: '높은가격순' },
+    { value: 'latest', label: '최신순' },
+    { value: 'price_asc', label: '낮은가격순' },
+    { value: 'price_desc', label: '높은가격순' },
   ];
 
   useEffect(() => {
@@ -118,7 +115,7 @@ export default function Home() {
         </ul>
         <Dropdown
           options={sortOptions}
-          selected={selectedSort}
+          selectedValue={selectedSort}
           onChange={setSelectedSort}
         />
       </div>

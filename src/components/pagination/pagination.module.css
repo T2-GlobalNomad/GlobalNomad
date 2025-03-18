@@ -4,6 +4,10 @@
   display: flex;
   justify-content: center;
   gap: 5px;
+
+  @media (max-width: 375px) { 
+    padding: 0 16px; 
+  }
 }
 
 @media(max-width: 320px){

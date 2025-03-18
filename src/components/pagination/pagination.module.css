@@ -1,6 +1,8 @@
 
 .container{
+  margin: 0 auto 80px;
   display: flex;
+  justify-content: center;
   gap: 5px;
 }
 

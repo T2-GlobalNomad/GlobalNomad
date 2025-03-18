@@ -68,8 +68,10 @@ export default function MyNotification() {
       <p className={styles.title}>예약 현황</p>
       <p className={styles.dropdownTitle}>체험명 선택</p>
       <Dropdown
-        //dropdownClassName={styles.dropdownList ?? ''}
+        dropdownClassName={styles.dropdownList ?? ''}
         toggleClassName={styles.dropdownList}
+        menuClassName={styles.dropdownList}
+        menuItemClassName={styles.dropdownList}
         options={
           activities?.map((activity) => ({
             id: activity.id,

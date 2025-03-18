@@ -15,7 +15,8 @@
 .dropdownList {
   width: 792px;
   max-width: 100%;
-
+  border-radius: 4px;
+  text-align: left;
 }
 
 .title {

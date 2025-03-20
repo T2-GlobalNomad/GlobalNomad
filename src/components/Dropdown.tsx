@@ -44,7 +44,7 @@ export default function Dropdown<
         className={`${styles.toggleBtn} ${toggleClassName}`}
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        {selectedOption?.label ?? '필터'}
+        {selectedOption?.label ?? '선택'}
         {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </button>
 

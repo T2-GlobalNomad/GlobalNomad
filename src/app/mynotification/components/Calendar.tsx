@@ -63,7 +63,6 @@ export default function MyNotificationCalendar({
   // 날짜 클릭 시 실행되는 함수
   const handleDateClick = (date: Date) => {
     const dateString = date.toISOString().split('T')[0];
-
     setSelectedDate(dateString);
     setIsModalOpen(true); // 모달 열기
   };

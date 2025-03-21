@@ -1,13 +1,22 @@
 .container {
+  display: flex;
+  flex-direction: column;
   padding: 12px 16px;
   border: 1px solid var( --gray-lighter);
   border-radius: 4px;
+  overflow-y: auto;
 }
 
 .infoContainer {
   display: flex;
   align-items: center;
+  gap: 6px;
+}
 
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .index {
@@ -19,4 +28,77 @@
 .value {
   font-size: 16px;
   font-weight: 400;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+}
+
+.button {
+  padding: 8px 16px;
+}
+
+.tags {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.confirmedTag {
+  background-color: var(--light-orange);
+  border-radius: 26px;
+  padding:10px 15px;
+  width: fit-content;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--orange);
+}
+
+.declinedTag {
+  background-color: var(--soft-red);
+  border-radius: 26px;
+  padding:10px 15px;
+  width: fit-content;
+  font-size: 14px;
+  font-weight: bold;
+  color:var(--red);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 8px;
+  }
+
+  .infoContainer {
+    flex-direction: column; /* 모바일에서는 세로 정렬 */
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .index, .value {
+    font-size: 14px;
+  }
+
+  .buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    padding: 12px;
+  }
+
+  .buttons {
+    justify-content: flex-end;
+  }
 }

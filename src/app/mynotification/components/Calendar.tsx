@@ -64,8 +64,6 @@ export default function MyNotificationCalendar({
   const handleDateClick = (date: Date) => {
     const dateString = date.toISOString().split('T')[0];
 
-    if (!markedDates[dateString]) return;
-
     setSelectedDate(dateString);
     setIsModalOpen(true); // 모달 열기
   };
@@ -80,46 +78,38 @@ export default function MyNotificationCalendar({
             onMonthChange?.(activeStartDate);
           }
         }}
-        //예약 정보 없는 경우 클릭 비활성화
-        tileDisabled={({ date }) => {
-          const dateString = date.toISOString().split('T')[0];
-          return !markedDates[dateString];
-        }}
+        tileDisabled={() => false} // 모든 날짜 클릭 가능하게 변경
         tileContent={({ date }) => {
           const dateString = date.toISOString().split('T')[0];
           const statuses = markedDates[dateString];
 
-          return statuses ? (
+          return (
             <div className={styles.tileContainer}>
-              {/* 날짜 오른쪽 위에 상태 점 표시 */}
-              <div className={styles.iconWrapper}>
-                <FaCircle style={{ color: getStatusColor(statuses) }} />
-              </div>
-
-              {/* 예약 상태 별 박스 표시 */}
-              <div className={styles.reservationWrapper}>
-                {statuses.completed > 0 && (
-                  <div
-                    className={`${styles.reservationBox} ${styles.completed}`}
-                  >
-                    완료 {statuses.completed}
+              {statuses && (
+                <>
+                  <div className={styles.iconWrapper}>
+                    <FaCircle style={{ color: getStatusColor(statuses) }} />
                   </div>
-                )}
-                {statuses.pending > 0 && (
-                  <div className={`${styles.reservationBox} ${styles.pending}`}>
-                    예약 {statuses.pending}
+                  <div className={styles.reservationWrapper}>
+                    {statuses.pending > 0 && (
+                      <div
+                        className={`${styles.reservationBox} ${styles.pending}`}
+                      >
+                        예약 {statuses.pending}
+                      </div>
+                    )}
+                    {statuses.confirmed > 0 && (
+                      <div
+                        className={`${styles.reservationBox} ${styles.confirmed}`}
+                      >
+                        승인 {statuses.confirmed}
+                      </div>
+                    )}
                   </div>
-                )}
-                {statuses.confirmed > 0 && (
-                  <div
-                    className={`${styles.reservationBox} ${styles.confirmed}`}
-                  >
-                    승인 {statuses.confirmed}
-                  </div>
-                )}
-              </div>
+                </>
+              )}
             </div>
-          ) : null;
+          );
         }}
         formatDay={(locale, date) => date.getDate().toString()}
       />

@@ -15,12 +15,14 @@ interface Props {
   activityId: number;
   scheduleId: number;
   status: 'pending' | 'confirmed' | 'declined';
+  onStatusChange?: () => void;
 }
 
 export default function ReservationInfoByStatus({
   activityId,
   scheduleId,
   status,
+  onStatusChange,
 }: Props) {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState(true);
@@ -62,6 +64,10 @@ export default function ReservationInfoByStatus({
         `/my-activities/${activityId}/reservations/${reservationId}`,
         { status: newStatus },
       );
+
+      //상태 갱신
+      onStatusChange?.();
+
       // 상태 업데이트 후 다시 목록 새로고침
       const response = await instance.get(
         `/my-activities/${activityId}/reservations/?scheduleId=${scheduleId}&status=${status}`,
@@ -80,31 +86,43 @@ export default function ReservationInfoByStatus({
       {reservations && reservations.length > 0 ? (
         reservations.map((res) => (
           <div key={res.id}>
-            <div className={styles.infoContainer}>
-              <p className={styles.index}>닉네임&nbsp;&nbsp;</p>
-              <p className={styles.value}>{res.nickname}</p>
-            </div>
-            <div className={styles.infoContainer}>
-              <p className={styles.index}>인원&nbsp;&nbsp;</p>
-              <p className={styles.value}>{res.headCount}명</p>
+            <div className={styles.info}>
+              <div className={styles.infoContainer}>
+                <p className={styles.index}>닉네임&nbsp;&nbsp;</p>
+                <p className={styles.value}>{res.nickname}</p>
+              </div>
+              <div className={styles.infoContainer}>
+                <p className={styles.index}>인원&nbsp;&nbsp;</p>
+                <p className={styles.value}>{res.headCount}명</p>
+              </div>
             </div>
 
             {status === 'pending' ? (
-              <div>
+              <div className={styles.buttons}>
                 <CustomButton
+                  className={styles.button}
+                  fontSize='sm'
+                  variant='black'
                   onClick={() => handleUpdateStatus(res.id, 'confirmed')}
                 >
                   수락하기
                 </CustomButton>
                 <CustomButton
+                  className={styles.button}
+                  fontSize='sm'
+                  variant='white'
                   onClick={() => handleUpdateStatus(res.id, 'declined')}
                 >
                   거절하기
                 </CustomButton>
               </div>
             ) : (
-              <div>
-                {status === 'confirmed' ? <p>예약 승인</p> : <p>예약 거절</p>}
+              <div className={styles.tags}>
+                {status === 'confirmed' ? (
+                  <p className={styles.confirmedTag}>예약 승인</p>
+                ) : (
+                  <p className={styles.declinedTag}>예약 거절</p>
+                )}
               </div>
             )}
           </div>

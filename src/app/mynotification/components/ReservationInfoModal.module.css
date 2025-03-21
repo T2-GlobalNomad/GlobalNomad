@@ -13,21 +13,26 @@
 
 /* 모달 본체 */
 .modalContent {
-  background: var(--white);
-  width: 429px;
-  padding: 16px;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
   position: relative;
+  background: var(--white);
+  width: 429px;
+  padding: 12px 20px;
+  border-radius: 24px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 24px;
+  margin: 20px 0;
+}
+
+.date {
+  font-size: 20px;
 }
 
 .modalTitle {
@@ -75,9 +80,14 @@
   transition: all 0.3s ease-in-out;
 }
 
-.dropdownList {
+.dropdown {
   width: 100%;
   border-radius: 4px;
+}
+
+.dropdownList{
+  text-align: left;
+  width: 100%;
 }
 
 .underContainer{
@@ -89,3 +99,38 @@
   font-weight: 500;
   margin-bottom: 16px;
 }
+
+@media (max-width: 768px) {
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modalContent {
+    width: 95%;
+    max-width: 420px;
+    height: 95%;
+    max-height: 90%; 
+    border-radius: 10px; 
+    padding: 24px;
+    overflow-y: auto;
+    background: var(--white);
+  }
+
+  .header {
+    margin: 0 0 16px 0;
+  }
+
+  .tabContainer {
+    font-size: 18px;
+    justify-content: space-around;
+  }
+}
+

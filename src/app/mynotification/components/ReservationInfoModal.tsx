@@ -1,8 +1,9 @@
 import instance from '@/lib/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import ReservationInfoByStatus from './ReservationInfoByStatus';
 import CloseButton from '@/components/CloseButton';
 import Dropdown from '@/components/Dropdown';
+import useClickOutside from '@/utils/useClickOutside';
 import styles from './ReservationInfoModal.module.css';
 
 interface ScheduleInfo {
@@ -32,6 +33,9 @@ export default function ReservationInfoModal({
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useClickOutside({ ref: dropdownRef, setter: setIsOpen });
 
   useEffect(() => {
     const fetchSchedules = async () => {
@@ -74,7 +78,10 @@ export default function ReservationInfoModal({
 
   return (
     <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
+      <div
+        className={styles.modalContent}
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
         <div className={styles.header}>
           <p className={styles.modalTitle}>예약 정보</p>
           <CloseButton onClick={onClose} className={styles.closeBtn} />

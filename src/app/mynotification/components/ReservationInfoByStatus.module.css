@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: 12px 16px;
-  border: 1px solid var( --gray-lighter);
+  border: 1px solid var(--gray-lighter);
   border-radius: 4px;
   overflow-y: auto;
 }
@@ -42,14 +42,14 @@
 }
 
 .tags {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .confirmedTag {
   background-color: var(--light-orange);
   border-radius: 26px;
-  padding:10px 15px;
+  padding: 10px 15px;
   width: fit-content;
   font-size: 14px;
   font-weight: bold;
@@ -59,11 +59,11 @@
 .declinedTag {
   background-color: var(--soft-red);
   border-radius: 26px;
-  padding:10px 15px;
+  padding: 10px 15px;
   width: fit-content;
   font-size: 14px;
   font-weight: bold;
-  color:var(--red);
+  color: var(--red);
 }
 
 @media (max-width: 768px) {
@@ -77,7 +77,8 @@
     gap: 4px;
   }
 
-  .index, .value {
+  .index,
+  .value {
     font-size: 14px;
   }
 

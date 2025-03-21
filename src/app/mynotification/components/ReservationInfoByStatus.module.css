@@ -1,0 +1,22 @@
+.container {
+  padding: 12px 16px;
+  border: 1px solid var( --gray-lighter);
+  border-radius: 4px;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+
+}
+
+.index {
+  color: var(--gray);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.value {
+  font-size: 16px;
+  font-weight: 400;
+}

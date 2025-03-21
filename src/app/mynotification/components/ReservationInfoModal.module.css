@@ -15,7 +15,7 @@
 .modalContent {
   background: var(--white);
   width: 429px;
-  padding: 20px;
+  padding: 16px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -43,6 +43,49 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 12px;
   font-size: 20px;
+  padding: 0 -20px;
+  border-bottom: 1px solid var(--gray-lighter); 
+}
+
+.tab {
+  color: black;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0 8px;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: var(--green);
+  font-weight: 600;
+  border-bottom: 4px solid var(--green);
+  transition: all 0.2s ease-in-out;
+}
+
+.activeTab {
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-bottom: 4px solid var(--green);
+  transition: all 0.3s ease-in-out;
+}
+
+.dropdownList {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.underContainer{
+  margin: 24px 0;
+}
+
+.semiTitle{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 16px;
 }

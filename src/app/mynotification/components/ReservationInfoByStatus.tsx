@@ -1,11 +1,13 @@
 import instance from '@/lib/api';
 import { useEffect, useState } from 'react';
+import styles from './ReservationInfoByStatus.module.css';
 
 interface Reservation {
   reservationId: number;
   nickname: string;
   count: number;
   id: number;
+  headCount: number;
 }
 
 interface Props {
@@ -53,26 +55,23 @@ export default function ReservationInfoByStatus({
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <p>예약 내역</p>
-      {reservations.map((res) => (
-        <div
-          key={res.id}
-          style={{
-            margin: '10px 0',
-            padding: '10px',
-            border: '1px solid #ddd',
-            borderRadius: '5px',
-          }}
-        >
-          <p>
-            <strong>닉네임:</strong> {res.nickname}
-          </p>
-          <p>
-            <strong>인원:</strong> {res.count}명
-          </p>
-        </div>
-      ))}
+    <div className={styles.container}>
+      {reservations && reservations.length > 0 ? (
+        reservations.map((res) => (
+          <div key={res.id}>
+            <div className={styles.infoContainer}>
+              <p className={styles.index}>닉네임&nbsp;&nbsp;</p>
+              <p className={styles.value}>{res.nickname}</p>
+            </div>
+            <div className={styles.infoContainer}>
+              <p className={styles.index}>인원&nbsp;&nbsp;</p>
+              <p className={styles.value}>{res.headCount}명</p>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p>해당 상태의 예약 내역이 없습니다.</p>
+      )}
     </div>
   );
 }

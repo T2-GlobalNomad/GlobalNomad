@@ -106,11 +106,13 @@ export default function ReservationInfoModal({
           </button>
         </div>
 
-        <hr />
-
-        <div>
-          <p>예약 날짜</p>
+        <div className={styles.underContainer}>
+          <p className={styles.semiTitle}>예약 날짜</p>
           <Dropdown
+            dropdownClassName={styles.dropdownList ?? ''}
+            toggleClassName={styles.dropdownList}
+            menuClassName={styles.dropdownList}
+            menuItemClassName={styles.dropdownList}
             options={scheduleList.map((schedule) => ({
               value: schedule.scheduleId,
               label: `${schedule.startTime} ~ ${schedule.endTime}`,
@@ -120,13 +122,16 @@ export default function ReservationInfoModal({
           />
         </div>
 
-        {selectedScheduleId && (
-          <ReservationInfoByStatus
-            activityId={activityId}
-            scheduleId={selectedScheduleId}
-            status={selectedStatus}
-          />
-        )}
+        <div className={styles.underContainer}>
+          <p className={styles.semiTitle}>예약 내역</p>
+          {selectedScheduleId && (
+            <ReservationInfoByStatus
+              activityId={activityId}
+              scheduleId={selectedScheduleId}
+              status={selectedStatus}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -33,9 +33,14 @@ export default function ReservationInfoModal({
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  useClickOutside({ ref: dropdownRef, setter: setIsOpen });
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  // 모달 바깥 클릭 시 onClose 실행
+  useClickOutside({
+    ref: modalRef,
+    setter: () => onClose(),
+  });
 
   useEffect(() => {
     const fetchSchedules = async () => {
@@ -78,10 +83,7 @@ export default function ReservationInfoModal({
 
   return (
     <div className={styles.modalOverlay}>
-      <div
-        className={styles.modalContent}
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
+      <div ref={modalRef} className={styles.modalContent}>
         <div className={styles.header}>
           <p className={styles.modalTitle}>예약 정보</p>
           <CloseButton onClick={onClose} className={styles.closeBtn} />

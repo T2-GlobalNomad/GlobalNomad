@@ -117,3 +117,27 @@
     margin-right: 4px;
   }
 }
+
+.title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 32px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto 25px;
+
+  @media (max-width: 1248px) { 
+    max-width: auto; 
+    padding: 0 24px;
+  } 
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+  @media (max-width: 450px) {
+    font-size: 20px;
+    margin: 15px auto 10px;
+  }
+  @media (max-width: 375px) { 
+    padding: 0 16px; 
+  }
+}

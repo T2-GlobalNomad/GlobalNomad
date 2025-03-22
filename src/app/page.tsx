@@ -5,8 +5,8 @@ import axios from '@/lib/api';
 import { ActivitiesArray } from '@/lib/types';
 import PopularActivities from './landingComponents/PopulorActivities';
 import ActivitiesList from './landingComponents/ActivitiesList';
-import Dropdown from '@/components/Dropdown';
 import Pagination from './landingComponents/Pagination';
+import Category from './landingComponents/Category';
 import styles from './landingComponents/LandingPage.module.css';
 
 // params 타입 정의
@@ -19,24 +19,17 @@ interface ActivitiesParams {
 }
 
 export default function Home() {
-  const [selectedSort, setSelectedSort] = useState<string | null>('latest');
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [activities, setActivities] = useState<ActivitiesArray>([]); // ActivitiesArray 타입을 사용
-  const [popularActivities, setPopularActivities] = useState<ActivitiesArray>(
-    [],
-  ); // ActivitiesArray 타입을 사용
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [size, setSize] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
-  const sortOptions = [
-    { value: 'latest', label: '최신순' },
-    { value: 'most_reviewed', label: '리뷰많은순' },
-    { value: 'price_asc', label: '낮은가격순' },
-    { value: 'price_desc', label: '높은가격순' },
-  ];
+  const [activities, setActivities] = useState<ActivitiesArray>([]);
+  const [popularActivities, setPopularActivities] = useState<ActivitiesArray>(
+    [],
+  );
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSort, setSelectedSort] = useState<string | null>('latest');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const categories = [
     '문화 · 예술',
@@ -84,7 +77,7 @@ export default function Home() {
 
         const response = await axios.get('/activities', { params });
 
-        setActivities(response.data.activities); // ActivitiesArray 타입으로 받음
+        setActivities(response.data.activities);
         setTotalPages(Math.ceil(response.data.totalCount / size)); // 전체 페이지 수 계산
       } catch (error) {
         console.error('데이터 가져오기 실패:', error);
@@ -105,7 +98,7 @@ export default function Home() {
           params: { method: 'offset', page: 1, size: 9 },
         });
 
-        setPopularActivities(response.data.activities); // ActivitiesArray 타입으로 받음
+        setPopularActivities(response.data.activities);
       } catch (error) {
         console.error('인기 체험 데이터 가져오기 실패:', error);
       }
@@ -139,39 +132,16 @@ export default function Home() {
           <p className={styles.text2}>1월의 인기체험 BEST</p>
         </div>
       </div>
-      {/* 인기 체험 */}
+      {/* 인기체험 리스트 */}
       <PopularActivities activities={popularActivities} />
-      {/* 카테고리 영역 */}
-      <div className={styles.categoryContainer}>
-        <ul className={styles.category}>
-          {categories.map((category) => (
-            <li
-              key={category}
-              className={styles.item}
-              onClick={() => handleCategoryClick(category)}
-              style={{
-                color:
-                  selectedCategory === category
-                    ? 'var(--white)'
-                    : 'var(--green)',
-                backgroundColor:
-                  selectedCategory === category
-                    ? 'var(--green)'
-                    : 'var(--white)',
-                cursor: 'pointer',
-              }}
-            >
-              {category}
-            </li>
-          ))}
-        </ul>
-        <Dropdown
-          options={sortOptions}
-          selectedValue={selectedSort}
-          onChange={setSelectedSort}
-        />
-      </div>
-      {/* 선택된 카테고리에 따른 타이틀 변경 */}
+      {/* 카테고리 */}
+      <Category
+        categories={categories}
+        selectedCategory={selectedCategory}
+        selectedSort={selectedSort}
+        onCategoryClick={handleCategoryClick}
+        onSortChange={setSelectedSort}
+      />
       <h2 className={styles.title}>
         {selectedCategory ? selectedCategory : '🛼 모든 체험'}
       </h2>
@@ -182,7 +152,6 @@ export default function Home() {
         isLoading={isLoading}
         error={error}
       />
-      {/* 페이지네이션 */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

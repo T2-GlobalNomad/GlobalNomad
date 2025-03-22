@@ -2,7 +2,7 @@
   max-width: 1200px;
   margin: 0 auto; 
   display: flex;
-  justify-content: space-between;
+  position: relative;
 
   @media (max-width: 1248px) { 
     max-width: auto; 
@@ -14,6 +14,7 @@
 }
 
 .category {
+  flex-grow: 1;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -21,14 +22,13 @@
   white-space: nowrap; 
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none; /* Firefox */
+  position: relative;
 }
 .category::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
 }
 
 .category .item {
-  background-color: var(--white);
-  color: var(--green);
   font-size: 16px;
   font-weight: 500;
   line-height: 26px;
@@ -53,4 +53,12 @@
     padding: 9px 9px 6px 12px;
     margin-right: 4px;
   }
+}
+.category .selected {
+  background-color: var(--green);
+  color: var(--white);
+}
+.category .deselected {
+  background-color: var(--white);
+  color: var(--green);
 }

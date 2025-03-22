@@ -4,7 +4,6 @@ import React from 'react';
 import Dropdown from '@/components/Dropdown';
 import styles from './Category.module.css';
 
-// 카테고리 및 정렬 옵션을 관리하는 컴포넌트
 interface CategoryProps {
   categories: string[];
   selectedCategory: string | null;
@@ -13,13 +12,13 @@ interface CategoryProps {
   onSortChange: (value: string) => void;
 }
 
-const Category: React.FC<CategoryProps> = ({
+export default function Category({
   categories,
   selectedCategory,
   selectedSort,
   onCategoryClick,
   onSortChange,
-}) => {
+}: CategoryProps) {
   const sortOptions = [
     { value: 'latest', label: '최신순' },
     { value: 'most_reviewed', label: '리뷰많은순' },
@@ -33,15 +32,12 @@ const Category: React.FC<CategoryProps> = ({
         {categories.map((category) => (
           <li
             key={category}
-            className={styles.item}
+            className={`${styles.item} ${
+              selectedCategory === category
+                ? styles.selected
+                : styles.deselected
+            }`}
             onClick={() => onCategoryClick(category)}
-            style={{
-              color:
-                selectedCategory === category ? 'var(--white)' : 'var(--green)',
-              backgroundColor:
-                selectedCategory === category ? 'var(--green)' : 'var(--white)',
-              cursor: 'pointer',
-            }}
           >
             {category}
           </li>
@@ -54,6 +50,4 @@ const Category: React.FC<CategoryProps> = ({
       />
     </div>
   );
-};
-
-export default Category;
+}

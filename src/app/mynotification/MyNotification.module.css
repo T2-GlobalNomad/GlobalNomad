@@ -1,12 +1,30 @@
-.container {
+.wrapper {
   display: flex;
-  flex-direction: column;
-  max-width: 800px;
+  align-items: flex-start;
+  flex-wrap: wrap;
   width: 100%;
-  margin: 72px auto 0; 
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 0;
+  gap: 52px;
 }
 
-.dropdownTitle{
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  max-width: 800px;
+  width: 100%;
+  margin: 72px auto 0;
+}
+
+.dropdownTitle {
   font-size: 12px;
   font-weight: 400;
   margin-bottom: 4px;
@@ -26,6 +44,9 @@
 }
 
 @media (max-width: 768px) {
+  .wrapper {
+    gap: 0px;
+  }
   .container {
     width: 100%;
   }

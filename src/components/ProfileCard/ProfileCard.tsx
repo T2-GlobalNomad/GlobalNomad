@@ -1,5 +1,8 @@
 'use client';
 
+// 사용법
+// <ProfileCard activeTab='mynotification(본인 탭 앤드포인트)' />
+
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';

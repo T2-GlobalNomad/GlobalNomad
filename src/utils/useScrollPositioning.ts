@@ -1,4 +1,3 @@
-
 import { Reservation } from '@/lib/types';
 import { InfiniteData } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';

@@ -5,9 +5,9 @@ import { SetStateAction, useState } from 'react';
 import CustomButton from '@/components/CustomButton';
 import styles from '../style.module.css';
 import { RESERVATION_STATUS } from '@/constants/ReservationStatus';
-import useFormatDate from '@/utils/useFormatDate';
 import { Reservation } from '@/lib/types';
 import { isPastDateTime } from '@/utils/dateUtils';
+import FormattedDate from '@/utils/formattedDate';
 
 interface Props {
   reservationsData: Reservation[] | undefined;
@@ -15,7 +15,8 @@ interface Props {
   setModalType: React.Dispatch<SetStateAction<string>>;
   setIsModalMessage: React.Dispatch<SetStateAction<string>>;
   handleNavigate: (activityId: string) => void;
-  setCancelId: React.Dispatch<SetStateAction<number | undefined>>;
+  setReservationId: React.Dispatch<SetStateAction<number | undefined>>;
+  setIsReviewData: React.Dispatch<SetStateAction<Reservation | undefined>>;
 }
 
 export default function ReservationItem({
@@ -24,7 +25,8 @@ export default function ReservationItem({
   setShowModal,
   setIsModalMessage,
   handleNavigate,
-  setCancelId,
+  setReservationId,
+  setIsReviewData,
 }: Props) {
   const cancelReservationButton: React.CSSProperties = {
     padding: '8px 20px',
@@ -46,20 +48,18 @@ export default function ReservationItem({
     setImageSrcMap((prev) => ({ ...prev, [id]: '/images/no_thumbnail.png' }));
   };
 
-  function FormattedDate(date: string) {
-    const formatted = useFormatDate(date);
-
-    return <span>{formatted.slice(0, formatted.length - 1)}</span>;
-  }
-
   function handleCancelReservation(id: number | undefined) {
     setModalType('cancel');
     setShowModal(true);
     setIsModalMessage('예약을 취소하시겠어요?');
-    setCancelId(id);
+    setReservationId(id);
   }
 
-  function handleWriteReview() {}
+  function handleWriteReview(reservation: Reservation) {
+    setModalType('review');
+    setShowModal(true);
+    setIsReviewData(reservation);
+  }
 
   return (
     <>
@@ -141,7 +141,10 @@ export default function ReservationItem({
                 ) : statusInfo.text === '체험 완료' ? (
                   <CustomButton
                     style={writeReviewButton}
-                    onClick={handleWriteReview}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleWriteReview(reservation);
+                    }}
                   >
                     후기 작성
                   </CustomButton>

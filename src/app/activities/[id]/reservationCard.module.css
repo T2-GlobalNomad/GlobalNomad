@@ -1,0 +1,167 @@
+.priceSection {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-lighter);
+  padding-bottom: 11px;
+  margin-bottom: 15px;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 42px;
+  color: var(--nomad-black);
+}
+
+.perPerson {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+  color: var(--gray-dark);
+}
+
+.infoSection {
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--gray-lighter);
+}
+
+.dateLabel {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  color: var(--nomad-black);
+  margin-bottom: 16px;
+}
+
+
+.availableTimes {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  margin-bottom: 15px;
+  color: var(--nomad-black);
+}
+
+.timeButton {
+  padding: 10px 12px;
+}
+
+.timeButton:hover {
+  background-color: var(--gray-lighter);
+}
+
+.calendar {
+  border: 1px solid var(--gray-lightest);
+  border-radius: 8px;
+  padding: 10px;
+  width: 305px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--white);
+  margin: 0 auto 16px;
+}
+
+.calendar :global(.react-calendar__navigation) {
+  width: 250px;
+  height: 29px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.calendar :global(.react-calendar__navigation__label__labelText) {
+  font-family: Open Sans;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.calendar :global(.react-calendar__month-view__weekdays) {
+  width: 250px;
+  height: 32px;
+  margin: 0 auto;
+  font-family: Open Sans;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  color: var(--gray-dark);
+}
+
+.calendar :global(.react-calendar__month-view__weekdays abbr) {
+  text-decoration: none !important;
+}
+
+.calendar :global(.react-calendar__month-view__days) {
+  width: 250px;
+  font-family: Open Sans;
+}
+
+.calendar :global(.react-calendar__month-view__days__day) {
+  height: 32px;
+  font-family: Open Sans;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.calendar :global(.react-calendar__month-view__days__day:disabled) {
+  color: var(--gray-dark);
+  cursor: default;
+}
+
+.calendar :global(.react-calendar__month-view__days__day--neighboringMonth:disabled) {
+  color: var(--gray-light);
+}
+
+.calendar :global(.react-calendar__month-view__days__day:not(:disabled)) {
+  background-color: var(--gray-green);
+  border-radius: 8px;
+  color: var(--green);
+}
+
+.calendar :global(.react-calendar__month-view__days__day:not(:disabled):hover) {
+  background-color: var(--light-green);
+}
+
+.calendar :global(.react-calendar__tile--active) {
+  background-color: var(--green) !important;
+  color: var(--white) !important;
+}
+
+.headCountButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 120px;
+  height: 40px;
+  border-radius: 6px;
+  margin-bottom: 24px;
+  border: 1px solid var(--gray-muted);
+}
+
+.headButton {
+  width: 40px;
+  height: 40px;
+}
+
+.reservationButton {
+  width: 100%;
+  height: 56px;
+  margin-bottom: 23px;
+}
+
+.reservationButton:hover{
+  background-color: var(--green);
+}
+
+.totalSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--gray-lighter);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+}

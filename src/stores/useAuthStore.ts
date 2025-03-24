@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
  * user {id,email,nickname,createdAt,updatedAt,profileImgUrl}을 얻을 수 있다.
  * const { user } = useAuthStore();
  * <p>{user.id}</p>
+ *
  * @author 남기연
  */
 

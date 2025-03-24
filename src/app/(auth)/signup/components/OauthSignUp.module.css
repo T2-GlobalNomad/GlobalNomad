@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.header::before,
+.header::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid #ccc;
+}
+
+.text {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--gray);
+}

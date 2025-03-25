@@ -38,8 +38,14 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 26px;
-  margin-bottom: 15px;
+  margin: 11px 0 15px;
   color: var(--nomad-black);
+}
+
+.timeButtonSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .timeButton {

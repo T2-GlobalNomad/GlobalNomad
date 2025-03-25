@@ -6,10 +6,12 @@ import Calendar from 'react-calendar';
 import styles from './reservationCard.module.css';
 import { Schedules } from '@/lib/types';
 import CustomButton from '@/components/CustomButton';
+import { postReservation } from '@/lib/reservation';
 
 interface ReservationCardProps {
   price: number;
   schedules: Schedules[];
+  activityId: number;
 }
 
 type ValuePiece = Date | null;
@@ -19,6 +21,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 export default function ReservationCard({
   price,
   schedules,
+  activityId,
 }: ReservationCardProps) {
   const [headCount, setHeadCound] = useState<number>(1);
   const [date, setDate] = useState<Value>(new Date(schedules[0].date));
@@ -29,6 +32,7 @@ export default function ReservationCard({
         new Date(schedules[0].date).toDateString(),
     ),
   );
+  const [selectedScheduleId, setSelectedScheduleId] = useState<number>(0);
 
   const handleDateChange = (selectedDate: Value) => {
     setDate(selectedDate);
@@ -40,6 +44,11 @@ export default function ReservationCard({
     );
 
     setSelectedSchedules(matchingSchedules);
+    setSelectedScheduleId(0);
+  };
+
+  const handleScheduleSelect = (scheduleId: number) => {
+    setSelectedScheduleId(scheduleId);
   };
 
   const handleMinusClick = () => {
@@ -49,6 +58,19 @@ export default function ReservationCard({
 
   const handlePlusClick = () => {
     setHeadCound((prev) => prev + 1);
+  };
+
+  const handlePostReservation = async () => {
+    try {
+      const reservationData = {
+        scheduleId: selectedScheduleId,
+        headCount,
+      };
+      await postReservation(activityId, reservationData);
+      console.log('예약이 완료되었습니다!');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -83,19 +105,22 @@ export default function ReservationCard({
         <div>
           <p className={styles.availableTimes}>예약 가능한 시간</p>
           {selectedSchedules.length > 0 ? (
-            <>
+            <div className={styles.timeButtonSection}>
               {selectedSchedules.map((schedule) => (
                 <CustomButton
                   key={schedule.id}
                   className={styles.timeButton}
                   fontSize='md'
-                  variant='white'
+                  variant={
+                    selectedScheduleId === schedule.id ? 'black' : 'white'
+                  }
                   style={{ fontWeight: 500 }}
+                  onClick={() => handleScheduleSelect(schedule.id)}
                 >
                   {schedule.startTime} ~ {schedule.endTime}
                 </CustomButton>
               ))}
-            </>
+            </div>
           ) : (
             <p>해당 날짜에 예약 가능한 시간이 없습니다.</p>
           )}
@@ -123,6 +148,8 @@ export default function ReservationCard({
         type='submit'
         className={styles.reservationButton}
         fontSize='md'
+        disabled={!selectedScheduleId}
+        onClick={handlePostReservation}
       >
         예약하기
       </CustomButton>

@@ -15,7 +15,7 @@ interface Props {
   setModalType: React.Dispatch<SetStateAction<string>>;
   setIsModalMessage: React.Dispatch<SetStateAction<string>>;
   handleNavigate: (activityId: string) => void;
-  setCancelId: React.Dispatch<SetStateAction<number | undefined>>;
+  setReservationId: React.Dispatch<SetStateAction<number | undefined>>;
 }
 
 export default function ReservationItem({
@@ -24,7 +24,7 @@ export default function ReservationItem({
   setShowModal,
   setIsModalMessage,
   handleNavigate,
-  setCancelId,
+  setReservationId: setReservationId,
 }: Props) {
   const cancelReservationButton: React.CSSProperties = {
     padding: '8px 20px',
@@ -56,10 +56,14 @@ export default function ReservationItem({
     setModalType('cancel');
     setShowModal(true);
     setIsModalMessage('예약을 취소하시겠어요?');
-    setCancelId(id);
+    setReservationId(id);
   }
 
-  function handleWriteReview() {}
+  function handleWriteReview(id: number | undefined) {
+    setModalType('review');
+    setShowModal(true);
+    setReservationId(id);
+  }
 
   return (
     <>
@@ -141,7 +145,10 @@ export default function ReservationItem({
                 ) : statusInfo.text === '체험 완료' ? (
                   <CustomButton
                     style={writeReviewButton}
-                    onClick={handleWriteReview}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleWriteReview(reservation.id);
+                    }}
                   >
                     후기 작성
                   </CustomButton>

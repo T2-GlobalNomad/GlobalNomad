@@ -22,7 +22,7 @@ export default function ListContainer({ reservationsData }: Props) {
 
   const [modalType, setModalType] = useState('');
   const [showToast, setShowToast] = useState(false);
-  const [cancelId, setCancelId] = useState<number>();
+  const [reservationId, setReservationId] = useState<number>();
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
     useModalController();
@@ -36,7 +36,7 @@ export default function ListContainer({ reservationsData }: Props) {
           setShowModal={setShowModal}
           isModalMessage={isModalMessage}
           setShowToast={setShowToast}
-          cancelId={cancelId}
+          reservationId={reservationId}
         />
       )}
 
@@ -47,7 +47,7 @@ export default function ListContainer({ reservationsData }: Props) {
           setModalType={setModalType}
           setShowModal={setShowModal}
           setIsModalMessage={setIsModalMessage}
-          setCancelId={setCancelId}
+          setReservationId={setReservationId}
         />
       </ul>
 

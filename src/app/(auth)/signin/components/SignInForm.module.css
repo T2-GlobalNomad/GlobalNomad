@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+
+  max-width: 640px;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+}
+
+.error {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--red);
+}

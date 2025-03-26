@@ -8,7 +8,7 @@ import { Activities } from '@/lib/types';
 const fetchMyActivities = async (): Promise<Activities[]> => {
   try {
     const response = await instance.get('/my-activities');
-    console.log('API 응답 데이터:', response.data);
+    //console.log('API 응답 데이터:', response.data);
     return response.data.activities;
   } catch (error: unknown) {
     console.error('API 요청 실패:', error);

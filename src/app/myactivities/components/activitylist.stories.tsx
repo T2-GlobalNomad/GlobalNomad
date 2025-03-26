@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import ActivityList from "./activitylist"; // ✅ 대소문자 확인
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { Meta, StoryObj } from '@storybook/react';
+import ActivityList from './activitylist'; // ✅ 대소문자 확인
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
 const meta = {
-  title: "My Activities/ActivityList",
+  title: 'My Activities/ActivityList',
   component: ActivityList,
   decorators: [
     (Story) => (

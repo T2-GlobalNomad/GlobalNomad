@@ -114,13 +114,20 @@ export interface User {
  * @type {string} createdAt - 생성일
  * @type {string} updatedAt - 수정일
  */
+
+interface ReservationActivity {
+  bannerImageUrl?: string;
+  id: number;
+  title: string;
+}
+
 export interface Reservation {
   id?: number;
   teamId?: number;
   userId?: number;
-  activityId?: number;
+  activity: ReservationActivity;
   scheduleId?: number;
-  status?: 'pending' | 'confirmed' | 'declined';
+  status?: 'pending' | 'confirmed' | 'declined' | 'canceled' | 'completed';
   reviewSubmitted?: boolean;
   totalPrice?: number;
   headCount?: number;

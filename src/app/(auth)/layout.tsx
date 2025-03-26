@@ -22,6 +22,7 @@ export default function AuthLayout({
           alt='로고 이미지'
           width={340}
           height={192}
+          priority
         />
       </Link>
       {children}

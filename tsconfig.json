@@ -2,11 +2,7 @@
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -27,15 +23,18 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": [
+      "react",
+      "react-dom"
+    ]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/context/AuthProvider.tsㅌ"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

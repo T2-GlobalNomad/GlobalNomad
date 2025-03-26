@@ -22,7 +22,7 @@ export default function NavProfileCard() {
           </Link>
         </li>
         <li className={styles.menu}>
-          <Link href='/myReservation' className={styles.link}>
+          <Link href='/myreservation' className={styles.link}>
             <Image
               src='/images/icon_menu2.svg'
               width={24}
@@ -34,7 +34,7 @@ export default function NavProfileCard() {
           </Link>
         </li>
         <li className={styles.menu}>
-          <Link href='/activities' className={styles.link}>
+          <Link href='/myactivities' className={styles.link}>
             <Image
               src='/images/icon_menu3.svg'
               width={24}
@@ -46,7 +46,7 @@ export default function NavProfileCard() {
           </Link>
         </li>
         <li className={styles.menu}>
-          <Link href='' className={styles.link}>
+          <Link href='mynotification' className={styles.link}>
             <Image
               src='/images/icon_menu4.svg'
               width={24}

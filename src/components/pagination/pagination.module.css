@@ -1,117 +1,69 @@
 
 .container{
+  margin: 0 auto 80px;
   display: flex;
+  justify-content: center;
   gap: 5px;
+
+  @media (max-width: 375px) { 
+    padding: 0 16px; 
+    gap: 4px;
+  }
 }
 
-@media(max-width: 320px){
+.prevGroup {
+  background-image: url("/images/pagination_prev_arrow.png");
+}
+.nextGroup {
+  background-image: url("/images/pagination_arrow.png");
+}
+.prevGroup,
+.nextGroup {
+  background-color: var(--white);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 7px 12px;
+  width: 55px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--green);
+  border-radius: 15px;
 
-    .prevGroup {
-      border-radius: 15px;
-      width: 40px;
-      height: 40px;
-      background-color: var(--white);
-      background-image: url("/images/pagination_prev_arrow.png");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: 5px 9px;
-      border: 1px solid var(--green);
-    }
-    .nextGroup {
-      border-radius: 15px;
-      width: 40px;
-      height: 40px;
-      background-color: var(--white);
-      background-image: url("/images/pagination_arrow.png");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: 5px 9px;
-      border: 1px solid var(--green);
-    }
-    
-    .pagebutton {
-      border-radius: 15px;
-      width: 40px;
-      height: 40px;
-      color: var(--green);
-      background-color: var(--white);
-      cursor: pointer;
-      border: 1px solid var(--green);
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 400;
-    }
-    
-    .pagebuttonactive {
-      border-radius: 15px;
-      width: 40px;
-      height: 40px;
-      color: var(--white);
-      background-color: var(--green);
-      border: 1px solid var(--green);
-      cursor: pointer;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 400;
-    }
-    
-    }
-    
-    
-    .prevGroup {
-      border-radius: 15px;
-      width: 55px;
-      height: 55px;
-      background-color: var(--white);
-      background-image: url("/images/pagination_prev_arrow.png");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: 7px 12px;
-      border: 1px solid var(--green);
-    }
-    .nextGroup {
-      border-radius: 15px;
-      width: 55px;
-      height: 55px;
-      background-color: var(--white);
-      background-image: url("/images/pagination_arrow.png");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: 7px 12px;
-      border: 1px solid var(--green);
-    }
-    
-    .pagebutton {
-      border-radius: 15px;
-      width: 55px;
-      height: 55px;
-      color: var(--green);
-      background-color: var(--white);
-      cursor: pointer;
-      border: 1px solid var(--green);
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 400;
-    }
-    
-    .pagebuttonactive {
-      border-radius: 15px;
-      width: 55px;
-      height: 55px;
-      color: var(--white);
-      background-color: var(--green);
-      border: 1px solid var(--green);
-      cursor: pointer;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 400;
-    }
+  @media (max-width: 640px) {
+    max-width: 50px;
+  }
+  @media (max-width: 450px) {
+    max-width: 40px;
+    background-size: 5px 9px;
+  }
+}
 
+.pagebutton,
+.pagebuttonactive {
+  font-size: 18px;
+  font-weight: 400;
+  width: 55px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--green);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  @media (max-width: 640px) {
+    max-width: 50px;
+  }
+  @media (max-width: 450px) {
+    max-width: 40px;
+  }
+}
+.pagebutton {
+  color: var(--green);
+  background-color: var(--white);
+}
+.pagebuttonactive {
+  color: var(--white);
+  background-color: var(--green);
+}

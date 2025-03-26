@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import instance from '@/lib/api';
 import { Notification } from '@/lib/types';

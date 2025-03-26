@@ -1,4 +1,3 @@
-
 export function isPastDateTime(
   apiDate: string | undefined,
   apiTime: string | undefined,

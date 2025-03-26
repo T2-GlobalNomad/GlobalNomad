@@ -2,7 +2,7 @@
 
 import CustomButton from '@/components/CustomButton';
 import styles from './PostActivity.module.css';
-import usePostMyActivities from '@/hooks/query/usePostMyActivity';
+import usePostMyActivities from '@/hooks/usePostMyActivity';
 import { useActivityStore } from '@/stores/useActivityStore';
 import { useRouter } from 'next/navigation';
 

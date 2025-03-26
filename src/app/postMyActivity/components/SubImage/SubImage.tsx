@@ -4,7 +4,7 @@ import { Plus, X } from 'lucide-react';
 import Image from 'next/image';
 import styles from './SubImage.module.css';
 import { useActivityStore } from '@/stores/useActivityStore';
-import useUploadImagesMutation from '@/hooks/query/useImageUrl';
+import useUploadImagesMutation from '@/hooks/useImageUrl';
 
 export default function SubImage() {
   const fileInputRef = useRef<HTMLInputElement>(null);

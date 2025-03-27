@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import instance from '@/lib/api';
 import { User } from '@/lib/types';
+import useUser from '@/hooks/useUser';
 import Image from 'next/image';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
 import CustomButton from '@/components/CustomButton';
@@ -11,24 +11,16 @@ import Footer from '@/components/footer/Footer';
 import styles from './MyPage.module.css';
 
 export default function MyPage() {
-  const [myProfile, setMyProfile] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const fetchMyProfile = async () => {
-    try {
-      const response = await instance.get<User>('/users/me');
-      setMyProfile(response.data);
-    } catch (error) {
-      console.log('프로필 데이터를 가져오는 중 오류 발생:', error);
-    } finally {
-      setLoading(false);
-    }
+  const {
+    data: user = [],
+    isLoading,
+    error,
+  } = useUser() as {
+    data: User;
+    isLoading: boolean;
+    error: unknown;
   };
-
-  useEffect(() => {
-    fetchMyProfile();
-  }, []);
+  const [myProfile, setMyProfile] = useState<User | null>(null);
 
   const handleUpdate = (updateUserInfo: {
     nickname: string;

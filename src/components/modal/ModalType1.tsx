@@ -2,6 +2,7 @@ import { SetStateAction } from 'react';
 import CustomModal from './CustomModal';
 import CancelModal from '@/app/myreservation/components/CancelModal';
 import WriteReviewModal from '@/app/myreservation/components/WriteReviewModal';
+import { Reservation } from '@/lib/types';
 
 interface Props {
   modalType: string;
@@ -10,6 +11,7 @@ interface Props {
   isModalMessage: string;
   setShowToast: React.Dispatch<SetStateAction<boolean>>;
   reservationId: number | undefined;
+  isReviewData?: Reservation;
 }
 
 export default function ModalType1({
@@ -19,6 +21,7 @@ export default function ModalType1({
   isModalMessage,
   setShowToast,
   reservationId,
+  isReviewData,
 }: Props) {
   if (!showModal) return null;
 
@@ -27,14 +30,14 @@ export default function ModalType1({
       <CustomModal isOpen={showModal} onClose={() => setShowModal(false)}>
         {modalType === 'cancel' ? (
           <CancelModal
-          reservationId={reservationId}
+            reservationId={reservationId}
             setShowModal={setShowModal}
             isModalMessage={isModalMessage}
             setShowToast={setShowToast}
           />
         ) : modalType === 'review' ? (
           <WriteReviewModal
-          reservationId={reservationId}
+            isReviewData={isReviewData}
             setShowModal={setShowModal}
             setShowToast={setShowToast}
           />

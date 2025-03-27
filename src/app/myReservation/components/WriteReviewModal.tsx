@@ -1,35 +1,92 @@
+'use client';
+
 import Image from 'next/image';
 import styles from '@/components/modal/customModal.module.css';
 import CustomButton from '@/components/CustomButton';
-import { SetStateAction } from 'react';
+import { SetStateAction, useState } from 'react';
+import { Reservation } from '@/lib/types';
+import StarRating from '../../../components/rating/StarRating';
 
 interface Props {
-  reservationId: number | undefined;
+  isReviewData: Reservation | undefined;
   setShowModal: (value: boolean) => void;
   setShowToast: React.Dispatch<SetStateAction<boolean>>;
 }
 
 export default function WriteReviewModal({
-  reservationId,
+  isReviewData,
   setShowModal,
   setShowToast,
 }: Props) {
   const submitButton: React.CSSProperties = {
-    marginLeft: '8px',
+    width: '100%',
+    height: '56px',
+    borderRadius: '4px',
     fontWeight: '700',
     color: '#fff',
     background: '#121',
   };
 
-  // const { mutate: cancelReservation } = useCancelReservation(setShowToast);
-
   function handleWriteReview() {
     setShowModal(false);
   }
 
+  const { activity, date } = isReviewData ?? {};
+
+  const [imageSrcMap, setImageSrcMap] = useState<Record<string, string>>({});
+
+  const handleImageError = (id: string) => {
+    setImageSrcMap((prev) => ({ ...prev, [id]: '/images/no_thumbnail.png' }));
+  };
+
   return (
     <>
-      <div className={styles.contents}>
+      <div className={`${styles.contents} ${styles.review}`}>
+        <div className={styles.head}>
+          <p className={styles.title}>후기 작성</p>
+          <Image
+            className={styles.close}
+            src='/images/close_modal.svg'
+            width={40}
+            height={40}
+            alt='X'
+            onClick={() => setShowModal(false)}
+          />
+        </div>
+        <div className={styles.info}>
+          <div className={styles.thumbnail}>
+            <Image
+              src={
+                imageSrcMap[activity?.id!] ||
+                activity?.bannerImageUrl ||
+                '/images/no_thumbnail.png'
+              }
+              alt='썸네일'
+              fill
+              sizes='100vw'
+              style={{ objectFit: 'cover' }}
+              priority
+              onError={() => handleImageError(String(activity?.id))}
+            />
+          </div>
+          <div className={styles.detail}>
+            <div className={styles.top}>
+              <p>헬스클럽 신규 회원 모집</p>
+              <p>
+                <span>2025. 3. 25</span>
+                <span> · </span>13:00 - 14:00<span> · </span>2명
+              </p>
+            </div>
+            <p className={styles.bottom}>
+              ₩{isReviewData?.totalPrice?.toLocaleString('ko-KR')}
+            </p>
+          </div>
+        </div>
+        <StarRating totalStars={5} />
+        <textarea
+          className={styles.textarea}
+          placeholder='최대 글자수는 300자 입니다'
+        ></textarea>
         <div className={styles.buttonContainer}>
           <CustomButton
             type='button'

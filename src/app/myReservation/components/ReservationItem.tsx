@@ -16,6 +16,7 @@ interface Props {
   setIsModalMessage: React.Dispatch<SetStateAction<string>>;
   handleNavigate: (activityId: string) => void;
   setReservationId: React.Dispatch<SetStateAction<number | undefined>>;
+  setIsReviewData: React.Dispatch<SetStateAction<Reservation  | undefined>>;
 }
 
 export default function ReservationItem({
@@ -24,7 +25,8 @@ export default function ReservationItem({
   setShowModal,
   setIsModalMessage,
   handleNavigate,
-  setReservationId: setReservationId,
+  setReservationId,
+  setIsReviewData,
 }: Props) {
   const cancelReservationButton: React.CSSProperties = {
     padding: '8px 20px',
@@ -59,10 +61,10 @@ export default function ReservationItem({
     setReservationId(id);
   }
 
-  function handleWriteReview(id: number | undefined) {
+  function handleWriteReview(reservation: Reservation) {
     setModalType('review');
     setShowModal(true);
-    setReservationId(id);
+    setIsReviewData(reservation)
   }
 
   return (
@@ -147,7 +149,7 @@ export default function ReservationItem({
                     style={writeReviewButton}
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleWriteReview(reservation.id);
+                      handleWriteReview(reservation);
                     }}
                   >
                     후기 작성

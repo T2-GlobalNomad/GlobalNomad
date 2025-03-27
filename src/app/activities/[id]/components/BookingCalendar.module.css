@@ -1,38 +1,7 @@
-.priceSection {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--gray-lighter);
-  padding-bottom: 11px;
-  margin-bottom: 15px;
-}
-
-.price {
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 42px;
-  color: var(--nomad-black);
-}
-
-.perPerson {
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 32px;
-  color: var(--gray-dark);
-}
-
 .infoSection {
   padding-bottom: 15px;
   border-bottom: 1px solid var(--gray-lighter);
 }
-
-.dateLabel {
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 26px;
-  color: var(--nomad-black);
-  margin-bottom: 16px;
-}
-
 
 .availableTimes {
   font-weight: 700;
@@ -135,39 +104,8 @@
   color: var(--white) !important;
 }
 
-.headCountButton {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 120px;
-  height: 40px;
-  border-radius: 6px;
-  margin-bottom: 24px;
-  border: 1px solid var(--gray-muted);
-}
-
-.headButton {
-  width: 40px;
-  height: 40px;
-}
-
-.reservationButton {
-  width: 100%;
-  height: 56px;
-  margin-bottom: 23px;
-}
-
-.reservationButton:hover{
-  background-color: var(--green);
-}
-
-.totalSection {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 14px;
-  border-top: 1px solid var(--gray-lighter);
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 32px;
+@media (max-width: 1199) {
+  .infoSection {
+    border-bottom: none;
+  }  
 }

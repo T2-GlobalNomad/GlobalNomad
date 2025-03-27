@@ -1,13 +1,13 @@
 import { SetStateAction } from 'react';
 import CustomModal from './CustomModal';
-import CancelModal from '@/app/myReservation/components/CancelModal';
+import CancelModal from '@/app/myreservation/components/CancelModal';
 
 interface Props {
   modalType: string;
   showModal: boolean;
   setShowModal: (value: boolean) => void;
   isModalMessage: string;
-  setShowToast:React.Dispatch<SetStateAction<boolean>>;
+  setShowToast: React.Dispatch<SetStateAction<boolean>>;
   cancelId?: number;
 }
 
@@ -38,4 +38,3 @@ export default function ModalType1({
     </>
   );
 }
-

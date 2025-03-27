@@ -1,5 +1,6 @@
 import instance from '@/lib/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { SetStateAction } from 'react';
 
 const fetchCancelReservation = async (id?: number) => {
   if (!id) throw new Error('유효한 예약 ID가 없습니다.');
@@ -14,13 +15,17 @@ const fetchCancelReservation = async (id?: number) => {
   }
 };
 
-const useCancelReservation = () => {
+const useCancelReservation = (
+  setShowToast: (value: SetStateAction<boolean>) => void,
+) => {
   const queryClient = useQueryClient();
 
   return useMutation<void, Error, number>({
     mutationFn: fetchCancelReservation,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reservation'] });
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
     },
     onError: (error) => {
       console.error('삭제 중 오류 발생', error);

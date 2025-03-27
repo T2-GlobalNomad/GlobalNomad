@@ -17,7 +17,7 @@ const instance: AxiosInstance = axios.create({
   headers: {
 
 
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc1NiwidGVhbUlkIjoiMTItMiIsImlhdCI6MTc0Mjg3MzYzMiwiZXhwIjoxNzQyODc1NDMyLCJpc3MiOiJzcC1nbG9iYWxub21hZCJ9.XFdkLxV1klYi_JTm1qDOubnhE9Whih6KXnjoltcirTs`, // << 하드코딩으로 데이터 확인할 때
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc1NiwidGVhbUlkIjoiMTItMiIsImlhdCI6MTc0MzA0Mzk3MSwiZXhwIjoxNzQzMDQ1NzcxLCJpc3MiOiJzcC1nbG9iYWxub21hZCJ9.IROdcTP8G9Mbfmu5wTKdf3yH4O6kJ9O9XMIdmaFnDp4`, // << 하드코딩으로 데이터 확인할 때
 
     'Content-Type': 'application/json',
   },

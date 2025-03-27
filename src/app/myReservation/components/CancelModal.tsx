@@ -28,7 +28,7 @@ export default function CancelModal({
     background: '#121',
   };
 
-  const { mutate: cancelReservation } = useCancelReservation();
+  const { mutate: cancelReservation } = useCancelReservation(setShowToast);
 
   function handleCancelReservation() {
     setShowModal(false);
@@ -36,8 +36,6 @@ export default function CancelModal({
     if (cancelId) {
       try {
         cancelReservation(cancelId);
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 3000);
       } catch (error) {
         console.error(error);
       }

@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 100;
   background: var(--white);
   border-bottom: 1px solid var(--gray-lighter);
   font-size: 14px;
@@ -65,7 +65,10 @@
     align-items: center;
     cursor: pointer;
 
-    .noProfileImg {
+    & > .profileImg {
+      position:relative;
+      width: 32px;
+      height: 32px;
       margin-right: 10px;
       border-radius: 50%;
       border: 1px solid var(--gray-lightest);
@@ -99,8 +102,10 @@
     position: relative;
     width: calc(100vw * (100 / 640));
     height: calc(100vw * (100 / 640));
-    max-width: 100px;
-    max-height: 100px;
+    border-radius:50%;
+    overflow:hidden;
+    max-width: 90px;
+    max-height: 90px;
   }
 }
 

@@ -5,6 +5,8 @@ import CustomButton from '@/components/CustomButton';
 import ActivityList from './activitylist';
 
 export default function MyActivityContainer() {
+  const status = 'ALL'; // 또는 'APPROVED', 'PENDING' 등등 원하는 값
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -12,13 +14,14 @@ export default function MyActivityContainer() {
         <CustomButton
           href='/postMyActivity'
           fontSize='md'
-          className={`"customButton-black" ${styles.custombutton}`}
+          className={`customButton-black ${styles.custombutton}`}
         >
           체험 등록하기
         </CustomButton>
       </div>
+
       <div>
-        <ActivityList />
+        <ActivityList status={status} />
       </div>
     </div>
   );

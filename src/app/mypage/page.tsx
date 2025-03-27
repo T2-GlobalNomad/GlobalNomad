@@ -1,8 +1,7 @@
 'use client';
-
 import { useState, useEffect } from 'react';
-import instance from '@/lib/api';
 import { User } from '@/lib/types';
+import useUser from '@/hooks/query/useUser';
 import Image from 'next/image';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
 import CustomButton from '@/components/CustomButton';
@@ -11,24 +10,25 @@ import Footer from '@/components/footer/Footer';
 import styles from './MyPage.module.css';
 
 export default function MyPage() {
+  const {
+    data: user,
+    isLoading,
+    error,
+    refetch,
+  } = useUser() as {
+    data: User;
+    isLoading: boolean;
+    error: unknown;
+    refetch: () => void;
+  };
   const [myProfile, setMyProfile] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const fetchMyProfile = async () => {
-    try {
-      const response = await instance.get<User>('/users/me');
-      setMyProfile(response.data);
-    } catch (error) {
-      console.log('프로필 데이터를 가져오는 중 오류 발생:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchMyProfile();
-  }, []);
+    if (user) {
+      setMyProfile(user);
+    }
+  }, [user]);
 
   const handleUpdate = (updateUserInfo: {
     nickname: string;
@@ -44,10 +44,15 @@ export default function MyPage() {
           }
         : null,
     );
+    refetch();
     setIsModalOpen(false);
   };
 
-  if (loading) return <div>로딩 중...</div>;
+  if (isLoading) return <div>로딩 중...</div>;
+  if (error) {
+    console.error(error);
+    return <div>에러가 발생했습니다.</div>;
+  }
 
   return (
     <>

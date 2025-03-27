@@ -1,4 +1,4 @@
-export function useDateUtils(
+export function isPastDateTime(
   apiDate: string | undefined,
   apiTime: string | undefined,
 ): boolean {

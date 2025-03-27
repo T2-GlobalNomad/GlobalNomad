@@ -1,12 +1,36 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './nav.module.css';
+import { useAuthStore } from '@/stores/useAuthStore';
 
-export default function NavProfileCard() {
+interface Props {
+  imageSrcMap: Record<string, string>;
+  handleImageError: (id: string) => void;
+}
+
+export default function NavProfileCard({
+  imageSrcMap,
+  handleImageError,
+}: Props) {
+  const { user } = useAuthStore();
+
   return (
     <div className={styles.profileCardContainer}>
       <div className={styles.profileImg}>
-        <Image src='/images/no_profileImg.svg' fill alt='프로필 이미지' />
+        <Image
+          src={
+            imageSrcMap[user?.id!] ||
+            user?.profileImageUrl ||
+            '/images/no_profileImg.svg'
+          }
+          fill
+          alt='프로필 이미지'
+          style={{ objectFit: 'cover' }}
+          priority
+          onError={() => handleImageError(String(user?.id))}
+        />
       </div>
       <ul className={styles.menuContainer}>
         <li className={styles.menu}>

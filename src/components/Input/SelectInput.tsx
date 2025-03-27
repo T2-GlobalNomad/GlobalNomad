@@ -29,6 +29,10 @@ interface OptionType {
   label: string;
 }
 
+interface SelectInputProps {
+  onChange?: (value: string) => void;
+}
+
 // SSR 문제 해결을 위해 클라이언트 전용으로 동적 임포트
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
@@ -75,13 +79,17 @@ const CustomOption = (
   );
 };
 
-export default function SelectInput() {
+export default function SelectInput({ onChange }: SelectInputProps) {
   // 선택된 value값 저장, eslint설정으로 오류가 나오는데 나중에 쓸때 사라집니다.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentValue, setCurrentValue] = useState<string>('');
 
   const handleSelect = (value: string) => {
     setCurrentValue(value);
+
+    if (onChange) {
+      onChange(value);
+    }
   };
 
   return (

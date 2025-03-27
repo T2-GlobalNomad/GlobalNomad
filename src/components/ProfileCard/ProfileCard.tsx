@@ -2,12 +2,12 @@
 
 // 사용법
 // <ProfileCard activeTab='mynotification(본인 탭 앤드포인트)' />
-
-import { useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
+import useUser from '@/hooks/query/useUser';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './ProfileCard.module.css'; // 모듈 CSS import
-import instance from '@/lib/api';
+import styles from './ProfileCard.module.css';
+import { User } from '@/lib/types';
 
 type ActiveTab = 'mypage' | 'myactivities' | 'myreservation' | 'mynotification';
 
@@ -20,18 +20,18 @@ const tab = [
     activeImg: '/images/icon_menu1_active.svg',
   },
   {
-    key: 'myactivities',
+    key: 'myreservation',
     label: '예약 내역',
-    href: '/myactivities',
+    href: '/myreservation',
     img: '/images/icon_menu2.svg',
     activeImg: '/images/icon_menu2_active.svg',
   },
   {
-    key: 'myreservation',
+    key: 'myactivities',
     label: '내 체험 관리',
-    href: '/myreservation',
+    href: '/myactivities',
     img: '/images/icon_menu3.svg',
-    activeImg: '/images/icon_menu3_active.svg',
+    activeImg: '/images/icon_menu2_active.svg',
   },
   {
     key: 'mynotification',
@@ -42,26 +42,34 @@ const tab = [
   },
 ];
 
-export default function ProfileCard({ activeTab }: { activeTab: ActiveTab }) {
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+type ProfileCardProps = {
+  activeTab?: ActiveTab;
+};
 
-  useEffect(() => {
-    const fetchProfileImage = async () => {
-      try {
-        const response = await instance.get('/users/me');
-        setProfileImage(response.data.profileImageUrl);
-      } catch (error) {
-        console.log('프로필 이미지 불러오기 실패', error);
-      }
-    };
-    fetchProfileImage();
-  }, []);
+const ProfileCard = ({
+  activeTab = 'mynotification',
+}: ProfileCardProps): ReactElement => {
+  const {
+    data: user,
+    isLoading,
+    error,
+  } = useUser() as {
+    data: User;
+    isLoading: boolean;
+    error: unknown;
+  };
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (error) {
+    console.error(error);
+    return <div>에러가 발생했습니다.</div>;
+  }
 
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
         <Image
-          src={profileImage || '/defaultProfile.svg'}
+          src={user?.profileImageUrl || '/images/defaultProfile.svg'}
           alt='프로필 이미지'
           width={160}
           height={160}
@@ -90,4 +98,6 @@ export default function ProfileCard({ activeTab }: { activeTab: ActiveTab }) {
       </nav>
     </div>
   );
-}
+};
+
+export default ProfileCard;

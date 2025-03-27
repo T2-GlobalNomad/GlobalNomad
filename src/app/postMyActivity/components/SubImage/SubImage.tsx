@@ -6,8 +6,6 @@ import styles from './SubImage.module.css';
 import { useActivityStore } from '@/stores/useActivityStore';
 import useUploadImagesMutation from '@/hooks/useImageUrl';
 
-
-
 export default function SubImage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { activity, setActivity } = useActivityStore();
@@ -19,7 +17,7 @@ export default function SubImage() {
     if (!files) return;
 
     const validFiles = Array.from(files).filter((file) =>
-      file.type.startsWith('image/')
+      file.type.startsWith('image/'),
     );
 
     validFiles.forEach((file) => {
@@ -46,7 +44,7 @@ export default function SubImage() {
 
   useEffect(() => {
     const objectUrls = activity.subImageFiles.map((file) =>
-      URL.createObjectURL(file)
+      URL.createObjectURL(file),
     );
     setPreviewUrls(objectUrls);
 
@@ -66,10 +64,10 @@ export default function SubImage() {
       <p className={styles.title}>서브 이미지</p>
       <div className={styles.container}>
         {/* 업로드 버튼 */}
-        <label htmlFor="subImageUpload" className={styles.uploadButton}>
+        <label htmlFor='subImageUpload' className={styles.uploadButton}>
           <Image
-            src="/images/postImage.png"
-            alt="upload"
+            src='/images/postImage.png'
+            alt='upload'
             width={180}
             height={180}
             className={styles.buttonImg}
@@ -82,7 +80,7 @@ export default function SubImage() {
 
         {/* 이미지 프리뷰 */}
         <div className={styles.imagePreviewContainer}>
-        {previewUrls.map((url, index) => (
+          {previewUrls.map((url, index) => (
             <div key={index} className={styles.imageItem}>
               <div className={styles.imageWrapper}>
                 <Image
@@ -106,14 +104,16 @@ export default function SubImage() {
 
       <input
         ref={fileInputRef}
-        type="file"
-        id="subImageUpload"
-        accept="image/*"
+        type='file'
+        id='subImageUpload'
+        accept='image/*'
         multiple
         onChange={handleImageChange}
         className={styles.hiddenInput}
       />
-      <p className={styles.imageAlert}>*이미지는 최대 4개까지 등록 가능합니다.</p>
+      <p className={styles.imageAlert}>
+        *이미지는 최대 4개까지 등록 가능합니다.
+      </p>
     </div>
   );
 }

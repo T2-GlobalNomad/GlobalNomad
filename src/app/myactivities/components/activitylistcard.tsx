@@ -19,8 +19,8 @@ export default function ActivityListCard({
         <Image
           src={activities.bannerImageUrl!}
           alt={activities.title!}
-          width={400}
-          height={400}
+          width={204}
+          height={204}
         />
       </div>
 
@@ -43,7 +43,7 @@ export default function ActivityListCard({
           <p className={styles.price}>
             ₩{new Intl.NumberFormat('ko-KR').format(activities.price!)} / 인
           </p>
-          <KebabDropdown />
+          <KebabDropdown activityId={activities.id!} />
         </div>
       </div>
     </div>

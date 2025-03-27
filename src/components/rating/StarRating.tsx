@@ -1,17 +1,65 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styles from './rating.module.css';
 
 export default function StarRating({ totalStars = 5 }) {
   const [rating, setRating] = useState(1);
+  const [isInteracting, setIsInteracting] = useState(false);
+
+  const handleSetRating = (index: number) => {
+    setRating(index + 1);
+  };
+
+  const handleMouseDown = (index: number) => {
+    setIsInteracting(true);
+    handleSetRating(index);
+  };
+
+  const handleMouseMove = (index: number) => {
+    if (isInteracting) handleSetRating(index);
+  };
+
+  const handleMouseUp = () => {
+    setIsInteracting(false);
+  };
+
+  const handleTouchStart = (event: React.TouchEvent) => {
+    setIsInteracting(true);
+    handleTouchMove(event);
+  };
+
+  const handleTouchMove = (event: React.TouchEvent) => {
+    if (!isInteracting) return;
+
+    const touchX = event.touches[0].clientX;
+    const starElements = document.querySelectorAll(`.${styles.star}`);
+    starElements.forEach((star, index) => {
+      const { left, right } = star.getBoundingClientRect();
+      if (touchX >= left && touchX <= right) {
+        handleSetRating(index);
+      }
+    });
+  };
+
+  const handleTouchEnd = () => {
+    setIsInteracting(false);
+  };
 
   return (
-    <div className={styles.starContainer}>
+    <div
+      className={styles.starContainer}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+      onTouchEnd={handleTouchEnd}
+    >
       {[...Array(totalStars)].map((_, index) => {
         const starValue = index + 1;
         return (
           <svg
             key={index}
-            onClick={() => setRating(starValue)}
+            onMouseDown={() => handleMouseDown(index)}
+            onMouseMove={() => handleMouseMove(index)}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
             className={`${styles.star} ${
               starValue <= rating ? styles.filled : styles.empty
             }`}

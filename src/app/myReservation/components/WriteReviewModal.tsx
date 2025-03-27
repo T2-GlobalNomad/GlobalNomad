@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import styles from '@/components/modal/customModal.module.css';
 import CustomButton from '@/components/CustomButton';
-import { SetStateAction, useState } from 'react';
+import { ChangeEvent, SetStateAction, useState } from 'react';
 import { Reservation } from '@/lib/types';
 import StarRating from '../../../components/rating/StarRating';
 import FormattedDate from '@/utils/formattedDate';
@@ -22,22 +22,27 @@ export default function WriteReviewModal({
   const submitButton: React.CSSProperties = {
     width: '100%',
     height: '56px',
-    borderRadius: '4px',
     fontWeight: '700',
     color: '#fff',
-    background: '#121',
   };
 
-  function handleWriteReview() {
-    setShowModal(false);
-  }
+  const [rating, setRating] = useState(1);
+  const [isValue, setIsValue] = useState('');
+  const [imageSrcMap, setImageSrcMap] = useState<Record<string, string>>({});
 
   const { activity, date } = isReviewData ?? {};
 
-  const [imageSrcMap, setImageSrcMap] = useState<Record<string, string>>({});
+  const handleWriteReview = () => {
+    setShowModal(false);
+  };
 
   const handleImageError = (id: string) => {
     setImageSrcMap((prev) => ({ ...prev, [id]: '/images/no_thumbnail.png' }));
+  };
+
+  const handleValueChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    let { value } = e.target;
+    setIsValue(value);
   };
 
   return (
@@ -86,11 +91,12 @@ export default function WriteReviewModal({
             </p>
           </div>
         </div>
-        <StarRating totalStars={5} />
+        <StarRating totalStars={5} rating={rating} setRating={setRating} />
         <textarea
           className={styles.textarea}
           maxLength={300}
           placeholder='최대 글자수는 300자 입니다'
+          onChange={handleValueChange}
         />
         <div className={styles.buttonContainer}>
           <CustomButton
@@ -99,6 +105,7 @@ export default function WriteReviewModal({
             variant='black'
             style={submitButton}
             onClick={handleWriteReview}
+            disabled={isValue === ''}
           >
             작성하기
           </CustomButton>

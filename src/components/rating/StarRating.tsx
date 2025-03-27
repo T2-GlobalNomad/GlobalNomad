@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { SetStateAction, useState } from 'react';
 import styles from './rating.module.css';
 
-export default function StarRating({ totalStars = 5 }) {
-  const [rating, setRating] = useState(1);
+interface Props {
+  totalStars: number;
+  rating: number;
+  setRating: React.Dispatch<SetStateAction<number>>;
+}
+
+export default function StarRating({ totalStars, rating, setRating }: Props) {
   const [isInteracting, setIsInteracting] = useState(false);
 
   const handleSetRating = (index: number) => {

@@ -6,7 +6,9 @@ import { useActivityStore } from '@/stores/useActivityStore';
 
 // API 요청
 const uploadActivityImages = async (
+
   formData: FormData,    // eslint-disable-line @typescript-eslint/no-unused-vars
+
 ): Promise<{ bannerImageUrl: string; subImageUrls: string[] }> => {
   const { bannerImageFile, subImageFiles } =
     useActivityStore.getState().activity;

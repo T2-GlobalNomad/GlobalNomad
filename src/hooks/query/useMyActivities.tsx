@@ -1,5 +1,6 @@
 'use client';
 
+
 import { useInfiniteQuery } from '@tanstack/react-query';
 import instance from '@/lib/api';
 import { Activities } from '@/lib/types';
@@ -31,10 +32,12 @@ const fetchMyActivities = async ({
   } catch (error: unknown){
     console.error('API 요청 실패:', error);
     throw new Error('데이터를 불러오는데 실패했습니다.');
+
   }
 };
 
 // React Query 훅
+
 const useMyActivities = (status:string) => {
   return useInfiniteQuery({
     queryKey: ['myActivities', status],
@@ -44,6 +47,7 @@ const useMyActivities = (status:string) => {
       return lastPage.nextPage ?? undefined;
     },
     staleTime: 1000 * 60* 5,
+
   });
 };
 

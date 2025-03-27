@@ -6,7 +6,7 @@ import CustomButton from '@/components/CustomButton';
 import { SetStateAction, useState } from 'react';
 import { Reservation } from '@/lib/types';
 import StarRating from '../../../components/rating/StarRating';
-import formattedDate from '@/utils/formattedDate';
+import FormattedDate from '@/utils/formattedDate';
 
 interface Props {
   isReviewData: Reservation | undefined;
@@ -72,9 +72,9 @@ export default function WriteReviewModal({
           </div>
           <div className={styles.detail}>
             <div className={styles.top}>
-              <p>{activity?.title}</p>
-              <p>
-                {formattedDate(date!)}
+              <p className={styles.title}>{activity?.title}</p>
+              <p className={styles.date}>
+                {FormattedDate(date!)}
                 <span> · </span>
                 {isReviewData?.startTime} - {isReviewData?.endTime}
                 <span> · </span>

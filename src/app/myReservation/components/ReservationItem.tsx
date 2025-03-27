@@ -5,10 +5,9 @@ import { SetStateAction, useState } from 'react';
 import CustomButton from '@/components/CustomButton';
 import styles from '../style.module.css';
 import { RESERVATION_STATUS } from '@/constants/ReservationStatus';
-import useFormatDate from '@/utils/useFormatDate';
 import { Reservation } from '@/lib/types';
 import { isPastDateTime } from '@/utils/dateUtils';
-import formattedDate from '@/utils/formattedDate';
+import FormattedDate from '@/utils/formattedDate';
 
 interface Props {
   reservationsData: Reservation[] | undefined;
@@ -116,7 +115,7 @@ export default function ReservationItem({
                 <div className={styles.info}>
                   <p className={styles.title}>{activity.title}</p>
                   <p className={styles.plan}>
-                    {formattedDate(date!)}
+                    {FormattedDate(date!)}
                     <span className={styles.circle}>·</span>
                     {reservation.startTime} - {reservation.endTime}
                     <span className={styles.circle}>·</span>

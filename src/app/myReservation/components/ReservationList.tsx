@@ -66,7 +66,7 @@ export default function ListContainer({ reservationsData }: Props) {
             {modalType === 'cancel'
               ? '예약 취소가 완료되었습니다'
               : modalType === 'review'
-              ? '후기가 등록되었습니다'
+              ? '작성하신 후기가 등록되었습니다'
               : ''}
           </motion.div>
         )}

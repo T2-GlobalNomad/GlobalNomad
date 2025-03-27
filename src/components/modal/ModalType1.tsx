@@ -37,6 +37,7 @@ export default function ModalType1({
           />
         ) : modalType === 'review' ? (
           <WriteReviewModal
+            reservationId={reservationId}
             isReviewData={isReviewData}
             setShowModal={setShowModal}
             setShowToast={setShowToast}

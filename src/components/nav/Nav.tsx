@@ -62,16 +62,6 @@ export default function Nav() {
               />
             </div>
 
-            {/* 모달 렌더링 (isModalOpen이 true일 때만) */}
-            {isModalOpen && (
-              <div ref={modalRef}>
-                <NotificationModal
-                  isOpen={isModalOpen}
-                  onClose={() => setIsModalOpen(false)}
-                />
-              </div>
-            )}
-
             {/* 프로필 영역 */}
             <div
               className={styles.profile}
@@ -93,6 +83,17 @@ export default function Nav() {
                 />
               </div>
               <p className={styles.nickname}>{user.nickname}</p>
+
+              {/* 모달 렌더링 (isModalOpen이 true일 때만) */}
+              {isModalOpen && (
+                <div ref={modalRef}>
+                  <NotificationModal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                  />
+                </div>
+              )}
+              
               <div
                 className={`${styles.dropdown}  ${
                   isProfileCard ? styles.active : ''

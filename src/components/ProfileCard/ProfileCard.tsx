@@ -61,7 +61,7 @@ export default function ProfileCard({ activeTab }: { activeTab: ActiveTab }) {
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
         <Image
-          src={profileImage || '/defaultProfile.svg'}
+          src={profileImage || '/images/defaultProfile.svg'}
           alt='프로필 이미지'
           width={160}
           height={160}

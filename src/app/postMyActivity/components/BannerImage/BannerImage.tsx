@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react';
 import { Plus, X } from 'lucide-react';
 import styles from './postImage.module.css';
 import Image from 'next/image';
-import { useActivityStore } from "@/stores/useActivityStore";
+import { useActivityStore } from '@/stores/useActivityStore';
 import useUploadImagesMutation from '@/hooks/useImageUrl';
 
 export default function BannerImage() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  const bannerImageFile = useActivityStore((state) => state.activity.bannerImageFile);
+  const bannerImageFile = useActivityStore(
+    (state) => state.activity.bannerImageFile,
+  );
   const setActivity = useActivityStore((state) => state.setActivity);
 
   const { mutate: uploadImages } = useUploadImagesMutation();
@@ -26,14 +28,14 @@ export default function BannerImage() {
     formData.append('image', file);
 
     uploadImages(formData, {
-      onSuccess: (data:any) => {
+      onSuccess: (data: any) => {
         useActivityStore.getState().setActivity({
           bannerImageUrl: data.activityImageUrl,
         });
       },
       onError: () => {
         alert('이미지 업로드 실패');
-      }
+      },
     });
   };
 
@@ -82,7 +84,10 @@ export default function BannerImage() {
                   height={180}
                 />
               </div>
-              <button className={styles.removeButton} onClick={handleRemoveImage}>
+              <button
+                className={styles.removeButton}
+                onClick={handleRemoveImage}
+              >
                 <X className={styles.xIcon} strokeWidth={2} size={16} />
               </button>
             </div>

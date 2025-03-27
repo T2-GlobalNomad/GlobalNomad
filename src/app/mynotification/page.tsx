@@ -6,6 +6,7 @@ import MyNotificationCalendar from './components/Calendar';
 import useMyActivities from '@/hooks/useMyActivities';
 import instance from '@/lib/api';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
+import Footer from '@/components/footer/Footer';
 import styles from './MyNotification.module.css';
 
 type Activity = {
@@ -78,40 +79,45 @@ export default function MyNotification() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.sidebar}>
-        <ProfileCard activeTab='mynotification' />
+    <>
+      <div className={styles.wrapper}>
+        <div className={styles.sidebar}>
+          <ProfileCard activeTab='mynotification' />
+        </div>
+
+        <div className={styles.container}>
+          <p className={styles.title}>예약 현황</p>
+          <p className={styles.dropdownTitle}>체험명 선택</p>
+
+          <Dropdown
+            dropdownClassName={styles.dropdownList ?? ''}
+            toggleClassName={styles.dropdownList}
+            menuClassName={styles.dropdownList}
+            menuItemClassName={styles.dropdownList}
+            options={
+              activities?.map((activity) => ({
+                value: activity.id,
+                label: activity.title,
+              })) ?? []
+            }
+            selectedValue={selectedActivity?.id ?? null}
+            onChange={(value) => {
+              const selected =
+                activities?.find((activity) => activity.id === value) || null;
+              setSelectedActivity(selected);
+            }}
+          />
+
+          <MyNotificationCalendar
+            schedule={schedule}
+            onMonthChange={handleMonthChange}
+            activityId={selectedActivity?.id ?? 0}
+          />
+        </div>
       </div>
-
-      <div className={styles.container}>
-        <p className={styles.title}>예약 현황</p>
-        <p className={styles.dropdownTitle}>체험명 선택</p>
-
-        <Dropdown
-          dropdownClassName={styles.dropdownList ?? ''}
-          toggleClassName={styles.dropdownList}
-          menuClassName={styles.dropdownList}
-          menuItemClassName={styles.dropdownList}
-          options={
-            activities?.map((activity) => ({
-              value: activity.id,
-              label: activity.title,
-            })) ?? []
-          }
-          selectedValue={selectedActivity?.id ?? null}
-          onChange={(value) => {
-            const selected =
-              activities?.find((activity) => activity.id === value) || null;
-            setSelectedActivity(selected);
-          }}
-        />
-
-        <MyNotificationCalendar
-          schedule={schedule}
-          onMonthChange={handleMonthChange}
-          activityId={selectedActivity?.id ?? 0}
-        />
-      </div>
-    </div>
+      <footer>
+        <Footer />
+      </footer>
+    </>
   );
 }

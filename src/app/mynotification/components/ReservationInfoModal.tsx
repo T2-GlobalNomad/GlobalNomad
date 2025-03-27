@@ -1,5 +1,5 @@
 import instance from '@/lib/api';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import ReservationInfoByStatus from './ReservationInfoByStatus';
 import CloseButton from '@/components/CloseButton';
 import Dropdown from '@/components/Dropdown';
@@ -44,7 +44,7 @@ export default function ReservationInfoModal({
 
   // ReservationInfoModal.tsx
 
-  const fetchSchedules = async () => {
+  const fetchSchedules = useCallback(async () => {
     setLoading(true);
     try {
       const response = await instance.get(
@@ -60,11 +60,11 @@ export default function ReservationInfoModal({
     } finally {
       setLoading(false);
     }
-  };
+  }, [activityId, date]);
 
   useEffect(() => {
     fetchSchedules();
-  }, [activityId, date]);
+  }, [fetchSchedules]);
 
   const totalPending = scheduleList.reduce(
     (sum, schedule) => sum + schedule.count.pending,

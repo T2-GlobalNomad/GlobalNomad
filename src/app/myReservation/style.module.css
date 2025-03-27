@@ -1,4 +1,10 @@
+.wrapper{
+  margin: 72px 0;
+    display: flex;
+}
+
 .pageContainer {
+  flex:1;
   position: relative;
   min-height: calc(100vh - calc(env(safe-area-inset-bottom)) - 235px);
 }
@@ -122,6 +128,7 @@
   }
 
   .bottom {
+    min-height: 42px;
     -webkit-display: flex;
     display: flex;
     align-items: center;
@@ -148,4 +155,21 @@
 
 .reservationBox.noClick {
   cursor: default;
+}
+
+.toast {
+  min-width: max-content;
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%) !important;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
 }

@@ -10,5 +10,6 @@
   "bracketSpacing": true,
   "jsxSingleQuote": true,
   "bracketSameLine": false,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "parser": "typescript"
 }

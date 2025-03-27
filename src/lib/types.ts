@@ -1,5 +1,5 @@
 /** 
-* 사용 방법
+ * 사용 방법
   import {Reservation} from '@/lib//types';
   const myReservation: Reservation = {
     id: data.id,
@@ -53,9 +53,9 @@ type Schedules = {
  * @type {string} updatedAt - 수정일
  */
 export interface Activities {
-  id?: number;
+  id: number;
   userId?: number;
-  title?: string;
+  title: string;
   description?: string;
   category?: '문화 · 예술' | '식음료' | '스포츠' | '투어' | '관광' | '웰빙';
   price?: number;
@@ -140,17 +140,17 @@ export interface Reservation {
 
 /* Notification */
 
-type Notifications = {
-  id?: number;
+export type Notifications = {
+  id: number;
   userId?: number;
   teamId?: number;
-  content?: string;
-  createdAt?: string;
+  content: string;
+  createdAt: string;
   updatedAt?: string;
   deletedAt?: string;
 };
 
 export interface Notification {
-  notifications: Notifications[];
+  notifications?: Notifications[];
   totalCount?: number;
 }

@@ -1,6 +1,6 @@
 .activitiesContainer {
   max-width: 1200px;
-  margin: 30px auto;
+  margin: 0 auto 30px;
 
   @media (max-width: 1248px) { 
     max-width: auto; 
@@ -29,19 +29,11 @@
   }
 }
 .activityItem {
-  /* display: flex;
-  flex-direction: column;
-  gap: 16px; */
   margin-bottom: 24px;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, auto);
-    /* gap: 12px; */
-  }
-
-  @media (max-width: 450px) {
-    /* gap: 8px; */
   }
 }
 .link {
@@ -52,7 +44,6 @@
   @media (max-width: 768px) {
     gap: 12px;
   }
-
   @media (max-width: 450px) {
     gap: 8px;
   }
@@ -61,9 +52,6 @@
 /* 체험 이미지 */
 .activityImage {
   position: relative;
-  /* 백그라운드 임시로 지정 */
-  background-color: var(--gray-medium); 
-
   max-width: 283px;
   height: auto;
   aspect-ratio: 1 / 1;

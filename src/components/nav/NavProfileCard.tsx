@@ -1,12 +1,36 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './nav.module.css';
+import { useAuthStore } from '@/stores/useAuthStore';
 
-export default function NavProfileCard() {
+interface Props {
+  imageSrcMap: Record<string, string>;
+  handleImageError: (id: string) => void;
+}
+
+export default function NavProfileCard({
+  imageSrcMap,
+  handleImageError,
+}: Props) {
+  const { user } = useAuthStore();
+
   return (
     <div className={styles.profileCardContainer}>
       <div className={styles.profileImg}>
-        <Image src='/images/no_profileImg.svg' fill alt='프로필 이미지' />
+        <Image
+          src={
+            imageSrcMap[user?.id!] ||
+            user?.profileImageUrl ||
+            '/images/no_profileImg.svg'
+          }
+          fill
+          alt='프로필 이미지'
+          style={{ objectFit: 'cover' }}
+          priority
+          onError={() => handleImageError(String(user?.id))}
+        />
       </div>
       <ul className={styles.menuContainer}>
         <li className={styles.menu}>
@@ -22,7 +46,7 @@ export default function NavProfileCard() {
           </Link>
         </li>
         <li className={styles.menu}>
-          <Link href='/myReservation' className={styles.link}>
+          <Link href='/myreservation' className={styles.link}>
             <Image
               src='/images/icon_menu2.svg'
               width={24}
@@ -34,7 +58,7 @@ export default function NavProfileCard() {
           </Link>
         </li>
         <li className={styles.menu}>
-          <Link href='/activities' className={styles.link}>
+          <Link href='/myactivities' className={styles.link}>
             <Image
               src='/images/icon_menu3.svg'
               width={24}
@@ -46,7 +70,7 @@ export default function NavProfileCard() {
           </Link>
         </li>
         <li className={styles.menu}>
-          <Link href='' className={styles.link}>
+          <Link href='mynotification' className={styles.link}>
             <Image
               src='/images/icon_menu4.svg'
               width={24}

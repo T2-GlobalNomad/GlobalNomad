@@ -1,6 +1,6 @@
 'use client';
 
-import useMyActivities from '@/hooks/query/useMyActivities';
+import useMyActivities from '@/hooks/useMyActivities';
 import ActivityListCard from './activitylistcard';
 import styles from './activitylistcard.module.css';
 export default function ActivityList() {

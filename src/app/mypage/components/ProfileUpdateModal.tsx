@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-//import useUser from '@/hooks/query/useUser';
 import useUpdateUser from '@/hooks/mutation/useUpdateUser';
 import useUpdateProfileImage from '@/hooks/mutation/useUpdateProfileImage';
 import { User } from '@/lib/types';
@@ -31,7 +30,6 @@ const ProfileUpdateModal = ({
   const [isUpdating, setIsUpdating] = useState(false);
 
   // 쿼리 훅 사용
-  //const { data: currentUser } = useUser();
   const updateUser = useUpdateUser();
   const updateProfileImage = useUpdateProfileImage();
 

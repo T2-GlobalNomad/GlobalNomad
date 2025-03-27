@@ -8,6 +8,7 @@ import { RESERVATION_STATUS } from '@/constants/ReservationStatus';
 import useFormatDate from '@/utils/useFormatDate';
 import { Reservation } from '@/lib/types';
 import { isPastDateTime } from '@/utils/dateUtils';
+import formattedDate from '@/utils/formattedDate';
 
 interface Props {
   reservationsData: Reservation[] | undefined;
@@ -47,12 +48,6 @@ export default function ReservationItem({
   const handleImageError = (id: string) => {
     setImageSrcMap((prev) => ({ ...prev, [id]: '/images/no_thumbnail.png' }));
   };
-
-  function FormattedDate(date: string) {
-    const formatted = useFormatDate(date);
-
-    return <span>{formatted.slice(0, formatted.length - 1)}</span>;
-  }
 
   function handleCancelReservation(id: number | undefined) {
     setModalType('cancel');
@@ -121,7 +116,7 @@ export default function ReservationItem({
                 <div className={styles.info}>
                   <p className={styles.title}>{activity.title}</p>
                   <p className={styles.plan}>
-                    {FormattedDate(date!)}
+                    {formattedDate(date!)}
                     <span className={styles.circle}>·</span>
                     {reservation.startTime} - {reservation.endTime}
                     <span className={styles.circle}>·</span>

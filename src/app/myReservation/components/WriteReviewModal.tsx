@@ -6,6 +6,7 @@ import CustomButton from '@/components/CustomButton';
 import { SetStateAction, useState } from 'react';
 import { Reservation } from '@/lib/types';
 import StarRating from '../../../components/rating/StarRating';
+import formattedDate from '@/utils/formattedDate';
 
 interface Props {
   isReviewData: Reservation | undefined;
@@ -71,10 +72,13 @@ export default function WriteReviewModal({
           </div>
           <div className={styles.detail}>
             <div className={styles.top}>
-              <p>헬스클럽 신규 회원 모집</p>
+              <p>{activity?.title}</p>
               <p>
-                <span>2025. 3. 25</span>
-                <span> · </span>13:00 - 14:00<span> · </span>2명
+                {formattedDate(date!)}
+                <span> · </span>
+                {isReviewData?.startTime} - {isReviewData?.endTime}
+                <span> · </span>
+                {isReviewData?.headCount}명
               </p>
             </div>
             <p className={styles.bottom}>

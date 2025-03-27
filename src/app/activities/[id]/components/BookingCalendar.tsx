@@ -3,27 +3,25 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import Calendar from 'react-calendar';
-import styles from './reservationCard.module.css';
+import styles from './BookingCalendar.module.css';
 import { Schedules } from '@/lib/types';
 import CustomButton from '@/components/CustomButton';
-import { postReservation } from '@/lib/reservation';
 
-interface ReservationCardProps {
-  price: number;
+interface BookingCalendarProps {
   schedules: Schedules[];
-  activityId: number;
+  selectedScheduleId: number;
+  setSelectedScheduleId: (value: number) => void;
 }
 
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-export default function ReservationCard({
-  price,
+export default function BookingCalendar({
   schedules,
-  activityId,
-}: ReservationCardProps) {
-  const [headCount, setHeadCound] = useState<number>(1);
+  selectedScheduleId,
+  setSelectedScheduleId,
+}: BookingCalendarProps) {
   const [date, setDate] = useState<Value>(new Date(schedules[0].date));
   const [selectedSchedules, setSelectedSchedules] = useState<Schedules[]>(
     schedules.filter(
@@ -32,7 +30,6 @@ export default function ReservationCard({
         new Date(schedules[0].date).toDateString(),
     ),
   );
-  const [selectedScheduleId, setSelectedScheduleId] = useState<number>(0);
 
   const handleDateChange = (selectedDate: Value) => {
     setDate(selectedDate);
@@ -51,36 +48,9 @@ export default function ReservationCard({
     setSelectedScheduleId(scheduleId);
   };
 
-  const handleMinusClick = () => {
-    if (headCount === 1) return;
-    setHeadCound((prev) => prev - 1);
-  };
-
-  const handlePlusClick = () => {
-    setHeadCound((prev) => prev + 1);
-  };
-
-  const handlePostReservation = async () => {
-    try {
-      const reservationData = {
-        scheduleId: selectedScheduleId,
-        headCount,
-      };
-      await postReservation(activityId, reservationData);
-      console.log('예약이 완료되었습니다!');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <>
-      <div className={styles.priceSection}>
-        <p className={styles.price}>₩ {price.toLocaleString()}</p>
-        <p className={styles.perPerson}>&nbsp;/ 인</p>
-      </div>
       <div className={styles.infoSection}>
-        <p className={styles.dateLabel}>날짜</p>
         <Calendar
           onChange={handleDateChange}
           value={date}
@@ -125,39 +95,6 @@ export default function ReservationCard({
             <p>해당 날짜에 예약 가능한 시간이 없습니다.</p>
           )}
         </div>
-      </div>
-      <p className={styles.availableTimes}>참여 인원 수</p>
-      <div className={styles.headCountButton}>
-        <button
-          type='button'
-          className={styles.headButton}
-          onClick={handleMinusClick}
-        >
-          <Image src='/images/minus.svg' alt='minus' width={13} height={13} />
-        </button>
-        <div>{headCount}</div>
-        <button
-          type='button'
-          className={styles.headButton}
-          onClick={handlePlusClick}
-        >
-          <Image src='/images/plus.svg' alt='plus' width={13} height={13} />
-        </button>
-      </div>
-      <CustomButton
-        type='submit'
-        className={styles.reservationButton}
-        fontSize='md'
-        disabled={!selectedScheduleId}
-        onClick={handlePostReservation}
-      >
-        예약하기
-      </CustomButton>
-      <div className={styles.totalSection}>
-        <p className={styles.totalAmount}>총 합계</p>
-        <p className={styles.totalPrice}>
-          ₩ {(price * headCount).toLocaleString()}
-        </p>
       </div>
     </>
   );

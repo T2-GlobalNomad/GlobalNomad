@@ -93,7 +93,7 @@
         .top{
           border-bottom:1px solid rgba(17, 34, 17, .1);
 
-          p:first-child{
+          .title{
             min-width: 250px;
             font-size: 20px;
             font-weight: 700;
@@ -103,7 +103,7 @@
             -webkit-line-clamp: 2;
             word-break: break-word;
           }
-          p:nth-of-type(2){
+          .date{
             margin:12px 0;
             font-size:18px;
             font-weight:400

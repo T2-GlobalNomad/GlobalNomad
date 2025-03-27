@@ -91,7 +91,7 @@ export default function WriteReviewModal({
           className={styles.textarea}
           maxLength={300}
           placeholder='최대 글자수는 300자 입니다'
-        ></textarea>
+        />
         <div className={styles.buttonContainer}>
           <CustomButton
             type='button'

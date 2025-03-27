@@ -41,7 +41,7 @@ export default function WriteReviewModal({
   };
 
   const handleValueChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    let { value } = e.target;
+    const { value } = e.target;
     setIsValue(value);
   };
 
@@ -63,7 +63,7 @@ export default function WriteReviewModal({
           <div className={styles.thumbnail}>
             <Image
               src={
-                imageSrcMap[activity?.id!] ||
+                (activity?.id && imageSrcMap[activity?.id]) ||
                 activity?.bannerImageUrl ||
                 '/images/no_thumbnail.png'
               }

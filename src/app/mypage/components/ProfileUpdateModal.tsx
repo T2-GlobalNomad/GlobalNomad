@@ -26,7 +26,7 @@ const ProfileUpdateModal = ({
 }: ProfileUpdateModalProps) => {
   const [newNickname, setNewNickname] = useState(user.nickname || '');
   const [newImageUrl, setNewImageUrl] = useState(user.profileImageUrl || '');
-  const [newPassword, setNewPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('********');
   const [isUpdating, setIsUpdating] = useState(false);
 
   // 쿼리 훅 사용
@@ -62,16 +62,42 @@ const ProfileUpdateModal = ({
     setIsUpdating(true);
 
     const formData = new FormData();
-    formData.append('nickname', newNickname);
-    formData.append('profileImageUrl', newImageUrl);
-    formData.append('newPassword', newPassword);
+    const isPasswordChanged = newPassword !== '********'; //더미값
+
+    // 변경된 값만 업데이트
+    if (newNickname !== user.nickname) {
+      formData.append('nickname', newNickname);
+    }
+    if (newImageUrl !== user.profileImageUrl) {
+      formData.append('profileImageUrl', newImageUrl);
+    }
+    if (isPasswordChanged) {
+      formData.append('newPassword', newPassword);
+    }
+
+    // 변경사항 없을 경우 업데이트 x
+    if (
+      !formData.has('nickname') &&
+      !formData.has('profileImageUrl') &&
+      !formData.has('newPassword')
+    ) {
+      setIsUpdating(false);
+      return;
+    }
 
     try {
       await updateUser.mutateAsync(formData);
+
+      const nickname = formData.get('nickname');
+      const profileImageUrl = formData.get('profileImageUrl');
+      const newPassword = formData.get('newPassword');
+
       onUpdate({
-        nickname: newNickname,
-        profileImageUrl: newImageUrl,
-        newPassword,
+        nickname: (nickname ? nickname : user.nickname) as string,
+        profileImageUrl: (profileImageUrl
+          ? profileImageUrl
+          : user.profileImageUrl) as string,
+        newPassword: (newPassword ? newPassword : '') as string,
       });
       console.log(newImageUrl);
     } catch (error) {

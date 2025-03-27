@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import instance from '@/lib/api';
+//import useUser from '@/hooks/query/useUser';
+import useUpdateUser from '@/hooks/mutation/useUpdateUser';
+import useUpdateProfileImage from '@/hooks/mutation/useUpdateProfileImage';
 import { User } from '@/lib/types';
 import Input from '@/components/Input/Input';
 import CustomButton from '@/components/CustomButton';
@@ -18,17 +20,20 @@ interface ProfileUpdateModalProps {
   onClose: () => void;
 }
 
-const ProfileUpdateModal: React.FC<ProfileUpdateModalProps> = ({
+const ProfileUpdateModal = ({
   user,
   onUpdate,
   onClose,
-}) => {
-  const [newNickname, setNewNickname] = useState<string>(user.nickname || '');
-  const [newImageUrl, setNewImageUrl] = useState<string>(
-    user.profileImageUrl || '',
-  );
-  const [newPassword, setNewPassword] = useState<string>('');
-  const [isUpdating, setIsUpdating] = useState<boolean>(false);
+}: ProfileUpdateModalProps) => {
+  const [newNickname, setNewNickname] = useState(user.nickname || '');
+  const [newImageUrl, setNewImageUrl] = useState(user.profileImageUrl || '');
+  const [newPassword, setNewPassword] = useState('');
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  // 쿼리 훅 사용
+  //const { data: currentUser } = useUser();
+  const updateUser = useUpdateUser();
+  const updateProfileImage = useUpdateProfileImage();
 
   // 닉네임 변경 핸들러
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,39 +49,36 @@ const ProfileUpdateModal: React.FC<ProfileUpdateModalProps> = ({
     formData.append('image', file);
 
     try {
-      const res = await instance.post('/users/me/image', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      console.log(
-        '업로드 시도 URL:',
-        `${instance.defaults.baseURL}/users/me/image`,
-      );
-
-      setNewImageUrl(res.data.profileImageUrl);
+      const res = await updateProfileImage.mutateAsync(formData);
+      if (res?.profileImageUrl) {
+        setNewImageUrl(res.profileImageUrl);
+      }
     } catch (error) {
       console.error('이미지 업로드 실패:', error);
       alert('이미지 업로드에 실패했습니다.');
     }
   };
 
-  // 프로필 업데이트
+  // 프로필 정보 업데이트
   const handleUpdate = async () => {
     setIsUpdating(true);
 
-    const updatedData = {
-      profileImageUrl: newImageUrl,
-      nickname: newNickname,
-      newPassword,
-    };
+    const formData = new FormData();
+    formData.append('nickname', newNickname);
+    formData.append('profileImageUrl', newImageUrl);
+    formData.append('newPassword', newPassword);
 
     try {
-      await instance.patch('/users/me', updatedData, {
-        headers: { 'Content-Type': 'application/json' },
+      await updateUser.mutateAsync(formData);
+      onUpdate({
+        nickname: newNickname,
+        profileImageUrl: newImageUrl,
+        newPassword,
       });
-
-      onUpdate(updatedData);
-    } catch (err) {
-      console.error('업데이트 실패:', err);
+      console.log(newImageUrl);
+    } catch (error) {
+      console.error('프로필 업데이트 실패:', error);
+      alert('업데이트에 실패했습니다.');
     } finally {
       setIsUpdating(false);
     }
@@ -90,7 +92,7 @@ const ProfileUpdateModal: React.FC<ProfileUpdateModalProps> = ({
         <div className={styles.previewSection}>
           <div className={styles.profilePreview}>
             <Image
-              src={newImageUrl}
+              src={newImageUrl || '/images/defaultProfile.svg'}
               alt='프로필 미리보기'
               fill
               className={styles.profileImg}
@@ -112,7 +114,7 @@ const ProfileUpdateModal: React.FC<ProfileUpdateModalProps> = ({
             placeholder='새 닉네임 입력'
           />
 
-          {/* 이미지 파일 업로드 */}
+          {/* 이미지 업로드 */}
           <Input
             type='file'
             id='imageFile'

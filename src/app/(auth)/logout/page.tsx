@@ -1,28 +1,14 @@
 'use client';
 
+import { useAuthStore } from '@/stores/useAuthStore';
 import Cookies from 'js-cookie';
 
 export default function Logout() {
-  const clientId = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
-  const logoutRedirectUri = `http://localhost:3000/signin`;
-  const handleLogout = () => {
-    if (!clientId) {
-      console.error('Kakao REST API 키가 없습니다.');
-      return;
-    }
-
-    const logoutUrl = `https://kauth.kakao.com/oauth/logout?client_id=${clientId}&logout_redirect_uri=${encodeURIComponent(
-      logoutRedirectUri,
-    )}`;
-
-    Cookies.remove('accessToken');
-    Cookies.remove('refreshToken');
-
-    window.location.href = logoutUrl;
-  };
+  const { logout, user } = useAuthStore();
+  console.log('유저데이터:', user);
   return (
     <div>
-      <button onClick={handleLogout}>로그아웃</button>
+      <button onClick={logout}>로그아웃</button>
     </div>
   );
 }

@@ -1,58 +1,47 @@
-.wrapper {
-  display: flex;
-  /* top: 16px;
-  right: 16px;
+/* 모달 오버레이 */
+.modalOverlay {
+  position: absolute;
   z-index: 1000;
-  display: flex; */
-  flex-direction: column;
-  gap: 8px;
+  top: 53px;
+  right: 146px;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.container {
+/* 모달 본체 */
+.modalContent {
+  background: var(--gray-green);
+  width: 350px;
+  max-height: 500px;
+  padding: 20px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 8px 12px 12px;
-  background-color: var(--white);
-  border-radius: 5px;
-  border: 1px solid var(--gray-muted);
-  max-width: 328px;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .header {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
+  margin: 4px 0 16px 0;
+}
+
+.totalCount {
+  color: var(--black);
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .closeBtn {
-  color: #a1a1a1 !important;
   cursor: pointer !important;
 }
 
-.confirmed {
-  color: var(--blue);
-}
-
-.declined {
-  color: var(--red);
-}
-
-.faCircle {
-  width: 5px;
-  height: 5px;
-}
-
-.content {
-  color: var(--black);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 24px;
-}
-
-.time {
-  color: var(--gray-medium);
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 18px;
+/* 알림 리스트 컨테이너 */
+.notificationContainer {
+  max-height: 350px;
+  overflow-y: auto;
 }

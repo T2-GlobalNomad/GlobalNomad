@@ -55,8 +55,12 @@ export default function SubImage() {
   }, [activity.subImageFiles]);
 
   const handleRemoveImage = (index: number) => {
+    const newSubImageUrls = activity.subImageUrls.filter((_, i) => i !== index);
+    const newSubImageFiles = activity.subImageFiles.filter((_, i) => i !== index);
+  
     setActivity({
-      subImageUrls: activity.subImageUrls.filter((_, i) => i !== index),
+      subImageUrls: newSubImageUrls,
+      subImageFiles: newSubImageFiles,
     });
   };
 

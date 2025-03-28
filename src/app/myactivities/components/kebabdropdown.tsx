@@ -5,6 +5,7 @@ import CustomDropdown from './customDropdown';
 import { useState, useCallback } from 'react';
 import styles from './customDropdown.module.css';
 import useDeleteMyActivity  from '@/hooks/useDeleteActivities';
+import ModalType1 from './ModalType1';
 
 interface KebabDropdownProps {
   activityId: number;
@@ -44,12 +45,19 @@ export default function KebabDropdown({ activityId }: KebabDropdownProps) {
                 if (value === '수정하기') {
                   console.log('수정하기 클릭!');
                 } else if (value === '삭제하기') {
-                  // 삭제하기 모달창 팝업
+                 setShowModal(true);
                 }
               }}
             ></CustomDropdown>
           </div>
         )}
+        <ModalType1 
+          showModal={showModal}
+          setShowModal={setShowModal}
+          isModalMessage='삭제하시겠습니까?'
+          onConfirm={handleRemoveActivity}
+        />
+
       </div>
     </div>
   );

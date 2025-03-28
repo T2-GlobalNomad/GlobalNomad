@@ -68,12 +68,8 @@ const ProfileCard = ({
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
-        <Image
-<<<<<<< HEAD
-          src={profileImage || '/images/defaultProfile.svg'}
-=======
+      <Image
           src={user?.profileImageUrl || '/images/defaultProfile.svg'}
->>>>>>> 319a7ef21062f226f0ecbbc5016fc26f5065eb07
           alt='프로필 이미지'
           width={160}
           height={160}

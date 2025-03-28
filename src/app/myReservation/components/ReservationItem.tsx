@@ -16,7 +16,7 @@ interface Props {
   setIsModalMessage: React.Dispatch<SetStateAction<string>>;
   handleNavigate: (activityId: string) => void;
   setReservationId: React.Dispatch<SetStateAction<number | undefined>>;
-  setIsReviewData: React.Dispatch<SetStateAction<Reservation  | undefined>>;
+  setIsReviewData: React.Dispatch<SetStateAction<Reservation | undefined>>;
 }
 
 export default function ReservationItem({
@@ -55,10 +55,11 @@ export default function ReservationItem({
     setReservationId(id);
   }
 
-  function handleWriteReview(reservation: Reservation) {
+  function handleWriteReview(id: number | undefined, reservation: Reservation) {
     setModalType('review');
     setShowModal(true);
-    setIsReviewData(reservation)
+    setReservationId(id);
+    setIsReviewData(reservation);
   }
 
   return (
@@ -138,18 +139,22 @@ export default function ReservationItem({
                   >
                     예약 취소
                   </CustomButton>
+                ) : statusInfo.text === '예약 신청' &&
+                  isPastDateTime(reservation.date, reservation.startTime) ? (
+                  <div className={styles.notice}>기한 만료</div>
+                ) : statusInfo.text === '체험 완료' &&
+                  reservation.reviewSubmitted ? (
+                  <div className={styles.notice}>후기 작성 완료</div>
                 ) : statusInfo.text === '체험 완료' ? (
                   <CustomButton
                     style={writeReviewButton}
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleWriteReview(reservation);
+                      handleWriteReview(reservation.id, reservation);
                     }}
                   >
                     후기 작성
                   </CustomButton>
-                ) : isPastDateTime(reservation.date, reservation.startTime) ? (
-                  <div className={styles.notice}>기한 만료</div>
                 ) : (
                   ''
                 )}

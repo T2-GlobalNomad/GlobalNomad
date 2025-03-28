@@ -7,14 +7,17 @@ import { ChangeEvent, SetStateAction, useState } from 'react';
 import { Reservation } from '@/lib/types';
 import StarRating from '../../../components/rating/StarRating';
 import FormattedDate from '@/utils/formattedDate';
+import useWriteReview from '@/hooks/useWriteReview';
 
 interface Props {
+  reservationId: number | undefined;
   isReviewData: Reservation | undefined;
   setShowModal: (value: boolean) => void;
   setShowToast: React.Dispatch<SetStateAction<boolean>>;
 }
 
 export default function WriteReviewModal({
+  reservationId,
   isReviewData,
   setShowModal,
   setShowToast,
@@ -32,10 +35,6 @@ export default function WriteReviewModal({
 
   const { activity, date } = isReviewData ?? {};
 
-  const handleWriteReview = () => {
-    setShowModal(false);
-  };
-
   const handleImageError = (id: string) => {
     setImageSrcMap((prev) => ({ ...prev, [id]: '/images/no_thumbnail.png' }));
   };
@@ -44,6 +43,20 @@ export default function WriteReviewModal({
     const { value } = e.target;
     setIsValue(value);
   };
+
+  const { mutate: writeReview } = useWriteReview(setShowToast);
+
+  function handleWriteReview() {
+    setShowModal(false);
+
+    if (reservationId) {
+      try {
+        writeReview({ id: reservationId, rating, isValue });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
 
   return (
     <>

@@ -6,7 +6,7 @@ import CustomButton from '@/components/CustomButton';
 import { ChangeEvent, SetStateAction, useState } from 'react';
 import { Reservation } from '@/lib/types';
 import StarRating from '../../../components/rating/StarRating';
-import {formattedDate} from '@/utils/formattedDate';
+import { formattedDate } from '@/utils/formattedDate';
 import useWriteReview from '@/hooks/useWriteReview';
 
 interface Props {

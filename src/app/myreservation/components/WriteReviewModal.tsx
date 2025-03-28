@@ -8,7 +8,7 @@ import { ChangeEvent, SetStateAction, useState } from 'react';
 import { Reservation } from '@/lib/types';
 import StarRating from '../../../components/rating/StarRating';
 import { formattedDate } from '@/utils/formattedDate';
-import useUpdateReview from '@/hooks/mutation/useUpdateReview';
+import useWriteReview from '@/hooks/useWriteReview';
 
 interface Props {
   reservationId: number | undefined;
@@ -38,7 +38,7 @@ export default function WriteReviewModal({
     setIsValue(value);
   };
 
-  const { mutate: writeReview } = useUpdateReview(setShowToast);
+  const { mutate: writeReview } = useWriteReview(setShowToast);
 
   function handleWriteReview() {
     setShowModal(false);

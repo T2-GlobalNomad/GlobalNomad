@@ -1,6 +1,6 @@
 .container {
   max-width: 1200px;
-  margin: 30px auto 60px;
+  margin: 110px auto 60px;
   text-align: left;
   position: relative;
 
@@ -8,8 +8,11 @@
     max-width: auto; 
     padding: 0 24px; 
   } 
+  @media (max-width: 550px) {
+    margin-top: 90px;
+  }
   @media (max-width: 450px) {
-    margin: 20px auto 40px;
+    margin: 80px auto 40px;
   }
   @media (max-width: 375px) { 
     padding: 0 16px; 
@@ -45,6 +48,11 @@
   margin-top: 4px;
   position: static;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.nextButton:active, 
+.prevButton:active {
+  transform: scale(0.8);
 }
 
 .header h1 {
@@ -71,7 +79,7 @@
     gap: 18px;
   }
   @media (max-width: 450px) {
-    gap: 0;
+    gap: 8px;
   }
 }
 
@@ -113,6 +121,10 @@
   position: absolute;
   bottom: 0;
   left: 0;
+
+  @media (max-width: 620px) {
+    padding: 20px;
+  }
 }
 
  /* 평점 */
@@ -147,6 +159,12 @@
   }
 }
 
+.infoPrice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .price {
   font-size: 20px;
   font-weight: 700;
@@ -162,4 +180,20 @@
   color: var(--gray-light);
   font-size: 14px;
   font-weight: 400;
+}
+
+.rank {
+  color: var(--gray-muted);
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 10px;
+  margin-right: 10px;
+  
+  @media (max-width: 620px) {
+    margin-top: 0;
+    margin-right: 0;
+  }
+  @media (max-width: 450px) {
+    margin-right: 10px;
+  }
 }

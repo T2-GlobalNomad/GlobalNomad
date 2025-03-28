@@ -70,10 +70,14 @@
   border-radius: 4px;
   outline: none;
   background: transparent;
+  transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
 
   @media (max-width: 550px) {
     font-size: 14px;
   }
+}
+.searchInput:hover {
+  box-shadow: 0px 4px 8px rgba(17, 20, 18, 0.09);
 }
 .searchInput:focus {
   border-color: var(--gray-dark);

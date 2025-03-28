@@ -69,10 +69,23 @@ export default function Home() {
     const fetchPopularActivities = async () => {
       try {
         const response = await axios.get('/activities', {
-          params: { method: 'offset', page: 1, size: 9 },
+          params: {
+            method: 'offset',
+            page: 1,
+            size: 40,
+            sort: 'most_reviewed',
+          },
         });
 
-        setPopularActivities(response.data.activities);
+        // 인기 체험 데이터를 평점 기준으로 내림차순 정렬 후 상위 9개만 선택
+        const sortedActivities = response.data.activities
+          .sort(
+            (a: { rating?: number }, b: { rating?: number }) =>
+              (b.rating ?? 0) - (a.rating ?? 0),
+          )
+          .slice(0, 9);
+
+        setPopularActivities(sortedActivities);
       } catch (error) {
         console.error('인기 체험 데이터 가져오기 실패:', error);
       }

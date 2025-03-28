@@ -28,18 +28,6 @@ export default function ReservationItem({
   setReservationId,
   setIsReviewData,
 }: Props) {
-  const cancelReservationButton: React.CSSProperties = {
-    padding: '8px 20px',
-    background: '#fff',
-    color: '#112211',
-    border: '1px solid #112211',
-    fontWeight: '700',
-  };
-  const writeReviewButton: React.CSSProperties = {
-    padding: '8px 20px',
-    fontWeight: '700',
-  };
-
   const statusMode = RESERVATION_STATUS;
 
   const [imageSrcMap, setImageSrcMap] = useState<Record<string, string>>({});
@@ -131,11 +119,12 @@ export default function ReservationItem({
                 {statusInfo.text === '예약 신청' &&
                 !isPastDateTime(reservation.date, reservation.startTime) ? (
                   <CustomButton
-                    style={cancelReservationButton}
+                    variant='white'
                     onClick={(e) => {
                       e.stopPropagation();
                       handleCancelReservation(reservation.id);
                     }}
+                    style={{ padding: '8px 20px' }}
                   >
                     예약 취소
                   </CustomButton>
@@ -147,11 +136,12 @@ export default function ReservationItem({
                   <div className={styles.notice}>후기 작성 완료</div>
                 ) : statusInfo.text === '체험 완료' ? (
                   <CustomButton
-                    style={writeReviewButton}
+                    variant='black'
                     onClick={(e) => {
                       e.stopPropagation();
                       handleWriteReview(reservation.id, reservation);
                     }}
+                    style={{ padding: '8px 20px' }}
                   >
                     후기 작성
                   </CustomButton>

@@ -7,7 +7,7 @@ import styles from '../style.module.css';
 import { RESERVATION_STATUS } from '@/constants/ReservationStatus';
 import { Reservation } from '@/lib/types';
 import { isPastDateTime } from '@/utils/dateUtils';
-import FormattedDate from '@/utils/formattedDate';
+import { formattedDate } from '@/utils/formattedDate';
 
 interface Props {
   reservationsData: Reservation[] | undefined;
@@ -104,7 +104,7 @@ export default function ReservationItem({
                 <div className={styles.info}>
                   <p className={styles.title}>{activity.title}</p>
                   <p className={styles.plan}>
-                    {FormattedDate(date!)}
+                    {formattedDate(date!)}
                     <span className={styles.circle}>·</span>
                     {reservation.startTime} - {reservation.endTime}
                     <span className={styles.circle}>·</span>

@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from 'next/image';
@@ -8,7 +7,7 @@ import { ChangeEvent, SetStateAction, useState } from 'react';
 import { Reservation } from '@/lib/types';
 import StarRating from '../../../components/rating/StarRating';
 import { formattedDate } from '@/utils/formattedDate';
-import useWriteReview from '@/hooks/useWriteReview';
+import useUpdateReview from '@/hooks/mutation/useUpdateReview';
 
 interface Props {
   reservationId: number | undefined;
@@ -38,7 +37,7 @@ export default function WriteReviewModal({
     setIsValue(value);
   };
 
-  const { mutate: writeReview } = useWriteReview(setShowToast);
+  const { mutate: writeReview } = useUpdateReview(setShowToast);
 
   function handleWriteReview() {
     setShowModal(false);

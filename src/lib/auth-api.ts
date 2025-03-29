@@ -42,11 +42,7 @@ export async function signUp(newUser: NewUser) {
 export async function signIn(loginData: SignInData): Promise<SignInResponse> {
   try {
     const response = await instance.post('/auth/login', loginData);
-    // js-cookie에 토큰 저장. next action으로 하면 보안이 더좋음 추후논의.
-    Cookies.set('accessToken', response.data.accessToken);
-    Cookies.set('refreshToken', response.data.refreshToken);
     console.log('로그인 성공', response.data);
-    toast.success('로그인 성공!');
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -57,7 +53,6 @@ export async function signIn(loginData: SignInData): Promise<SignInResponse> {
       throw new Error(errorMessage);
     } else {
       console.error('로그인 오류:', error);
-      toast.error('로그인에 실패했습니다.');
       throw error;
     }
   }
@@ -126,8 +121,6 @@ export async function kakaoSignIn(code: string) {
       token: code,
     });
     console.log('카카오 로그인 성공:', response.data);
-    Cookies.set('accessToken', response.data.accessToken);
-    Cookies.set('refreshToken', response.data.refreshToken);
     return response.data;
   } catch (error: any) {
     console.error('카카오 로그인 실패:', error);

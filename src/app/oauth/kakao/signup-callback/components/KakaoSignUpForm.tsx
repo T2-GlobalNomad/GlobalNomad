@@ -13,15 +13,14 @@ type FormData = {
   nickname: string;
 };
 
-export default function KakaoSignUpForm({
-  code,
-  redirectUri,
-}: KakaoSignUpFormProps) {
+export default function KakaoSignUpForm({ code }: KakaoSignUpFormProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    mode: 'onChange',
+  });
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -39,16 +38,19 @@ export default function KakaoSignUpForm({
   };
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        labelClassName={styles.label}
-        label='닉네임'
-        placeholder='닉네임을 입력해주세요'
-        id='nickname'
-        isErrored={!!errors.nickname}
-        {...register('nickname', { required: '닉네임은 필수입니다.' })}
-      />
-      {errors.nickname && <p>{errors.nickname.message}</p>}
-      <CustomButton type='submit' className={styles.btn}>
+      <div>
+        <Input
+          label='닉네임'
+          placeholder='닉네임을 입력해주세요'
+          id='nickname'
+          isErrored={!!errors.nickname}
+          {...register('nickname', { required: '닉네임은 필수입니다.' })}
+        />
+        {errors.nickname && (
+          <p className={styles.error}>{errors.nickname.message}</p>
+        )}
+      </div>
+      <CustomButton type='submit' className={styles.btn} disabled={!isValid}>
         회원가입 완료
       </CustomButton>
     </form>

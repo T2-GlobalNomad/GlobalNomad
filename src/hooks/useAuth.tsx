@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  KakaoSignUpData,
-  SignInData,
-  SignInResponse,
-  SignUpData,
-} from '@/lib/auth-types';
+import { KakaoSignUpData, SignInData, SignUpData } from '@/lib/auth-types';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { kakaoSignIn, kakaoSignUp, signIn, signUp } from '@/lib/auth-api';
@@ -83,17 +78,17 @@ function useKakaoSignUpMutation() {
     },
     onError: (error: any) => {
       if (error.message === '잘못된 인가 코드입니다.') {
-        toast.error(error.message);
+        toast.error(`${error.message} \n회원가입 페이지로 이동합니다.`);
         setTimeout(() => {
           router.push('/signup');
         }, 1000);
       } else if (error.message === '이미 등록된 사용자입니다.') {
-        toast.error(error.message);
+        toast.error(`${error.message} \n로그인 페이지로 이동합니다.`);
         setTimeout(() => {
           router.push('/signin');
         }, 1500);
       } else {
-        toast.error(error.message);
+        toast.error(`${error.message} \n회원가입 페이지로 이동합니다.`);
         setTimeout(() => {
           router.push('/signup');
         }, 1500);

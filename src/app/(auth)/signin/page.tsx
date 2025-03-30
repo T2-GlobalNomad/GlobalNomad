@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { registerApp } from '@/lib/auth-api';
 import OauthSignIn from './components/OauthSignIn';
 
 export default function SignIn() {
@@ -18,8 +17,6 @@ export default function SignIn() {
     if (token) {
       router.replace('/');
     }
-
-    registerApp();
   }, [router]);
 
   return (

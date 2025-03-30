@@ -58,19 +58,6 @@ export async function signIn(loginData: SignInData): Promise<SignInResponse> {
   }
 }
 
-// 카카오 앱등록 api
-export async function registerApp() {
-  try {
-    const response = await instance.post('/oauth/apps', {
-      appKey: `${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}`,
-      provider: 'kakao',
-    });
-    console.log('앱 등록 성공', response);
-  } catch (error) {
-    console.error('앱 등록 실패', error);
-  }
-}
-
 // 카카오 간편 회원가입 api
 export async function kakaoSignUp(code: string, nickname: string) {
   if (!code) {

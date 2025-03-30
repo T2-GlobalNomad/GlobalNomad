@@ -1,0 +1,61 @@
+.card {
+  width: 284px;
+  height: fit-content;
+  border: 1px solid var(--gray-lighter);
+  border-radius: 12px;
+  padding: 24px;
+  margin-right: 24px;
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.profileImage {
+  border: 1px solid var(--gray-lighter);
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tabItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 16px;
+  border-radius: 12px;
+  color: var(--gray-medium);
+  text-decoration: none;
+  transition: all ease 0.3s;
+}
+
+.tabItem:hover {
+  background-color: var(--gray-green);
+}
+
+.active {
+  background-color: var(--gray-green);
+  color: var(--nomad-black);
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 80%;
+    border-radius: 8px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    flex: 0;
+  }
+}

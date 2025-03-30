@@ -1,6 +1,6 @@
 .activitiesContainer {
   max-width: 1200px;
-  margin: 30px auto;
+  margin: 0 auto 30px;
 
   @media (max-width: 1248px) { 
     max-width: auto; 
@@ -29,21 +29,13 @@
   }
 }
 .activityItem {
-  /* display: flex;
-  flex-direction: column;
-  gap: 16px; */
   margin-bottom: 24px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, auto);
-    /* gap: 12px; */
-  }
-
-  @media (max-width: 450px) {
-    /* gap: 8px; */
-  }
+  transition: transform 0.3s ease-in-out;
 }
+.activityItem:hover {
+  transform: translateY(-7px); /* 살짝 위로 이동 */
+}
+
 .link {
   display: flex;
   flex-direction: column;
@@ -52,7 +44,6 @@
   @media (max-width: 768px) {
     gap: 12px;
   }
-
   @media (max-width: 450px) {
     gap: 8px;
   }
@@ -61,14 +52,15 @@
 /* 체험 이미지 */
 .activityImage {
   position: relative;
-  /* 백그라운드 임시로 지정 */
-  background-color: var(--gray-medium); 
-
   max-width: 283px;
   height: auto;
   aspect-ratio: 1 / 1;
   border-radius: 20px;
   overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+.activityImage:hover {
+  transform: scale(1.02); /* 2% 확대 */
 }
 
 /* 평점 */

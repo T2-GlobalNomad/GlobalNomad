@@ -1,0 +1,175 @@
+.wrapper {
+  margin: 72px 0;
+  display: flex;
+}
+
+.pageContainer {
+  flex: 1;
+  position: relative;
+  min-height: calc(100vh - calc(env(safe-area-inset-bottom)) - 235px);
+}
+
+.loading {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+}
+
+.head {
+  -webkit-display: flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 47px;
+  margin-bottom: 24px;
+
+  .title {
+    font-size: 32px;
+    font-weight: 700;
+  }
+}
+
+.reservationBox {
+  position: relative;
+  -webkit-dispaly: flex;
+  display: flex;
+  margin-bottom: 24px;
+  border-radius: 24px;
+  box-sizing: border-box;
+  overflow: hidden;
+  box-shadow: 0px 4px 16px 0 rgba(17, 34, 17, 0.05);
+  background: var(--white);
+  cursor: pointer;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: var(--black);
+    opacity: 0.1;
+    z-index: 1;
+
+    & ~ * {
+      color: var(--gray) !important;
+    }
+  }
+
+  .thumbnail {
+    position: relative;
+    flex: 1;
+    max-width: 204px;
+    min-width: 128px;
+
+    &:after {
+      content: '';
+      display: block;
+      padding-bottom: 100%;
+    }
+
+    .overlay {
+      opacity: 0.4;
+    }
+  }
+
+  .detail {
+    padding: 21px 24px;
+    box-sizing: border-box;
+    flex: 2;
+    -webkit-display: flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .status {
+      margin-bottom: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--gray);
+    }
+    /* 예약완료 */
+    .status.completed {
+      color: var(--light-blue);
+    }
+    /* 예약거절 */
+    .status.declined {
+      color: var(--red);
+    }
+    /* 예약승인 */
+    .status.confirmation {
+      color: var(--orange);
+    }
+  }
+
+  .info {
+    .title {
+      margin-bottom: 12px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .plan {
+      font-size: 18px;
+      font-weight: 400;
+
+      .circle {
+        margin: 0 5px;
+      }
+    }
+  }
+
+  .bottom {
+    min-height: 42px;
+    -webkit-display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .price {
+      font-size: 24px;
+      font-weight: 500;
+
+      @media (max-width: 450px) {
+        font-size: 20px;
+      }
+    }
+
+    .notice {
+      padding: 8px 20px;
+      background: rgb(255, 255, 255);
+      color: rgb(17, 34, 17);
+      font-weight: 400;
+      color: var(--gray);
+    }
+  }
+}
+
+.reservationBox.noClick {
+  cursor: default;
+}
+
+.toast {
+  min-width: max-content;
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%) !important;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}

@@ -60,60 +60,57 @@
   }
 }
 
-/* 카테고리 영역 */
-.categoryContainer {
+.title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 32px;
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto; 
-  display: flex;
-  justify-content: space-between;
+  margin: 30px auto 20px;
 
   @media (max-width: 1248px) { 
     max-width: auto; 
-    padding: 0 24px; 
+    padding: 0 24px;
   } 
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+  @media (max-width: 450px) {
+    font-size: 20px;
+    margin: 15px auto 10px;
+  }
   @media (max-width: 375px) { 
     padding: 0 16px; 
   }
 }
-
-.category {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  overflow-x: auto;
-  white-space: nowrap; 
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-}
-.category::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+.title span {
+  font-weight: 400;
 }
 
-.category .item {
-  background-color: var(--white);
-  color: var(--green);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 26px;
-  text-align: center;
-  width: 130px;
-  display: inline-block;
-  border: 1px solid var(--green);
-  border-radius: 15px;
-  padding: 11px 14px 8px 15px;
-  margin-right: 10px;
-  cursor: pointer;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-    line-height: 20px;
-    width: 110px;
-    margin-right: 8px;
+/* 검색 결과 */
+.searchResult {
+  margin-top: 110px;
+  
+  @media (max-width: 550px) {
+    margin-top: 90px;
   }
+}
+.resultCount {
+  color: var(--black);
+  font-size: 16px;
+  font-weight: 400;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 20px;
+
+  @media (max-width: 1248px) { 
+    max-width: auto; 
+    padding: 0 24px;
+  } 
   @media (max-width: 450px) {
-    font-size: 12px;
-    width: 90px;
-    padding: 9px 9px 6px 12px;
-    margin-right: 4px;
+    margin: 15px auto 10px;
+  }
+  @media (max-width: 375px) { 
+    padding: 0 16px; 
   }
 }

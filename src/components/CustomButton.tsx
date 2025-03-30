@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import styles from "./CustomButton.module.css";
-import Link from "next/link";
-import { ReactNode, CSSProperties } from "react";
-import "@/styles/globals.css";
+import styles from './CustomButton.module.css';
+import Link from 'next/link';
+import { ReactNode, CSSProperties } from 'react';
+import '@/styles/globals.css';
 
 /**
  *
@@ -19,34 +19,34 @@ import "@/styles/globals.css";
  */
 
 interface ButtonProps {
-  fontSize?: "sm" | "md" | "lg";
-  type?: "button" | "submit" | "reset";
-  onClick?: () => void;
+  fontSize?: 'sm' | 'md' | 'lg';
+  type?: 'button' | 'submit' | 'reset';
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   href?: string;
   children: ReactNode;
   disabled?: boolean;
   className?: string;
   style?: CSSProperties;
-  variant?: "black" | "white";
+  variant?: 'black' | 'white';
 }
 
 export default function CustomButton({
-  fontSize = "sm",
-  type = "button",
+  fontSize = 'sm',
+  type = 'button',
   onClick,
   href,
   children,
   disabled = false,
   className,
   style = {},
-  variant = "black",
+  variant = 'black',
 }: ButtonProps) {
   return href ? (
     <Link
       href={href}
       className={`
         ${className}
-        ${styles["customButton"]} 
+        ${styles['customButton']} 
         ${styles[`customButton-${fontSize}`]}
         ${styles[`customButton-${variant}`]}`}
       style={style}
@@ -60,7 +60,7 @@ export default function CustomButton({
       disabled={disabled}
       className={`
         ${className}
-        ${styles["customButton"]} 
+        ${styles['customButton']} 
         ${styles[`customButton-${fontSize}`]}
         ${styles[`customButton-${variant}`]}`}
       style={style}

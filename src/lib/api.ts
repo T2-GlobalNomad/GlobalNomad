@@ -24,8 +24,6 @@ const instance: AxiosInstance = axios.create({
   },
 });
 
-/* token 관리 */
-
 // 데이터 요청 시작시 토큰을 헤더에 담는 과정
 instance.interceptors.request.use(
   (

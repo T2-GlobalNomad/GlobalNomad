@@ -1,5 +1,3 @@
-'use client';
-
 import { useQuery } from '@tanstack/react-query';
 import instance from '@/lib/api';
 import { User } from '@/lib/types';
@@ -8,7 +6,7 @@ import { User } from '@/lib/types';
 const fetchUser = async (): Promise<User[]> => {
   try {
     const response = await instance.get('/users/me');
-    console.log('API 응답 데이터:', response.data); // 응답 데이터 확인
+    //console.log('API 응답 데이터:', response.data); // 응답 데이터 확인
     return response.data;
   } catch (error: unknown) {
     console.error('API 요청 실패:', error);

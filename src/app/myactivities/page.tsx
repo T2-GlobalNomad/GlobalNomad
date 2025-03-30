@@ -1,15 +1,13 @@
-"use client"
+'use client';
 
-import MyActivityContainer from "./components/myactivitycontainer"
+import MyActivityContainer from './components/myactivitycontainer';
 
-
-export default function MyActivities(){
-
-    return(
-        <div>
-            {/* <ProfileCard /> */}
-            {/* <MyActivityList> */}
-            <MyActivityContainer />
-        </div>
-    )
+export default function MyActivities() {
+  return (
+    <div>
+      {/* <ProfileCard /> */}
+      {/* <MyActivityList> */}
+      <MyActivityContainer />
+    </div>
+  );
 }

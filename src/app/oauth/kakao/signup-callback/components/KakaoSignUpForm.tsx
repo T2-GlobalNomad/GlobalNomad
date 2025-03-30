@@ -2,7 +2,7 @@ import CustomButton from '@/components/CustomButton';
 import Input from '@/components/Input/Input';
 import { useForm } from 'react-hook-form';
 import styles from './KaKaoSignUpForm.module.css';
-import { kakaoSignUp } from '@/lib/auth-api';
+import { useKakaoSignUpMutation } from '@/hooks/useAuth';
 
 type KakaoSignUpFormProps = {
   code: string;
@@ -21,20 +21,10 @@ export default function KakaoSignUpForm({ code }: KakaoSignUpFormProps) {
   } = useForm<FormData>({
     mode: 'onChange',
   });
+  const kakaoSignUpMutation = useKakaoSignUpMutation();
 
   const onSubmit = async (data: FormData) => {
-    try {
-      const response = await kakaoSignUp(code, data.nickname);
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('회원가입 실패 상세:', errorData);
-        return;
-      }
-      const result = await response.json();
-      console.log('회원가입 성공:', result);
-    } catch (error) {
-      console.error('회원가입 API 호출 에러:', error);
-    }
+    kakaoSignUpMutation.mutate({ code, nickname: data.nickname });
   };
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>

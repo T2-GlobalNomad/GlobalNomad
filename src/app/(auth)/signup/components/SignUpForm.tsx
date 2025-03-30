@@ -12,6 +12,7 @@ import {
   signUpSchema,
   type SignUpFormValues,
 } from '@/lib/schemas/auth-schemas';
+import { useSignUpMutation } from '@/hooks/useAuth';
 
 export default function SignUpForm() {
   const {
@@ -22,17 +23,10 @@ export default function SignUpForm() {
     mode: 'onChange',
     resolver: zodResolver(signUpSchema),
   });
-
-  const router = useRouter();
+  const signUpMutation = useSignUpMutation();
 
   const onSubmit = async (data: SignUpFormValues) => {
-    try {
-      const response = await signUp(data);
-      router.push('/signin');
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+    signUpMutation.mutate(data);
   };
 
   return (

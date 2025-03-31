@@ -2,8 +2,6 @@
 
 import { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
-import { kakaoSignUp } from '@/lib/auth-api';
 import KakaoSignUpForm from './components/KakaoSignUpForm';
 
 export default function KakaoSignUpCallbackPage() {

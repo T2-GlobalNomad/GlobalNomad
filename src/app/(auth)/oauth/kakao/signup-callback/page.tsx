@@ -43,10 +43,7 @@ export default function KakaoSignUpCallbackPage() {
           },
         }}
       >
-        <KakaoSignUpForm
-          code={code as string}
-          redirectUri={redirectUri as string}
-        />
+        <KakaoSignUpForm code={code!} />
       </Modal>
     </div>
   );

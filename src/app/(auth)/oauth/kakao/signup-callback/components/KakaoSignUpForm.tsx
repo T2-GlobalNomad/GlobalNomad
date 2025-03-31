@@ -4,16 +4,11 @@ import { useForm } from 'react-hook-form';
 import styles from './KaKaoSignUpForm.module.css';
 import { useKakaoSignUpMutation } from '@/hooks/useAuth';
 
-type KakaoSignUpFormProps = {
-  code: string;
-  redirectUri: string;
-};
-
 type FormData = {
   nickname: string;
 };
 
-export default function KakaoSignUpForm({ code }: KakaoSignUpFormProps) {
+export default function KakaoSignUpForm({ code }: { code: string }) {
   const {
     register,
     handleSubmit,

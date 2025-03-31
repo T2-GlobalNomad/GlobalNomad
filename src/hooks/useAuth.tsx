@@ -1,6 +1,11 @@
 'use client';
 
-import { KakaoSignUpData, SignInData, SignUpData } from '@/lib/auth-types';
+import {
+  KakaoSignUpData,
+  SignInData,
+  SignInResponse,
+  SignUpData,
+} from '@/lib/auth-types';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { kakaoSignIn, kakaoSignUp, signIn, signUp } from '@/lib/auth-api';
@@ -15,7 +20,7 @@ function useSignInMutation() {
 
   return useMutation({
     mutationFn: (data: SignInData) => signIn(data),
-    onSuccess: (response) => {
+    onSuccess: (response: SignInResponse) => {
       setAuth(response.user);
       // js-cookie에 토큰 저장. next action으로 하면 보안이 더좋음 추후논의.
       Cookies.set('accessToken', response.accessToken);
@@ -52,7 +57,7 @@ function useKakaoSignInMutation() {
 
   return useMutation({
     mutationFn: (code: string) => kakaoSignIn(code),
-    onSuccess: (response) => {
+    onSuccess: (response: SignInResponse) => {
       setAuth(response.user);
       Cookies.set('accessToken', response.accessToken);
       Cookies.set('refreshToken', response.refreshToken);

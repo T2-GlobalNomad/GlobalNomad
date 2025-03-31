@@ -56,7 +56,7 @@ function useKakaoSignInMutation() {
       setAuth(response.user);
       Cookies.set('accessToken', response.accessToken);
       Cookies.set('refreshToken', response.refreshToken);
-      toast('로그인 성공!');
+      toast.success('로그인 성공!');
       router.push('/');
     },
     onError: (error: any) => {

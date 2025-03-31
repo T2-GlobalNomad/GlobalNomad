@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: 'GlobalNomad',
@@ -11,10 +10,5 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div>
-      {children}
-      <Toaster position='bottom-center' />
-    </div>
-  );
+  return <div>{children}</div>;
 }

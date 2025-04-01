@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SignUpForm from './components/SignUpForm';
 import styles from './index.module.css';
+import OauthSignUp from './components/OauthSignUp';
 
 export default function SignUp() {
   return (
@@ -12,7 +13,7 @@ export default function SignUp() {
           로그인하기
         </Link>
       </p>
-      {/* sns계정 */}
+      <OauthSignUp />
     </div>
   );
 }

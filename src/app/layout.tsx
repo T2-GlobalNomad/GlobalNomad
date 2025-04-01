@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import ClientLayout from './ClientLayout';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: 'GlobalNomad',
@@ -18,6 +19,7 @@ export default function RootLayout({
       </head>
       <body>
         <ClientLayout>{children}</ClientLayout>
+        <Toaster position='bottom-center' />
       </body>
     </html>
   );

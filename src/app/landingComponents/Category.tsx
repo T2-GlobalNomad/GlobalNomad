@@ -51,7 +51,10 @@ export default function Category({
       <Dropdown
         options={sortOptions}
         selectedValue={selectedSort}
-        onChange={onSortChange}
+        onChange={(value) => {
+          onSortChange(value);
+          setPage(1);
+        }}
       />
     </div>
   );

@@ -200,6 +200,7 @@ export default function Home() {
             selectedSort={selectedSort}
             onCategoryClick={handleCategoryClick}
             onSortChange={setSelectedSort}
+            setPage={setCurrentPage}
           />
           <h2 className={styles.title}>
             {selectedCategory ? selectedCategory : '🛼 모든 체험'}

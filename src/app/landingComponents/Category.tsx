@@ -10,6 +10,7 @@ interface CategoryProps {
   selectedSort: string | null;
   onCategoryClick: (category: string) => void;
   onSortChange: (value: string) => void;
+  setPage: (page: number) => void;
 }
 
 export default function Category({
@@ -18,6 +19,7 @@ export default function Category({
   selectedSort,
   onCategoryClick,
   onSortChange,
+  setPage,
 }: CategoryProps) {
   const sortOptions = [
     { value: 'latest', label: '최신순' },
@@ -37,7 +39,10 @@ export default function Category({
                 ? styles.selected
                 : styles.deselected
             }`}
-            onClick={() => onCategoryClick(category)}
+            onClick={() => {
+              onCategoryClick(category);
+              setPage(1);
+            }}
           >
             {category}
           </li>

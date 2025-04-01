@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ActivitiesArray } from '@/lib/types';
+import { useQuery } from '@tanstack/react-query';
 import axios from '@/lib/api';
+import { ActivitiesArray } from '@/lib/types';
 import Search from './landingComponents/Search';
 import PopularActivities from './landingComponents/PopulorActivities';
 import ActivitiesList from './landingComponents/ActivitiesList';
@@ -11,30 +12,15 @@ import Category from './landingComponents/Category';
 // import Footer from '@/components/footer/Footer';
 import styles from './landingComponents/LandingPage.module.css';
 
-interface ActivitiesParams {
-  method: string;
-  page: number;
-  size: number;
-  sort: string | null;
-  category?: string | null;
-  keyword?: string | null;
-}
-
 export default function Home() {
   const [size, setSize] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [activities, setActivities] = useState<ActivitiesArray>([]);
-  const [popularActivities, setPopularActivities] = useState<ActivitiesArray>(
-    [],
-  );
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedSort, setSelectedSort] = useState<string | null>('latest');
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState<string>('');
   const [keyword, setKeyword] = useState<string>(''); // 실제 검색에 사용되는 상태
   const [searchMode, setSearchMode] = useState(false);
+  const [totalCount, setTotalCount] = useState(0);
 
   const categories = [
     '문화 · 예술',
@@ -64,70 +50,58 @@ export default function Home() {
     }
   }, []);
 
-  // 인기체험 API 호출
-  useEffect(() => {
-    const fetchPopularActivities = async () => {
-      try {
-        const response = await axios.get('/activities', {
-          params: {
-            method: 'offset',
-            page: 1,
-            size: 40,
-            sort: 'most_reviewed',
-          },
-        });
-
-        // 인기 체험 데이터를 평점 기준으로 내림차순 정렬 후 상위 9개만 선택
-        const sortedActivities = response.data.activities
-          .sort(
-            (a: { rating?: number }, b: { rating?: number }) =>
-              (b.rating ?? 0) - (a.rating ?? 0),
-          )
-          .slice(0, 9);
-
-        setPopularActivities(sortedActivities);
-      } catch (error) {
-        console.error('인기 체험 데이터 가져오기 실패:', error);
-      }
-    };
-
-    fetchPopularActivities();
-  }, []);
-
-  // 체험 리스트 API 호출
-  useEffect(() => {
-    const fetchActivities = async () => {
-      setIsLoading(true);
-      try {
-        const params: ActivitiesParams = {
+  // 인기 체험 데이터 가져오기
+  const { data: popularActivities = [] } = useQuery<ActivitiesArray>({
+    queryKey: ['popularActivities'],
+    queryFn: async () => {
+      const response = await axios.get('/activities', {
+        params: {
           method: 'offset',
-          page: currentPage,
-          size: size,
-          sort: selectedSort,
-        };
+          page: 1,
+          size: 40,
+          sort: 'most_reviewed',
+        },
+      });
+      return response.data.activities
+        .sort(
+          (a: { rating?: number }, b: { rating?: number }) =>
+            (b.rating ?? 0) - (a.rating ?? 0),
+        )
+        .slice(0, 9);
+    },
+  });
 
-        if (selectedCategory) {
-          params['category'] = selectedCategory; // 카테고리 필터링 추가
-        }
+  // 체험 리스트 데이터 가져오기
+  const {
+    data: activities = [],
+    isLoading,
+    error,
+  } = useQuery<ActivitiesArray>({
+    queryKey: [
+      'activities',
+      currentPage,
+      size,
+      selectedSort,
+      selectedCategory,
+      keyword,
+    ],
+    queryFn: async () => {
+      const params: Record<string, string | number | null> = {
+        method: 'offset',
+        page: currentPage,
+        size: size,
+        sort: selectedSort,
+      };
 
-        if (keyword) {
-          params['keyword'] = keyword; // 검색어 필터링 추가
-        }
+      if (selectedCategory) params['category'] = selectedCategory;
+      if (keyword) params['keyword'] = keyword;
 
-        const response = await axios.get('/activities', { params });
-
-        setActivities(response.data.activities);
-        setTotalPages(Math.ceil(response.data.totalCount / size)); // 전체 페이지 수 계산
-      } catch (error) {
-        console.error('데이터 가져오기 실패:', error);
-        setError('데이터를 가져오는 데 실패했습니다.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchActivities();
-  }, [size, currentPage, selectedSort, selectedCategory, keyword]);
+      const response = await axios.get('/activities', { params });
+      setTotalCount(response.data.totalCount); // 총 데이터 수 저장
+      return response.data.activities as ActivitiesArray;
+    },
+    placeholderData: [],
+  });
 
   // 페이지 변경
   const handlePageChange = (page: number) => {
@@ -136,19 +110,16 @@ export default function Home() {
 
   // 카테고리 클릭 시 필터링
   const handleCategoryClick = (category: string) => {
-    if (selectedCategory === category) {
-      setSelectedCategory(null);
-    } else {
-      setSelectedCategory(category);
-    }
+    setSelectedCategory((prev) => (prev === category ? null : category));
+    setCurrentPage(1);
   };
 
   // 검색 버튼 클릭 시 실행
   const handleSearch = () => {
-    setKeyword(inputValue); // 검색어를 업데이트
-    setSearchMode(inputValue !== ''); // 검색어가 비어있지 않으면 검색 모드 활성화
-    setSelectedCategory(null); // 카테고리 필터 해제
-    setCurrentPage(1); // 첫 페이지로 초기화
+    setKeyword(inputValue);
+    setSearchMode(inputValue !== '');
+    setSelectedCategory(null);
+    setCurrentPage(1);
   };
 
   // 입력 필드 값 변경
@@ -162,6 +133,9 @@ export default function Home() {
       handleSearch();
     }
   };
+
+  // 전체 페이지 수 계산 (올림 처리)
+  const totalPages = Math.ceil(totalCount / size);
 
   return (
     <>
@@ -189,7 +163,9 @@ export default function Home() {
             &quot;{keyword}&quot;
             <span>로 검색한 결과입니다.</span>
           </h2>
-          <p className={styles.resultCount}>총 {activities.length}개의 결과</p>
+          <p className={styles.resultCount}>
+            총 {(activities as ActivitiesArray).length}개의 결과
+          </p>
         </div>
       ) : (
         <>
@@ -211,7 +187,7 @@ export default function Home() {
       <ActivitiesList
         activities={activities}
         isLoading={isLoading}
-        error={error}
+        error={error?.message || null}
       />
       <Pagination
         currentPage={currentPage}

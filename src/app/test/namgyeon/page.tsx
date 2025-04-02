@@ -40,7 +40,7 @@ export default function Page() {
           type='text'
           placeholder='이메일을 입력해주세요'
           label='이메일'
-          labelSize={true}
+          isLabelLarge={true}
         />
       </div>
       <div>

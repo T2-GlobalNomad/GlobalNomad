@@ -1,0 +1,78 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .modalContent {
+    position:relative;
+    background-color: var(--white);
+    min-width: 368px;
+    min-height:204px;
+    padding: 30px 24px;
+    border-radius: 8px;
+
+    @media (max-width:400){
+      width:100%;
+      min-width:auto;
+      margin:0 20px;
+    }
+  }
+  
+  .contents {
+    padding-top:10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight:400;
+
+    .circle{
+      width:24px;
+      height:24px;
+      line-height:20px;
+      margin:0 auto 15px;
+      border-radius:50%;
+      background:var(--black);
+
+      .iconCheck{
+        vertical-align: bottom;
+      }
+    }
+  }
+
+  .contents.type2{
+    padding:45px;
+
+    .buttonContainer button{
+      position:absolute;
+      bottom:28px;
+      right:28px;
+
+      @media (max-width:480px){
+        position:inherit
+      }
+    }
+  }
+  
+  .buttonContainer button {
+    padding: 8px 20px;
+    margin-top: 25px;
+    cursor: pointer;
+    border-radius: 8px;
+    background: var(--primary);
+    color: var(--white);
+  }
+  
+  .buttonContainer .cancel {
+    margin-right: 10px;
+    border: 1px solid var(--primary);
+    background: var(--white);
+    color: var(--primary);
+  }
+  

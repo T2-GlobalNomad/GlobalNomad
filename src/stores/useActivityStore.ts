@@ -20,6 +20,8 @@ interface ActivityData {
   endTime: string;  
   date: string;
   bannerImageFile: File | null;
+  latitude?: number;
+  longitude?: number;
 
 }
 
@@ -45,6 +47,8 @@ export const useActivityStore = create<ActivityStore>((set) => ({
       startTime: "0:00", // 기본값
       endTime: "0:00",   // 기본값
       bannerImageFile: null,
+      longitude: undefined,
+      latitude: undefined,
   },
 
   setActivity: (data) =>

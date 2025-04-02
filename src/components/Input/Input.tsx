@@ -3,7 +3,7 @@ import styles from './Input.module.css';
 
 interface InputProps extends ComponentProps<'input'> {
   label: string;
-  labelSize?: boolean;
+  isLabelLarge?: boolean;
   isErrored?: boolean;
   className?: string;
   labelClassName?: string;
@@ -13,7 +13,7 @@ interface InputProps extends ComponentProps<'input'> {
  * 공용 Input 컴포넌트
  *
  * @param {string} props.label - 입력 필드에 표시할 라벨 텍스트.
- * @param {boolean} props.labelSize - 입력 필드에 표시할 라벨 텍스트가 큰 사이즈.
+ * @param {boolean} props.isLabelLarge - 입력 필드에 표시할 라벨 텍스트가 큰 사이즈.
  * @param {boolean} props.isErrored - 리액트 훅 품으로 사용할때 넘겨주면 border에 에러스타일 적용.
  * @param {string} props.className - input태그 스타일
  * @param {string} props.labelClassName - label태그 스타일
@@ -35,7 +35,7 @@ interface InputProps extends ComponentProps<'input'> {
  *  type="text"
  *  placeholder="이메일을 입력해주세요"
  *  label="이메일"
- *  labelSize={true}
+ *  isLabelLarge={true}
  * />
  *
  * @example
@@ -64,7 +64,7 @@ export default function Input({
   type = 'text',
   placeholder = '이메일을 입력하세요',
   label = '이메일',
-  labelSize = false,
+  isLabelLarge = false,
   id = 'email',
   isErrored = false,
   className,
@@ -75,7 +75,7 @@ export default function Input({
     <div className={styles.container}>
       <label
         className={`${styles.label} ${
-          labelSize === true ? styles.largeLabel : ''
+          isLabelLarge === true ? styles.largeLabel : ''
         } ${labelClassName ?? ''}`}
         htmlFor={id}
       >

@@ -28,7 +28,7 @@ export default function BannerImage() {
     formData.append('image', file);
 
     uploadImages(formData, {
-      onSuccess: (data: any) => {
+      onSuccess: (data: any) => {  // eslint-disable-line @typescript-eslint/no-explicit-any
         useActivityStore.getState().setActivity({
           bannerImageUrl: data.activityImageUrl,
         });

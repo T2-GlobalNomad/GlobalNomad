@@ -30,12 +30,12 @@
 }
 .activityItem {
   margin-bottom: 24px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, auto);
-  }
+  transition: transform 0.3s ease-in-out;
 }
+.activityItem:hover {
+  transform: translateY(-7px); /* 살짝 위로 이동 */
+}
+
 .link {
   display: flex;
   flex-direction: column;
@@ -57,6 +57,10 @@
   aspect-ratio: 1 / 1;
   border-radius: 20px;
   overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+.activityImage:hover {
+  transform: scale(1.02); /* 2% 확대 */
 }
 
 /* 평점 */

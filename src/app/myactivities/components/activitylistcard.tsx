@@ -16,7 +16,14 @@ export default function ActivityListCard({
     <div className={styles.container}>
       {/* 이미지 */}
       <div className={styles.bannerImg}>
-        <Image src={activities.bannerImageUrl!} alt={activities.title!} width={204} height={204}/>
+
+        <Image
+          src={activities.bannerImageUrl!}
+          alt={activities.title!}
+          width={204}
+          height={204}
+        />
+
       </div>
 
       {/* 정보 */}
@@ -35,9 +42,12 @@ export default function ActivityListCard({
           <h3 className={styles.title}>{activities.title}</h3>
         </div>
         <div className={styles.bottomInfo}>
-          <p className={styles.price}>₩{new Intl.NumberFormat("ko-KR").format(activities.price!)} / 인</p>
-          <KebabDropdown 
-          activityId={activities.id!}/>
+
+          <p className={styles.price}>
+            ₩{new Intl.NumberFormat('ko-KR').format(activities.price!)} / 인
+          </p>
+          <KebabDropdown activityId={activities.id!} />
+
         </div>
       </div>
     </div>

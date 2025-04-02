@@ -1,6 +1,6 @@
 'use client';
 
-import useMyActivities from '@/hooks/useMyActivities';
+import useMyActivities from '@/hooks/query/useMyActivities';
 import ActivityListCard from './activitylistcard';
 import styles from './activitylistcard.module.css';
 import { useScrollDetector } from '@/utils/useScrollDetector';
@@ -63,4 +63,5 @@ export default function ActivityList({ status }: {status: string}) {
     ))}
   </div>
 );
+
 }

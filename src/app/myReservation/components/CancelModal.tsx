@@ -1,18 +1,18 @@
 import Image from 'next/image';
 import styles from '@/components/modal/customModal.module.css';
 import CustomButton from '@/components/CustomButton';
-import useCancelReservation from '@/hooks/useCancelReservation';
+import useCancelReservation from '@/hooks/query/useCancelReservation';
 import { SetStateAction } from 'react';
 
 interface Props {
-  cancelId?: number;
+  reservationId: number | undefined;
   setShowModal: (value: boolean) => void;
   isModalMessage: string;
   setShowToast: React.Dispatch<SetStateAction<boolean>>;
 }
 
 export default function CancelModal({
-  cancelId,
+  reservationId,
   setShowModal,
   isModalMessage,
   setShowToast,
@@ -33,9 +33,9 @@ export default function CancelModal({
   function handleCancelReservation() {
     setShowModal(false);
 
-    if (cancelId) {
+    if (reservationId) {
       try {
-        cancelReservation(cancelId);
+        cancelReservation(reservationId);
       } catch (error) {
         console.error(error);
       }

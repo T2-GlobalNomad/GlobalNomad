@@ -1,10 +1,10 @@
-.wrapper{
+.wrapper {
   margin: 72px 0;
-    display: flex;
+  display: flex;
 }
 
 .pageContainer {
-  flex:1;
+  flex: 1;
   position: relative;
   min-height: calc(100vh - calc(env(safe-area-inset-bottom)) - 235px);
 }

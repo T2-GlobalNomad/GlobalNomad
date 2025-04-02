@@ -1,17 +1,12 @@
-import instance from '@/lib/api';
-import { useEffect, useState, useRef, useCallback } from 'react';
+'use client';
+
+import { useEffect, useState, useRef } from 'react';
 import ReservationInfoByStatus from './ReservationInfoByStatus';
+import useReservationSchedules from '@/hooks/query/useReservationsSchedules';
 import CloseButton from '@/components/CloseButton';
 import Dropdown from '@/components/Dropdown';
 import useClickOutside from '@/utils/useClickOutside';
 import styles from './ReservationInfoModal.module.css';
-
-interface ScheduleInfo {
-  scheduleId: number;
-  startTime: string;
-  endTime: string;
-  count: { declined: number; confirmed: number; pending: number };
-}
 
 interface Props {
   activityId: number;
@@ -24,47 +19,40 @@ export default function ReservationInfoModal({
   date,
   onClose,
 }: Props) {
-  const [scheduleList, setScheduleList] = useState<ScheduleInfo[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<
     'pending' | 'confirmed' | 'declined'
   >('pending');
   const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(
     null,
   );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+
+  // 선택된 활동&날짜로 해당 날짜의 스케줄 불러옴
+<<<<<<< HEAD
+  const { data: scheduleList = [], error } = useReservationSchedules(
+    activityId,
+    date,
+  );
+=======
+  const {
+    data: scheduleList = [],
+    isLoading,
+    error,
+  } = useReservationSchedules(activityId, date);
+>>>>>>> 319a7ef21062f226f0ecbbc5016fc26f5065eb07
 
   const modalRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (scheduleList.length > 0) {
+      setSelectedScheduleId(scheduleList[0].scheduleId);
+    }
+  }, [scheduleList]);
 
   // 모달 바깥 클릭 시 onClose 실행
   useClickOutside({
     ref: modalRef,
     setter: () => onClose(),
   });
-
-  // ReservationInfoModal.tsx
-
-  const fetchSchedules = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await instance.get(
-        `/my-activities/${activityId}/reserved-schedule?date=${date}`,
-      );
-      setScheduleList(response.data);
-
-      if (response.data.length > 0) {
-        setSelectedScheduleId(response.data[0].scheduleId);
-      }
-    } catch (error) {
-      setError(`에러 발생: ${error}`);
-    } finally {
-      setLoading(false);
-    }
-  }, [activityId, date]);
-
-  useEffect(() => {
-    fetchSchedules();
-  }, [fetchSchedules]);
 
   const totalPending = scheduleList.reduce(
     (sum, schedule) => sum + schedule.count.pending,
@@ -79,8 +67,12 @@ export default function ReservationInfoModal({
     0,
   );
 
-  if (loading) return <p>로딩 중...</p>;
-  if (error) return <p>{error}</p>;
+<<<<<<< HEAD
+  /** @TODO 로딩 화면 */
+=======
+  if (isLoading) return <p>로딩 중...</p>;
+>>>>>>> 319a7ef21062f226f0ecbbc5016fc26f5065eb07
+  if (error) return <p>{error.message}</p>;
 
   return (
     <div className={styles.modalOverlay}>
@@ -144,7 +136,6 @@ export default function ReservationInfoModal({
               activityId={activityId}
               scheduleId={selectedScheduleId}
               status={selectedStatus}
-              onStatusChange={fetchSchedules}
             />
           )}
         </div>

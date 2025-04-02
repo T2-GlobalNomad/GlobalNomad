@@ -4,13 +4,13 @@ import { MoreVertical } from 'lucide-react';
 import CustomDropdown from './customDropdown';
 import { useState, useCallback } from 'react';
 import styles from './customDropdown.module.css';
+import useDeleteMyActivity  from '@/hooks/useDeleteActivities';
 import ModalType1 from './ModalType1';
-import useDeleteMyActivity from '@/hooks/useDeleteActivities';
-
 
 interface KebabDropdownProps {
   activityId: number;
 }
+
 
 export default function KebabDropdown({ activityId }: KebabDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function KebabDropdown({ activityId }: KebabDropdownProps) {
               options={['수정하기', '삭제하기']}
               onChange={(value) => {
                 if (value === '수정하기') {
-                 console.log("수정하기 클릭!");
+                  console.log('수정하기 클릭!');
                 } else if (value === '삭제하기') {
                  setShowModal(true);
                 }
@@ -51,15 +51,14 @@ export default function KebabDropdown({ activityId }: KebabDropdownProps) {
             ></CustomDropdown>
           </div>
         )}
-      </div>
+        <ModalType1 
+          showModal={showModal}
+          setShowModal={setShowModal}
+          isModalMessage='삭제하시겠습니까?'
+          onConfirm={handleRemoveActivity}
+        />
 
-      {showModal && (
-        <ModalType1
-        isModalMessage='체험을 삭제하시겠습니까?'
-        showModal={showModal}
-        setShowModal={setShowModal}
-        onConfirm={handleRemoveActivity} />
-      )}
+      </div>
     </div>
   );
 }

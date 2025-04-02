@@ -1,5 +1,7 @@
 
+
 import { Reservation,Activities } from '@/lib/types';
+
 import { InfiniteData } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 
@@ -7,7 +9,6 @@ export function useScrollPositioning(
   data:
     | InfiniteData<{ activities?: Activities[]; reservations?: Reservation[]; nextPage?: number }, unknown>
     | undefined,
-  status?: string,
 ) {
   const listRef = useRef<HTMLDivElement>(null);
   const prevScrollHeightRef = useRef(0);
@@ -25,7 +26,7 @@ export function useScrollPositioning(
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [status]);
+  }, []);
 
   return { listRef, prevScrollHeightRef, prevScrollTopRef };
 } 

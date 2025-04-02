@@ -3,7 +3,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import instance from '@/lib/api';
 import { Activities } from '@/lib/types';
-import { string } from 'zod';
+
 
 // API 요청
 const fetchMyActivities = async ({

@@ -104,7 +104,7 @@ export default function ReservationItem({
                 <div className={styles.info}>
                   <p className={styles.title}>{activity.title}</p>
                   <p className={styles.plan}>
-                    {formattedDate(date!)}
+                    <span>{formattedDate(date!)}</span>
                     <span className={styles.circle}>·</span>
                     {reservation.startTime} - {reservation.endTime}
                     <span className={styles.circle}>·</span>

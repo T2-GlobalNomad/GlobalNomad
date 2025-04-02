@@ -85,7 +85,7 @@ export default function WriteReviewModal({
             <div className={styles.top}>
               <p className={styles.title}>{activity?.title}</p>
               <p className={styles.date}>
-                {formattedDate(date!)}
+                <span>{formattedDate(date!)}</span>
                 <span> · </span>
                 {isReviewData?.startTime} - {isReviewData?.endTime}
                 <span> · </span>

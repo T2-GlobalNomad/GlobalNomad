@@ -7,7 +7,7 @@ import styles from '../style.module.css';
 import { RESERVATION_STATUS } from '@/constants/ReservationStatus';
 import { Reservation } from '@/lib/types';
 import { isPastDateTime } from '@/utils/dateUtils';
-import FormattedDate from '@/utils/formattedDate';
+import { FormattedDate } from '@/utils/formattedDate';
 
 interface Props {
   reservationsData: Reservation[] | undefined;

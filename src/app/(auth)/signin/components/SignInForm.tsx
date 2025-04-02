@@ -5,7 +5,7 @@ import styles from './SignInForm.module.css';
 import Input from '@/components/Input/Input';
 import PasswordInput from '@/components/Input/PasswordInput';
 import { useForm } from 'react-hook-form';
-import { signInSchema, type SignInSchema } from '@/lib/schemas/auth-schemas';
+import { signInSchema } from '@/lib/schemas/auth-schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignInData } from '@/lib/auth-types';
 import { useSignInMutation } from '@/hooks/useAuth';

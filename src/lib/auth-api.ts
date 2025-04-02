@@ -1,6 +1,5 @@
 import { AxiosError } from 'axios';
 import instance from './api';
-import { toast } from 'react-hot-toast';
 import { SignUpData, SignInData, SignInResponse } from './auth-types';
 
 // 회원가입 api
@@ -48,7 +47,7 @@ export async function kakaoSignUp(code: string, nickname: string) {
       token: code,
     });
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof AxiosError) {
       const errorMessage =
         error.response?.data?.message || '카카오 회원가입에 실패했습니다.';
@@ -72,7 +71,7 @@ export async function kakaoSignIn(code: string) {
     });
     console.log('카카오 로그인 성공:', response.data);
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof AxiosError) {
       const errorMessage =
         error.response?.data?.message || '카카오 로그인에 실패했습니다.';

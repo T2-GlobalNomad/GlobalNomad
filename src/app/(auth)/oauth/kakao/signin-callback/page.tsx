@@ -17,10 +17,11 @@ export default function KakaoSignInCallbackPage() {
       setTimeout(() => {
         router.push('/signin');
       }, 1500);
+      return;
     }
 
     kakaoSignIn.mutate(code);
-  }, [code, router]);
+  }, [code, router, kakaoSignIn]);
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>

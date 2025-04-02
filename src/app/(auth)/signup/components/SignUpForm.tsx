@@ -5,8 +5,6 @@ import styles from './SignUpForm.module.css';
 import Input from '@/components/Input/Input';
 import { useForm } from 'react-hook-form';
 import CustomButton from '@/components/CustomButton';
-import { signUp } from '@/lib/auth-api';
-import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   signUpSchema,

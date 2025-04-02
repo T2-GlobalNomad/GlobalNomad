@@ -28,8 +28,12 @@ function useSignInMutation() {
       toast.success('로그인 성공!');
       router.push('/');
     },
-    onError: (error: any) => {
-      toast.error(error.message);
+    onError: (error: unknown) => {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('알 수 없는 오류가 발생했습니다.');
+      }
     },
   });
 }
@@ -44,8 +48,12 @@ function useSignUpMutation() {
       toast.success('회원가입 성공! \n 로그인 페이지로 이동합니다.');
       router.push('/signin');
     },
-    onError: (error: any) => {
-      toast.error(error.message);
+    onError: (error: unknown) => {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('알 수 없는 오류가 발생했습니다.');
+      }
     },
   });
 }
@@ -64,8 +72,12 @@ function useKakaoSignInMutation() {
       toast.success('로그인 성공!');
       router.push('/');
     },
-    onError: (error: any) => {
-      toast.error(error.message);
+    onError: (error: unknown) => {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('알 수 없는 오류가 발생했습니다.');
+      }
     },
   });
 }
@@ -81,19 +93,28 @@ function useKakaoSignUpMutation() {
     onSuccess: () => {
       toast.success('카카오 회원가입 성공!\n로그인 페이지로 이동합니다.');
     },
-    onError: (error: any) => {
-      if (error.message === '잘못된 인가 코드입니다.') {
-        toast.error(`${error.message} \n회원가입 페이지로 이동합니다.`);
-        setTimeout(() => {
-          router.push('/signup');
-        }, 1000);
-      } else if (error.message === '이미 등록된 사용자입니다.') {
-        toast.error(`${error.message} \n로그인 페이지로 이동합니다.`);
-        setTimeout(() => {
-          router.push('/signin');
-        }, 1500);
+    onError: (error: unknown) => {
+      if (error instanceof Error) {
+        if (error.message === '잘못된 인가 코드입니다.') {
+          toast.error(`${error.message} \n회원가입 페이지로 이동합니다.`);
+          setTimeout(() => {
+            router.push('/signup');
+          }, 1000);
+        } else if (error.message === '이미 등록된 사용자입니다.') {
+          toast.error(`${error.message} \n로그인 페이지로 이동합니다.`);
+          setTimeout(() => {
+            router.push('/signin');
+          }, 1500);
+        } else {
+          toast.error(`${error.message} \n회원가입 페이지로 이동합니다.`);
+          setTimeout(() => {
+            router.push('/signup');
+          }, 1500);
+        }
       } else {
-        toast.error(`${error.message} \n회원가입 페이지로 이동합니다.`);
+        toast.error(
+          '알 수 없는 오류가 발생했습니다. \n회원가입 페이지로 이동합니다.',
+        );
         setTimeout(() => {
           router.push('/signup');
         }, 1500);

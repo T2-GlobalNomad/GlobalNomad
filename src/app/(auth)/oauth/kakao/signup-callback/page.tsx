@@ -12,7 +12,6 @@ export default function KakaoSignUpCallbackPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const code = searchParams.get('code');
-  const redirectUri = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_SIGNUP_URI;
 
   const [modaleIsOpen, setModalIsOpen] = useState(true);
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const useStatusFilter = () => {
-  const [value, setValue] = useState<string>('전체');
+  const [value, setValue] = useState<string | null>('전체');
 
   const options = [
     { value: '전체', label: '전체' },
@@ -21,5 +21,5 @@ export const useStatusFilter = () => {
     '체험 완료': 'completed',
   };
 
-  return { value, setValue, status: statusMap[value] || '', options };
+  return { value, setValue, status: statusMap[value ?? ''] || '', options };
 };

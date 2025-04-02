@@ -8,7 +8,7 @@ import { RefObject } from 'react';
 import { useScrollPositioning } from '@/utils/useScrollPositioning';
 import Empty from '@/components/empty/Empty';
 
-export default function ActivityList({ status }: {status: string}) {
+export default function ActivityList({ status }: { status: string }) {
   const {
     data,
     isLoading,
@@ -18,8 +18,7 @@ export default function ActivityList({ status }: {status: string}) {
     isFetchingNextPage, // ✅ 오타 수정
   } = useMyActivities(status); // ✅ status 제거
 
-  const activityData =
-    data?.pages.flatMap((page) => page.activities) ?? [];
+  const activityData = data?.pages.flatMap((page) => page.activities) ?? [];
 
   const {
     listRef,
@@ -50,18 +49,17 @@ export default function ActivityList({ status }: {status: string}) {
     );
 
   if (!activityData || activityData.length === 0) {
-      return <Empty />;
-    }
+    return <Empty />;
+  }
 
   return (
     <div
-    className={styles.listcardcontainer}
-    ref={listRef} // ✅ 이 줄 꼭 추가해야 스크롤 감지됨
-  >
-    {activityData.map((activity) => (
-      <ActivityListCard key={activity.id} activities={activity} />
-    ))}
-  </div>
-);
-
+      className={styles.listcardcontainer}
+      ref={listRef} // ✅ 이 줄 꼭 추가해야 스크롤 감지됨
+    >
+      {activityData.map((activity) => (
+        <ActivityListCard key={activity.id} activities={activity} />
+      ))}
+    </div>
+  );
 }

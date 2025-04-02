@@ -2,7 +2,7 @@
 
 import CustomButton from '@/components/CustomButton';
 import styles from './PostActivity.module.css';
-import usePostMyActivities from '@/hooks/usePostMyActivity';
+import usePostMyActivities from '@/hooks/query/usePostMyActivity';
 import { useActivityStore } from '@/stores/useActivityStore';
 import { useRouter } from 'next/navigation';
 
@@ -27,8 +27,6 @@ export default function PostActivity() {
   } = useActivityStore(); // ✅ 이것도 최상단에서 호출
 
   const handleSubmit = () => {
-
-
     const payload = {
       title,
       category,
@@ -52,7 +50,7 @@ export default function PostActivity() {
         alert('등록 실패!');
       },
     });
-    console.log("🔥 payload 확인:", payload);
+    console.log('🔥 payload 확인:', payload);
   };
 
   return (
@@ -60,7 +58,7 @@ export default function PostActivity() {
       <p className={styles.postTitle}>내 체험 등록</p>
       <CustomButton
         onClick={handleSubmit}
-        fontSize="md"
+        fontSize='md'
         className={`customButton-black ${styles.custombutton}`}
         disabled={posting}
       >
@@ -69,4 +67,3 @@ export default function PostActivity() {
     </div>
   );
 }
-

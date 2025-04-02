@@ -3,14 +3,15 @@ import Input from './customInput';
 import styles from './AddressInput.module.css';
 import { useActivityStore } from '@/stores/useActivityStore';
 
-import {  useRef } from 'react';
+import { useRef, useState } from 'react';
 import Script from 'next/script';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import DaumPostcode from 'react-daum-postcode';
 import CustomButton from '@/components/CustomButton';
 
 declare global {
   interface Window {
-    kakao: any;
+    kakao: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
 }
 
@@ -18,46 +19,58 @@ export default function AddressInput() {
   const { activity, setActivity } = useActivityStore();
   const mapInstance = useRef<any>(null);
   const markerInstance = useRef<any>(null);
+  const [daumLoaded, setDaumLoaded] = useState(false);
+  const [kakaoLoaded, setKakaoLoaded] = useState(false);
+  const scriptLoaded = daumLoaded && kakaoLoaded; // 둘 다 로드됐을 때만 true
 
   const handleSearchAddress = () => {
-    if (!window.daum?.Postcode || !window.kakao?.maps) return;
-
+    if (!scriptLoaded || !window.daum?.Postcode || !window.kakao?.maps) {
+      alert('주소 검색 기능이 아직 준비되지 않았습니다.');
+      console.log('카카오 키 확인:', process.env.NEXT_PUBLIC_KAKAO_APP_KEY);
+      console.log('window.daum:', window.daum);
+      console.log('window.kakao:', window.kakao);
+      return;
+    }
+  
     new window.daum.Postcode({
       oncomplete: function (data: any) {
         const selectedAddress = data.address;
-        setActivity({ address: selectedAddress }); // 💡 store에 저장
-
+        setActivity({ address: selectedAddress });
+  
         const geocoder = new window.kakao.maps.services.Geocoder();
-        geocoder.addressSearch(
-          selectedAddress,
-          function (results: any, status: any) {
-            if (status === window.kakao.maps.services.Status.OK) {
-              const result = results[0];
-              const coords = new window.kakao.maps.LatLng(result.y, result.x);
-
-              setActivity({
-                address: selectedAddress,
-                latitude: parseFloat(result.y), // 위도
-                longitude: parseFloat(result.x), // 경도
-              });
-
-              if (mapInstance.current && markerInstance.current) {
-                mapInstance.current.setCenter(coords);
-                markerInstance.current.setPosition(coords);
-              }
+        geocoder.addressSearch(selectedAddress, function (results: any, status: any) {
+          if (status === window.kakao.maps.services.Status.OK) {
+            const result = results[0];
+            const coords = new window.kakao.maps.LatLng(result.y, result.x);
+            setActivity({
+              address: selectedAddress,
+              latitude: parseFloat(result.y),
+              longitude: parseFloat(result.x),
+            });
+  
+            if (mapInstance.current && markerInstance.current) {
+              mapInstance.current.setCenter(coords);
+              markerInstance.current.setPosition(coords);
             }
-          },
-        );
+          }
+        });
       },
     }).open();
   };
 
   return (
     <>
-      <Script
-        src='//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
-        strategy='beforeInteractive'
-      />
+    <Script
+  src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+  strategy="lazyOnload"
+  onLoad={() => setDaumLoaded(true)}
+/>
+
+<Script
+  src={`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&libraries=services`}
+  strategy="lazyOnload"
+  onLoad={() => setKakaoLoaded(true)}
+/>
       <div className={styles.container}>
         <p className={styles.title}>주소</p>
         <div className={styles.inputWrapper}>
@@ -76,8 +89,8 @@ export default function AddressInput() {
           >
             주소찾기
           </CustomButton>
-          </div>
         </div>
+      </div>
     </>
   );
 }

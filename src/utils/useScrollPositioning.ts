@@ -1,23 +1,18 @@
 
-import { Reservation } from '@/lib/types';
+
+import { Reservation,Activities } from '@/lib/types';
+
 import { InfiniteData } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 
 export function useScrollPositioning(
   data:
-    | InfiniteData<{ reservations: Reservation[]; nextPage?: number }, unknown>
+    | InfiniteData<{ activities?: Activities[]; reservations?: Reservation[]; nextPage?: number }, unknown>
     | undefined,
-  status?: string,
 ) {
   const listRef = useRef<HTMLDivElement>(null);
   const prevScrollHeightRef = useRef(0);
   const prevScrollTopRef = useRef(0);
-
-  useEffect(() => {
-    if (listRef.current) {
-      prevScrollTopRef.current = window.scrollY;
-    }
-  }, [data]);
 
   useEffect(() => {
     if (listRef.current) {
@@ -27,7 +22,11 @@ export function useScrollPositioning(
         window.scrollTo({ top: prevScrollTopRef.current, behavior: 'instant' });
       }
     }
-  }, [data]);
+  }, [data, listRef, prevScrollHeightRef, prevScrollTopRef]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
 
   return { listRef, prevScrollHeightRef, prevScrollTopRef };
-}
+} 

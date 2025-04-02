@@ -10,16 +10,16 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 24px;
-    
 }
 
+
 .title p{
-  font-size: 32px;
-  font-style: bold;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 42px;
+font-size: 32px;
+font-style: bold;
+font-style: normal;
+font-weight: 700;
+font-size: 32px;
+line-height: 42px;
 }
 
 .custombutton{
@@ -30,6 +30,7 @@
   align-items:center;
   justify-content:center;
 }
+
 
 .page_container{
   display: flex;

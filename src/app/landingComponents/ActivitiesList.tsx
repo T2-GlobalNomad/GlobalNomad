@@ -20,11 +20,8 @@ export default function ActivitiesList({
 }: ActivitiesListProps) {
   const [imageSrcMap, setImageSrcMap] = useState<Record<string, string>>({});
 
-  const handleImageError = (id: number) => {
-    setImageSrcMap((prev) => ({
-      ...prev,
-      [id]: '/images/no_thumbnail.png',
-    }));
+  const handleImageError = (id: string) => {
+    setImageSrcMap((prev) => ({ ...prev, [id]: '/images/no_thumbnail.png' }));
   };
 
   return (
@@ -42,15 +39,15 @@ export default function ActivitiesList({
                 <div className={styles.activityImage}>
                   <Image
                     src={
-                      imageSrcMap[activity.id] ||
-                      activity?.bannerImageUrl ||
+                      (activity.id && imageSrcMap[activity.id]) ||
+                      activity.bannerImageUrl ||
                       '/images/no_thumbnail.png'
                     }
                     alt={activity.title || '체험 이미지 입니다.'}
                     fill
                     style={{ objectFit: 'cover' }}
                     priority
-                    onError={() => handleImageError(activity.id)}
+                    onError={() => handleImageError(String(activity.id))}
                   />
                 </div>
                 {/* 평점 */}

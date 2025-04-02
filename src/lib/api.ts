@@ -15,9 +15,7 @@ get, post, delete 등 체인방식으로 사용 가능 : instance.get('/users') 
 const instance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
-
     Authorization: `Bearer TOKEN`, // << 하드코딩으로 데이터 확인할 때
-
     'Content-Type': 'application/json',
   },
   params: {

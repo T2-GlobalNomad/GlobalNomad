@@ -33,7 +33,7 @@ export default function PopularActivities({ activities }: Props) {
   }, []);
 
   // 이미지 로드 실패 시 기본 이미지로 변경
-  const handleImageError = (id: number) => {
+  const handleImageError = (id: string) => {
     setImageSrcMap((prev) => ({
       ...prev,
       [id]: '/images/no_thumbnail.png',
@@ -103,7 +103,7 @@ export default function PopularActivities({ activities }: Props) {
                 <div className={styles.activityImage}>
                   <Image
                     src={
-                      imageSrcMap[activity.id] ||
+                      (activity.id && imageSrcMap[activity.id]) ||
                       activity.bannerImageUrl ||
                       '/images/no_thumbnail.png'
                     }
@@ -111,7 +111,7 @@ export default function PopularActivities({ activities }: Props) {
                     fill
                     style={{ objectFit: 'cover' }}
                     priority
-                    onError={() => handleImageError(activity.id)}
+                    onError={() => handleImageError(String(activity.id))}
                   />
                 </div>
                 <div className={styles.info}>

@@ -5,7 +5,7 @@ import { Plus, X } from 'lucide-react';
 import styles from './postImage.module.css';
 import Image from 'next/image';
 import { useActivityStore } from '@/stores/useActivityStore';
-import useUploadImagesMutation from '@/hooks/useImageUrl';
+import useUploadImagesMutation from '@/hooks/query/useImageUrl';
 
 export default function BannerImage() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);

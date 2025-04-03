@@ -61,8 +61,7 @@ export async function kakaoSignUp(code: string, nickname: string) {
 // 카카오 간편 로그인 api
 export async function kakaoSignIn(code: string) {
   if (!code) {
-    console.error('인가 코드가 없습니다.');
-    return;
+    throw new Error('인가 코드가 없습니다.');
   }
   try {
     const response = await instance.post('/oauth/sign-in/kakao', {

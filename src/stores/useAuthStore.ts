@@ -32,7 +32,9 @@ export const useAuthStore = create<AuthState>()(
         const clientId = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
         const logoutRedirectUri = `http://localhost:3000/signin`;
 
-        if (clientId) {
+        const isKakaoLogin = Cookies.get('kakaoLogin');
+        if (isKakaoLogin) {
+          Cookies.remove('kakaoLogin');
           window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${clientId}&logout_redirect_uri=${encodeURIComponent(
             logoutRedirectUri,
           )}`;

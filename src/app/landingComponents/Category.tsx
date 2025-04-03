@@ -42,6 +42,7 @@ export default function Category({
             onClick={() => {
               onCategoryClick(category);
               setPage(1);
+              // onSortChange('latest');  카테고리 클릭시 드롭다운 '최신순'으로 변경
             }}
           >
             {category}

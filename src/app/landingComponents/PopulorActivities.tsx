@@ -22,17 +22,17 @@ export default function PopularActivities({ activities }: Props) {
     infinite: true,
     speed: 1500,
     slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 100000,
+    autoplaySpeed: 4000,
     responsive: [
       {
         breakpoint: 768,
-        settings: { speed: 1000, slidesToShow: 2, slidesToScroll: 2 },
+        settings: { slidesToShow: 2 },
       },
       {
         breakpoint: 450,
-        settings: { speed: 700, slidesToShow: 1, slidesToScroll: 1 },
+        settings: { slidesToShow: 1 },
       },
     ],
   };

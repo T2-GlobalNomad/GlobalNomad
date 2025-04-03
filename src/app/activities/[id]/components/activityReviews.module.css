@@ -1,0 +1,98 @@
+.reviewTitleContainer {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.reviewText {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--nomad-black);
+  margin-bottom: 24px;
+}
+
+.totalReviewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.averageRating {
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 100%;
+  color: var(--nomad-black);
+}
+
+.ReviewsInfoDiv {
+  display: flex;
+  align-items: center;
+}
+
+.ReviewsStar {
+  margin-top: 2px;
+  margin-right: 6px;
+}
+
+.ReviewsCount {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: var(--nomad-black);
+}
+
+.reviewCardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.reviewCard {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--nomad-black)
+}
+
+.reviewCard:last-child {
+  border-bottom: none; /* 마지막 요소의 선 제거 */
+}
+
+.reviewUserProfile {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 9999px;
+  border: 1px solid #E3E5E8;
+}
+
+.reviewInfo {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.reviewUserNickname {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--nomad-black);
+}
+
+.reviewUpdatedAt{
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--gray-medium);
+}
+
+.reviewContent {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--nomad-black);
+}

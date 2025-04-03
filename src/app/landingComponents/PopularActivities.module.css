@@ -100,7 +100,7 @@
 
 .activityImage {
   position: relative;
-  width: 384px;
+  max-width: 384px;
   height: auto;
   aspect-ratio: 1 / 1;
   border-radius: 20px;

@@ -78,11 +78,11 @@ export default function MyNotificationCalendar({
         onClickDay={(date) => !isLoading && onDateClick?.(date)}
         tileDisabled={() => false}
         tileClassName={({ date }) => {
-          if (isLoading) return styles.loadingTile;
+          if (isLoading) return styles.loadingTile; //로딩상태
           const dateString = date.toISOString().split('T')[0];
           const statuses = markedDates[dateString];
           if (statuses) return styles.markedTile;
-          return ''; // 기본 타일
+          return '';
         }}
         tileContent={({ date }) => {
           const dateString = date.toISOString().split('T')[0];

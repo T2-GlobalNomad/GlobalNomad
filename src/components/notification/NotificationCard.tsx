@@ -81,7 +81,7 @@ export default function NotificationCard() {
   return (
     <div>
       {loading ? (
-        <div>로딩중...</div>
+        <div>알림 로딩중...</div>
       ) : (
         <ul className={styles.wrapper}>
           {notifications.map((notification) => (

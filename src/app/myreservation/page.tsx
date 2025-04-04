@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Empty from '@/components/empty/Empty';
-import Footer from '@/components/footer/Footer';
 import ReservationList from './components/ReservationList';
 import useReservation from '@/hooks/query/useReservation';
 import styles from './style.module.css';
@@ -74,7 +73,6 @@ export default function MyReservation() {
           </>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

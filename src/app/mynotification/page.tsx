@@ -1,5 +1,6 @@
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import getQueryClient from '@/utils/getQueryClient';
+import { cookies as getServerCookies } from 'next/headers';
 import {
   fetchMyActivities,
   fetchReservationByStatus,
@@ -10,14 +11,16 @@ import MyNotificationClient from './MyNotificationClient';
 
 export default async function MyNotification() {
   const queryClient = getQueryClient();
+  const cookies = await getServerCookies();
+  const accessToken = cookies.get('accessToken')?.value;
 
   // 활동목록
   await queryClient.prefetchQuery({
     queryKey: ['myActivities'],
-    queryFn: fetchMyActivities,
+    queryFn: () => fetchMyActivities(accessToken),
   });
 
-  const activities = await fetchMyActivities();
+  const activities = await fetchMyActivities(accessToken);
   const indexActivity = activities[0];
 
   const today = new Date();
@@ -32,13 +35,19 @@ export default async function MyNotification() {
     await queryClient.prefetchQuery({
       queryKey: ['schedules', activityId, currentYear, currentMonth],
       queryFn: () =>
-        fetchScheduleByMonth(activityId, currentYear, currentMonth),
+        fetchScheduleByMonth(
+          activityId,
+          currentYear,
+          currentMonth,
+          accessToken,
+        ),
     });
 
     // 날짜별 예약 스케줄 목록
     await queryClient.prefetchQuery({
       queryKey: ['reservationSchedules', activityId, currentDate],
-      queryFn: () => fetchReservationSchedules(activityId, currentDate),
+      queryFn: () =>
+        fetchReservationSchedules(activityId, currentDate, accessToken),
     });
 
     // 시간대, 상태별 예약
@@ -56,6 +65,7 @@ export default async function MyNotification() {
             activityId,
             scheduleId,
             status as 'pending' | 'confirmed' | 'declined',
+            accessToken,
           ),
       });
     }

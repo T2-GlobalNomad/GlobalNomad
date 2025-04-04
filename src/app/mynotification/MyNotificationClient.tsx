@@ -16,14 +16,17 @@ type Activity = {
 
 export default function MyNotification() {
   const {
-    data: activities = [],
+    data,
     isLoading: isActivitiesLoading,
     error: activitiesError,
   } = useMyActivitiesCalendar() as {
-    data: Activity[];
+    data: { activities: Activity[] } | undefined;
     isLoading: boolean;
     error: unknown;
   };
+
+  // 내부 배열만 안전하게 추출
+  const activities: Activity[] = data?.activities ?? [];
 
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(
     null,
@@ -49,11 +52,11 @@ export default function MyNotification() {
   );
 
   // 월별 예약 스케줄 호출
-  const {
-    data: schedule = [],
-    //isLoading: isScheduleLoading,
-    error: scheduleError,
-  } = useScheduleByMonth(selectedActivityId, currentYear, currentMonth);
+  const { data: schedule = [], error: scheduleError } = useScheduleByMonth(
+    selectedActivityId,
+    currentYear,
+    currentMonth,
+  );
 
   // 캘린더에서 연/월이 변경될 때 전송
   const handleMonthChange = (activeStartDate: Date) => {
@@ -75,53 +78,52 @@ export default function MyNotification() {
   if (errorMessage) return <p>에러 발생: {errorMessage}</p>;
 
   return (
-    <>
-      <div className={styles.wrapper}>
-        <div className={styles.sidebar}>
-          <ProfileCard activeTab='mynotification' />
-        </div>
-
-        <div className={styles.container}>
-          <p className={styles.title}>예약 현황</p>
-          <p className={styles.dropdownTitle}>체험명 선택</p>
-          <Dropdown
-            dropdownClassName={styles.dropdownList ?? ''}
-            toggleClassName={styles.dropdownList}
-            menuClassName={styles.dropdownList}
-            menuItemClassName={styles.dropdownList}
-            options={activities.map((activity) => ({
-              value: activity.id,
-              label: activity.title,
-            }))}
-            selectedValue={selectedActivityId}
-            onChange={(value) => {
-              const selected =
-                activities.find((activity) => activity.id === value) || null;
-              setSelectedActivity(selected);
-            }}
-          />
-          {selectedActivity && (
-            <>
-              <MyNotificationCalendar
-                activeStartDate={activeStartDate}
-                schedule={schedule}
-                onMonthChange={handleMonthChange}
-                onDateClick={handleDateClick}
-                activityId={selectedActivity.id}
-                isLoading={isActivitiesLoading}
-              />
-
-              {selectedDate && (
-                <ReservationInfoModal
-                  activityId={selectedActivity.id}
-                  date={selectedDate}
-                  onClose={() => setSelectedDate(null)}
-                />
-              )}
-            </>
-          )}
-        </div>
+    <div className={styles.wrapper}>
+      <div className={styles.sidebar}>
+        <ProfileCard activeTab='mynotification' />
       </div>
-    </>
+
+      <div className={styles.container}>
+        <p className={styles.title}>예약 현황</p>
+        <p className={styles.dropdownTitle}>체험명 선택</p>
+        <Dropdown
+          dropdownClassName={styles.dropdownList ?? ''}
+          toggleClassName={styles.dropdownList}
+          menuClassName={styles.dropdownList}
+          menuItemClassName={styles.dropdownList}
+          options={activities.map((activity) => ({
+            value: activity.id,
+            label: activity.title,
+          }))}
+          selectedValue={selectedActivityId}
+          onChange={(value) => {
+            const selected =
+              activities.find((activity) => activity.id === value) || null;
+            setSelectedActivity(selected);
+          }}
+        />
+
+        {selectedActivity && (
+          <>
+            <MyNotificationCalendar
+              activeStartDate={activeStartDate}
+              schedule={schedule}
+              onMonthChange={handleMonthChange}
+              onDateClick={handleDateClick}
+              activityId={selectedActivity?.id ?? activities[0].id}
+              isLoading={isActivitiesLoading}
+            />
+
+            {selectedDate && (
+              <ReservationInfoModal
+                activityId={selectedActivity.id}
+                date={selectedDate}
+                onClose={() => setSelectedDate(null)}
+              />
+            )}
+          </>
+        )}
+      </div>
+    </div>
   );
 }

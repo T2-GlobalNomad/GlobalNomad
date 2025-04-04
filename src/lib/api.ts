@@ -15,7 +15,7 @@ get, post, delete 등 체인방식으로 사용 가능 : instance.get('/users') 
 const instance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Authorization: `Bearer TOKEN`, // << 하드코딩으로 데이터 확인할 때
+    // Authorization: `Bearer TOKEN`, // << 하드코딩으로 데이터 확인할 때
     'Content-Type': 'application/json',
   },
   params: {
@@ -30,7 +30,7 @@ instance.interceptors.request.use(
     config: InternalAxiosRequestConfig /* 데이터를 가공하는 config의 타입 지정 */,
   ) => {
     const token = Cookies.get('accessToken'); // ssr 사용시 쿠키에서 토큰을 가져옴
-    console.log('받아온 토큰: ', token);
+    // console.log('받아온 토큰: ', token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`; // 토큰을 헤더에 포함시킴
     }
@@ -57,9 +57,10 @@ instance.interceptors.response.use(
         });
 
         // 새 토큰 저장
-        //localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem('accessToken', data.accessToken);
         Cookies.set('accessToken', data.accessToken);
-        //localStorage.setItem("refreshToken", data.refreshToken);
+        console.log('새 토큰 저장:', data);
+        localStorage.setItem('refreshToken', data.refreshToken);
         Cookies.set('refreshToken', data.refreshToken);
 
         if (!error.config) return Promise.reject(error);

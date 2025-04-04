@@ -54,8 +54,8 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
   .container {
-    flex: 0;
+    display: none;
   }
 }

@@ -6,7 +6,6 @@ import Image from 'next/image';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
 import CustomButton from '@/components/CustomButton';
 import ProfileUpdateModal from './components/ProfileUpdateModal';
-import Footer from '@/components/footer/Footer';
 import styles from './MyPage.module.css';
 
 export default function MyPage() {
@@ -111,9 +110,6 @@ export default function MyPage() {
           />
         )}
       </div>
-      <footer>
-        <Footer />
-      </footer>
     </>
   );
 }

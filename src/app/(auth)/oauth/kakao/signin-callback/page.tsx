@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useKakaoSignInMutation } from '@/hooks/useAuth';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function KakaoSignInCallbackPage() {
   const searchParams = useSearchParams();
@@ -31,9 +32,5 @@ export default function KakaoSignInCallbackPage() {
     kakaoSignIn.mutate(code);
   }, [code, router, kakaoSignIn, isProcessed]);
 
-  return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <p>로그인 처리 중...</p>
-    </div>
-  );
+  return <LoadingSpinner text='카카오 로그인 처리중입니다...' />;
 }

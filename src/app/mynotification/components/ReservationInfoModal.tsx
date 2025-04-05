@@ -60,74 +60,82 @@ export default function ReservationInfoModal({
     0,
   );
 
-  if (isLoading) return <p>로딩 중...</p>;
   if (error) return <p>{error.message}</p>;
 
   return (
-    <div className={styles.modalOverlay}>
-      <div ref={modalRef} className={styles.modalContent}>
-        <div className={styles.header}>
-          <p className={styles.modalTitle}>예약 정보</p>
-          <CloseButton onClick={onClose} className={styles.closeBtn} />
-        </div>
-        {scheduleList.length === 0 ? (
-          <p>예약된 스케줄이 없습니다.</p>
-        ) : (
-          <div className={styles.tabContainer}>
-            <button
-              className={
-                selectedStatus === 'pending' ? styles.activeTab : styles.tab
-              }
-              onClick={() => setSelectedStatus('pending')}
-            >
-              신청 {totalPending}
-            </button>
-            <button
-              className={
-                selectedStatus === 'confirmed' ? styles.activeTab : styles.tab
-              }
-              onClick={() => setSelectedStatus('confirmed')}
-            >
-              승인 {totalConfirmed}
-            </button>
-            <button
-              className={
-                selectedStatus === 'declined' ? styles.activeTab : styles.tab
-              }
-              onClick={() => setSelectedStatus('declined')}
-            >
-              거절 {totalDeclined}
-            </button>
+    <div>
+      {' '}
+      <div className={styles.modalOverlay}>
+        {!isLoading && (
+          <div ref={modalRef} className={styles.modalContent}>
+            <div className={styles.header}>
+              <p className={styles.modalTitle}>예약 정보</p>
+              <CloseButton onClick={onClose} className={styles.closeBtn} />
+            </div>
+            {scheduleList.length === 0 ? (
+              <p>예약된 스케줄이 없습니다.</p>
+            ) : (
+              <div className={styles.tabContainer}>
+                <button
+                  className={
+                    selectedStatus === 'pending' ? styles.activeTab : styles.tab
+                  }
+                  onClick={() => setSelectedStatus('pending')}
+                >
+                  신청 {totalPending}
+                </button>
+                <button
+                  className={
+                    selectedStatus === 'confirmed'
+                      ? styles.activeTab
+                      : styles.tab
+                  }
+                  onClick={() => setSelectedStatus('confirmed')}
+                >
+                  승인 {totalConfirmed}
+                </button>
+                <button
+                  className={
+                    selectedStatus === 'declined'
+                      ? styles.activeTab
+                      : styles.tab
+                  }
+                  onClick={() => setSelectedStatus('declined')}
+                >
+                  거절 {totalDeclined}
+                </button>
+              </div>
+            )}
+
+            <div className={styles.underContainer}>
+              <p className={styles.semiTitle}>예약 날짜</p>
+              <p className={styles.date}>{date}</p>
+              <Dropdown
+                dropdownClassName={styles.dropdown ?? ''}
+                toggleClassName={styles.dropdown}
+                menuClassName={styles.dropdownList}
+                menuItemClassName={styles.dropdownList}
+                options={scheduleList.map((schedule) => ({
+                  value: schedule.scheduleId,
+                  label: `${schedule.startTime} ~ ${schedule.endTime}`,
+                }))}
+                selectedValue={selectedScheduleId ?? null}
+                onChange={(value) => setSelectedScheduleId(Number(value))}
+              />
+            </div>
+
+            <div className={styles.underContainer}>
+              <p className={styles.semiTitle}>예약 내역</p>
+              {selectedScheduleId && (
+                <ReservationInfoByStatus
+                  activityId={activityId}
+                  scheduleId={selectedScheduleId}
+                  status={selectedStatus}
+                />
+              )}
+            </div>
           </div>
         )}
-
-        <div className={styles.underContainer}>
-          <p className={styles.semiTitle}>예약 날짜</p>
-          <p className={styles.date}>{date}</p>
-          <Dropdown
-            dropdownClassName={styles.dropdown ?? ''}
-            toggleClassName={styles.dropdown}
-            menuClassName={styles.dropdownList}
-            menuItemClassName={styles.dropdownList}
-            options={scheduleList.map((schedule) => ({
-              value: schedule.scheduleId,
-              label: `${schedule.startTime} ~ ${schedule.endTime}`,
-            }))}
-            selectedValue={selectedScheduleId ?? null}
-            onChange={(value) => setSelectedScheduleId(Number(value))}
-          />
-        </div>
-
-        <div className={styles.underContainer}>
-          <p className={styles.semiTitle}>예약 내역</p>
-          {selectedScheduleId && (
-            <ReservationInfoByStatus
-              activityId={activityId}
-              scheduleId={selectedScheduleId}
-              status={selectedStatus}
-            />
-          )}
-        </div>
       </div>
     </div>
   );

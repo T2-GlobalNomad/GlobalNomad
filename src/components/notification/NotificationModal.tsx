@@ -8,11 +8,13 @@ import styles from './NotificationModal.module.css';
 interface NotificationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  isLoading: boolean;
 }
 
 export default function NotificationModal({
   isOpen,
   onClose,
+  isLoading,
 }: NotificationModalProps) {
   const [totalCount, setTotalCount] = useState<Notification>();
 
@@ -32,15 +34,22 @@ export default function NotificationModal({
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <div className={styles.header}>
-          <p className={styles.totalCount}>알림 {totalCount?.totalCount}개</p>
-          <CloseButton onClick={onClose} className={styles.closeBtn} />
+      {isLoading ? (
+        <p>알림 로딩중...</p>
+      ) : (
+        <div
+          className={styles.modalContent}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className={styles.header}>
+            <p className={styles.totalCount}>알림 {totalCount?.totalCount}개</p>
+            <CloseButton onClick={onClose} className={styles.closeBtn} />
+          </div>
+          <div className={styles.notificationContainer}>
+            <NotificationCard />
+          </div>
         </div>
-        <div className={styles.notificationContainer}>
-          <NotificationCard />
-        </div>
-      </div>
+      )}
     </div>
   );
 }

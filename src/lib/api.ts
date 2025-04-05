@@ -30,7 +30,7 @@ instance.interceptors.request.use(
     config: InternalAxiosRequestConfig /* 데이터를 가공하는 config의 타입 지정 */,
   ) => {
     const token = Cookies.get('accessToken'); // ssr 사용시 쿠키에서 토큰을 가져옴
-    console.log('받아온 토큰: ', token);
+    //console.log('받아온 토큰: ', token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`; // 토큰을 헤더에 포함시킴
     }

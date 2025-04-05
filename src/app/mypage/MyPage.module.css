@@ -1,6 +1,7 @@
 .wrapper {
   margin: 72px 0;
   display: flex;
+  min-height: 500px;
 }
 
 .container {
@@ -66,7 +67,7 @@
   text-align: left;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 430px) {
   .container {
     margin-left: 0;
   }

@@ -22,7 +22,10 @@ interface ActivityData {
   bannerImageFile: File | null;
   latitude?: number;
   longitude?: number;
-
+  subImageUrlsToAdd: string[];
+  subImageIdsToRemove: number[];
+  scheduleIdsToRemove: number[];
+  schedulesToAdd: Schedule[];
 }
 interface ActivityStore {
     activity: ActivityData;
@@ -49,6 +52,10 @@ interface ActivityStore {
     bannerImageFile: null,
     latitude: undefined,
     longitude: undefined,
+    subImageUrlsToAdd: [],
+    subImageIdsToRemove: [],
+    scheduleIdsToRemove: [],
+    schedulesToAdd: [],
   };
   
   export const useActivityStore = create<ActivityStore>((set) => ({

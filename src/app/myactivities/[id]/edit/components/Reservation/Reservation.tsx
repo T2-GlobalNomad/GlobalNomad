@@ -11,6 +11,8 @@ export default function Reservation() {
   const { activity, setActivity, addSchedule, removeSchedule, updateSchedule } =
     useActivityStore();
 
+
+    console.log("🧩 activity.schedules 상태", activity.schedules);
   // 수정된 addSchedule 함수: 현재 입력된 날짜/시간을 일정으로 추가
   const handleAddSchedule = () => {
     if (!activity.date) {

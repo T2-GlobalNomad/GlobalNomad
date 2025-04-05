@@ -9,10 +9,11 @@ import useUploadImagesMutation from '@/hooks/query/useImageUrl';
 
 export default function BannerImage() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const bannerImageUrl = useActivityStore((state) => state.activity.bannerImageUrl);
+  const bannerImageFile = useActivityStore((state) => state.activity.bannerImageFile);
 
-  const bannerImageFile = useActivityStore(
-    (state) => state.activity.bannerImageFile,
-  );
+
+
   const setActivity = useActivityStore((state) => state.setActivity);
 
   const { mutate: uploadImages } = useUploadImagesMutation();
@@ -50,10 +51,15 @@ export default function BannerImage() {
       const objectUrl = URL.createObjectURL(bannerImageFile);
       setPreviewUrl(objectUrl);
       return () => URL.revokeObjectURL(objectUrl);
+    } else if (bannerImageUrl) {
+      setPreviewUrl(bannerImageUrl); // ✅ 이 조건 추가 중요!
     } else {
       setPreviewUrl(null);
     }
-  }, [bannerImageFile]);
+  }, [bannerImageFile, bannerImageUrl]); // ✅ 의존성에 bannerImageUrl도 넣기
+  
+  
+  
 
   return (
     <div>

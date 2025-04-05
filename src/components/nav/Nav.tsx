@@ -88,6 +88,7 @@ export default function Nav() {
               {isModalOpen && (
                 <div ref={modalRef}>
                   <NotificationModal
+                    isLoading={false}
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                   />

@@ -75,6 +75,7 @@ const ProfileCard = ({
               width={160}
               height={160}
               className={styles.profileImage}
+              priority
             />
           </div>
 
@@ -91,6 +92,7 @@ const ProfileCard = ({
                     alt={item.label}
                     width={20}
                     height={20}
+                    priority
                   />
                   <span>{item.label}</span>
                 </div>

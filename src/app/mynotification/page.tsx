@@ -1,81 +1,127 @@
-import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
-import getQueryClient from '@/utils/getQueryClient';
-import { cookies as getServerCookies } from 'next/headers';
-import {
-  fetchMyActivities,
-  fetchReservationByStatus,
-  fetchReservationSchedules,
-  fetchScheduleByMonth,
-} from '@/lib/notification-api';
-import MyNotificationClient from './MyNotificationClient';
+'use client';
 
-export default async function MyNotification() {
-  const queryClient = getQueryClient();
-  const cookies = await getServerCookies();
-  const accessToken = cookies.get('accessToken')?.value;
+import { useEffect, useState, useMemo } from 'react';
+import Dropdown from '@/components/Dropdown';
+import MyNotificationCalendar from './components/Calendar';
+import ReservationInfoModal from './components/ReservationInfoModal';
+import useMyActivitiesCalendar from '@/hooks/query/useMyActivitiesCalendar';
+import useScheduleByMonth from '@/hooks/query/useScheduleByMonth';
+import ProfileCard from '@/components/ProfileCard/ProfileCard';
+import styles from './MyNotification.module.css';
 
-  // 활동목록
-  await queryClient.prefetchQuery({
-    queryKey: ['myActivities'],
-    queryFn: () => fetchMyActivities(accessToken),
-  });
+type Activity = {
+  id: number;
+  title: string;
+};
 
-  const activities = await fetchMyActivities(accessToken);
-  const indexActivity = activities[0];
+export default function MyNotification() {
+  const {
+    data: activities = [],
+    isLoading: isActivitiesLoading,
+    error: activitiesError,
+  } = useMyActivitiesCalendar() as {
+    data: Activity[];
+    isLoading: boolean;
+    error: unknown;
+  };
 
-  const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
-  const currentDate = today.toISOString().split('T')[0];
+  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(
+    null,
+  );
+  const [activeStartDate, setActiveStartDate] = useState<Date>();
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(
+    String(new Date().getMonth() + 1).padStart(2, '0'),
+  );
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  if (indexActivity) {
-    const activityId = indexActivity.id;
-
-    // 월별 예약 스케줄
-    await queryClient.prefetchQuery({
-      queryKey: ['schedules', activityId, currentYear, currentMonth],
-      queryFn: () =>
-        fetchScheduleByMonth(
-          activityId,
-          currentYear,
-          currentMonth,
-          accessToken,
-        ),
-    });
-
-    // 날짜별 예약 스케줄 목록
-    await queryClient.prefetchQuery({
-      queryKey: ['reservationSchedules', activityId, currentDate],
-      queryFn: () =>
-        fetchReservationSchedules(activityId, currentDate, accessToken),
-    });
-
-    // 시간대, 상태별 예약
-    const scheduleList = await fetchReservationSchedules(
-      activityId,
-      currentDate,
-    );
-    const scheduleId = scheduleList[0]?.scheduleId;
-
-    for (const status of ['pending', 'confirmed', 'declined']) {
-      await queryClient.prefetchQuery({
-        queryKey: ['reservationByStatus', activityId, scheduleId, status],
-        queryFn: () =>
-          fetchReservationByStatus(
-            activityId,
-            scheduleId,
-            status as 'pending' | 'confirmed' | 'declined',
-            accessToken,
-          ),
-      });
+  // 활동 목록이 로드되면 첫 항목 기본 선택
+  useEffect(() => {
+    if (activities.length > 0) {
+      setSelectedActivity(activities[0]);
     }
-  }
+  }, [activities]);
 
-  const dehydratedState = dehydrate(queryClient);
+  // 선택된 활동 ID만 분리
+  const selectedActivityId = useMemo(
+    () => selectedActivity?.id ?? null,
+    [selectedActivity],
+  );
+
+  // 월별 예약 스케줄 호출
+  const {
+    data: schedule = [],
+    //isLoading: isScheduleLoading,
+    error: scheduleError,
+  } = useScheduleByMonth(selectedActivityId, currentYear, currentMonth);
+
+  // 캘린더에서 연/월이 변경될 때 전송
+  const handleMonthChange = (activeStartDate: Date) => {
+    setActiveStartDate(activeStartDate);
+    setCurrentYear(activeStartDate.getFullYear());
+    setCurrentMonth(String(activeStartDate.getMonth() + 1).padStart(2, '0'));
+  };
+
+  const handleDateClick = (date: Date) => {
+    const dateString = date.toISOString().split('T')[0];
+    setSelectedDate(dateString);
+  };
+
+  // 에러 처리
+  const errorMessage =
+    (activitiesError instanceof Error ? activitiesError.message : '') ||
+    (scheduleError instanceof Error ? scheduleError.message : '');
+
+  if (errorMessage) return <p>에러 발생: {errorMessage}</p>;
 
   return (
-    <HydrationBoundary state={dehydratedState}>
-      <MyNotificationClient />
-    </HydrationBoundary>
+    <>
+      <div className={styles.wrapper}>
+        <div className={styles.sidebar}>
+          <ProfileCard activeTab='mynotification' />
+        </div>
+
+        <div className={styles.container}>
+          <p className={styles.title}>예약 현황</p>
+          <p className={styles.dropdownTitle}>체험명 선택</p>
+          <Dropdown
+            dropdownClassName={styles.dropdownList ?? ''}
+            toggleClassName={styles.dropdownList}
+            menuClassName={styles.dropdownList}
+            menuItemClassName={styles.dropdownList}
+            options={activities.map((activity) => ({
+              value: activity.id,
+              label: activity.title,
+            }))}
+            selectedValue={selectedActivityId}
+            onChange={(value) => {
+              const selected =
+                activities.find((activity) => activity.id === value) || null;
+              setSelectedActivity(selected);
+            }}
+          />
+          {selectedActivity && (
+            <>
+              <MyNotificationCalendar
+                activeStartDate={activeStartDate}
+                schedule={schedule}
+                onMonthChange={handleMonthChange}
+                onDateClick={handleDateClick}
+                activityId={selectedActivity.id}
+                isLoading={isActivitiesLoading}
+              />
+
+              {selectedDate && (
+                <ReservationInfoModal
+                  activityId={selectedActivity.id}
+                  date={selectedDate}
+                  onClose={() => setSelectedDate(null)}
+                />
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </>
   );
 }

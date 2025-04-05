@@ -81,6 +81,7 @@ export default function MyPage() {
                   width={160}
                   height={160}
                   alt='프로필 이미지'
+                  priority
                 />
               )}
             </div>

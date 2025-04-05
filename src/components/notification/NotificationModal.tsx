@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import instance from '@/lib/api';
 import { Notification } from '@/lib/types';
@@ -15,7 +14,7 @@ export default function NotificationModal({
   isOpen,
   onClose,
 }: NotificationModalProps) {
-  const [totalCount, setTotalCount] = useState<Notification>({});
+  const [totalCount, setTotalCount] = useState<Notification>();
 
   useEffect(() => {
     const fetchNotificationsCount = async () => {
@@ -35,7 +34,7 @@ export default function NotificationModal({
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <p className={styles.totalCount}>알림 {totalCount.totalCount}개</p>
+          <p className={styles.totalCount}>알림 {totalCount?.totalCount}개</p>
           <CloseButton onClick={onClose} className={styles.closeBtn} />
         </div>
         <div className={styles.notificationContainer}>

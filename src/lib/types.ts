@@ -152,5 +152,5 @@ export interface Notifications {
 
 export interface Notification {
   notifications: Notifications[];
-  totalCount?: number;
+  totalCount: number;
 }

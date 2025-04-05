@@ -21,7 +21,7 @@ export default function NavProfileCard({
       <div className={styles.profileImg}>
         <Image
           src={
-            imageSrcMap[user?.id!] ||
+            (user?.id && imageSrcMap[user?.id]) ||
             user?.profileImageUrl ||
             '/images/no_profileImg.svg'
           }

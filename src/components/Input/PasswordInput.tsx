@@ -36,12 +36,13 @@ export default function PasswordInput({
 
   return (
     <div className={styles.container}>
-      <label className={styles.label} htmlFor='password'>
-        비밀번호
+      <label className={styles.label} htmlFor={id}>
+        {label}
       </label>
       <div className={styles.subContainer}>
         <input
-          className={styles.input}
+          id={id}
+          className={`${styles.input} ${isErrored ? styles.errorBorder : ''}`}
           type={isPasswordVisible ? 'text' : 'password'}
           placeholder='비밀번호를 입력해주세요'
           {...props}

@@ -19,6 +19,7 @@ interface MyNotificationCalendarProps {
   onMonthChange?: (activeStartDate: Date) => void;
   onDateClick?: (date: Date) => void;
   activityId: number;
+  isLoading: boolean;
 }
 
 export default function MyNotificationCalendar({
@@ -26,6 +27,7 @@ export default function MyNotificationCalendar({
   schedule = [],
   onMonthChange,
   onDateClick,
+  isLoading,
 }: MyNotificationCalendarProps) {
   const [markedDates, setMarkedDates] = useState<
     Record<string, { completed: number; pending: number; confirmed: number }>
@@ -69,12 +71,19 @@ export default function MyNotificationCalendar({
         activeStartDate={activeStartDate}
         onChange={(date) => handleDateClick(date as Date)}
         onActiveStartDateChange={({ activeStartDate }) => {
-          console.log('activeStartDate:: ', activeStartDate);
           if (activeStartDate) {
             onMonthChange?.(activeStartDate);
           }
         }}
+        onClickDay={(date) => !isLoading && onDateClick?.(date)}
         tileDisabled={() => false}
+        tileClassName={({ date }) => {
+          if (isLoading) return styles.loadingTile;
+          const dateString = date.toISOString().split('T')[0];
+          const statuses = markedDates[dateString];
+          if (statuses) return styles.markedTile;
+          return ''; // 기본 타일
+        }}
         tileContent={({ date }) => {
           const dateString = date.toISOString().split('T')[0];
           const statuses = markedDates[dateString];

@@ -31,7 +31,7 @@ const tab = [
     label: '내 체험 관리',
     href: '/myactivities',
     img: '/images/icon_menu3.svg',
-    activeImg: '/images/icon_menu2_active.svg',
+    activeImg: '/images/icon_menu3_active.svg',
   },
   {
     key: 'mynotification',

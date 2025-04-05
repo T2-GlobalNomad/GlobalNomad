@@ -22,6 +22,8 @@ components > empty > empty.module.css
     margin: 120px auto 15px;
     width: calc(100vw * (240 / 1200));
     height: calc(100vw * (240 / 1200));
+    max-width:240px;
+    max-height:240px;
     min-width: 200px;
     min-height: 200px;
   }

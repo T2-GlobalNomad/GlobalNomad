@@ -29,6 +29,7 @@ function useSignInMutation() {
       router.push('/');
     },
     onError: (error: unknown) => {
+      console.error('카카오 로그인 오류:', error); // ⭐️ 로그 찍기
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
@@ -65,15 +66,22 @@ function useKakaoSignInMutation() {
 
   return useMutation({
     mutationFn: (code: string) => kakaoSignIn(code),
-    onSuccess: (response: SignInResponse) => {
+    onSuccess: (response) => {
+      if (!response || !response.user) {
+        toast.error('로그인 응답이 올바르지 않습니다.');
+        return;
+      }
+
       setAuth(response.user);
       Cookies.set('accessToken', response.accessToken);
       Cookies.set('refreshToken', response.refreshToken);
-      toast.success('로그인 성공!');
+      Cookies.set('kakaoLogin', 'true');
+      toast.success('로그인 성공!', { id: 'loginSuccess' });
       router.push('/');
     },
     onError: (error: unknown) => {
       if (error instanceof Error) {
+        console.error(error);
         toast.error(error.message);
       } else {
         toast.error('알 수 없는 오류가 발생했습니다.');

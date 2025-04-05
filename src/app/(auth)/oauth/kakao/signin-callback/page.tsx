@@ -1,27 +1,35 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useKakaoSignInMutation } from '@/hooks/useAuth';
-import { toast } from 'react-hot-toast';
 
 export default function KakaoSignInCallbackPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const code = searchParams.get('code');
   const kakaoSignIn = useKakaoSignInMutation();
+  const [isProcessed, setIsProcessed] = useState(false);
+  const [code, setCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    const paramsCode = searchParams.get('code');
+    if (paramsCode && !code) {
+      setCode(paramsCode);
+    }
+  }, [searchParams, code]);
 
   useEffect(() => {
     if (!code) {
-      toast.error('인가 코드가 없습니다.');
       setTimeout(() => {
         router.push('/signin');
       }, 1500);
       return;
     }
+    if (isProcessed) return;
+    setIsProcessed(true);
 
     kakaoSignIn.mutate(code);
-  }, [code, router, kakaoSignIn]);
+  }, [code, router, kakaoSignIn, isProcessed]);
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>

@@ -62,7 +62,7 @@ export interface Activities {
   address?: string;
   bannerImageUrl?: string;
   subImages?: SubImages[];
-  schedule?: Schedules[];
+  schedules?: Schedules[];
   rating?: number;
   reviewCount?: number;
   createdAt?: string;

@@ -45,7 +45,7 @@ export default function KebabDropdown({ activityId }: KebabDropdownProps) {
               onChange={(value) => {
                 if (value === '수정하기') {
                   console.log('수정하기 클릭!');
-                  router.push('/editMyActivity');
+                  router.push(`/myactivities/${activityId}/edit`);
                 } else if (value === '삭제하기') {
                   setShowModal(true);
                 }

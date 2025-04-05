@@ -85,7 +85,7 @@ export default function ReservationInfoByStatus({
             </div>
           ))
         ) : (
-          <p>해당 상태의 예약 내역이 없습니다.</p>
+          <p>해당 상태와 시간의 예약 내역이 없습니다.</p>
         )}
       </div>
     </div>

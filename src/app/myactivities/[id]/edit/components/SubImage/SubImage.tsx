@@ -10,9 +10,12 @@ import useUploadImagesMutation from '@/hooks/query/useImageUrl';
 
 export default function SubImage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const { activity, setActivity } = useActivityStore();
   const { mutate: uploadImages } = useUploadImagesMutation();
-  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const { subImageFiles, subImageUrls} = activity;
+
+  // const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -29,8 +32,16 @@ export default function SubImage() {
 
       uploadImages(formData, {
         onSuccess: (data: any) => {
+          const newUrls = Array.isArray(data.subImages)
+          ? data.subimages 
+          : data.activityImageUrl 
+          ? [data.activityImageUrl] 
+          : [];
+
+
           setActivity({
-            subImageUrls: [...activity.subImageUrls, data.activityImageUrl],
+            ...activity,
+            subImageUrls: [...activity.subImageUrls, ...newUrls],
             subImageFiles: [...activity.subImageFiles, file],
           });
         },
@@ -42,24 +53,20 @@ export default function SubImage() {
 
     // 같은 파일 다시 업로드 가능하게 초기화
     if (fileInputRef.current) fileInputRef.current.value = '';
+
+    
   };
-
-  useEffect(() => {
-    const objectUrls = activity.subImageFiles.map((file) =>
-      URL.createObjectURL(file),
-    );
-    setPreviewUrls(objectUrls);
-
-    return () => {
-      objectUrls.forEach((url) => URL.revokeObjectURL(url));
-    };
-  }, [activity.subImageFiles]);
 
   const handleRemoveImage = (index: number) => {
     setActivity({
+      subImageFiles: subImageFiles.filter((_, i) => i !== index),
       subImageUrls: activity.subImageUrls.filter((_, i) => i !== index),
     });
   };
+
+  const previewUrls = subImageFiles.map((file) =>
+    URL.createObjectURL(file)
+  );
 
   return (
     <div>
@@ -78,11 +85,10 @@ export default function SubImage() {
             <Plus strokeWidth={1} className={styles.plusSign} size={50} />
             <p className={styles.buttonText}>이미지 등록</p>
           </div>
-        </label>
+        
 
-        {/* 이미지 프리뷰 */}
-        <div className={styles.imagePreviewContainer}>
-          {previewUrls.map((url, index) => (
+        </label>
+        {previewUrls.map((url, index) => (
             <div key={index} className={styles.imageItem}>
               <div className={styles.imageWrapper}>
                 <Image
@@ -102,8 +108,8 @@ export default function SubImage() {
             </div>
           ))}
         </div>
-      </div>
 
+        {/* 이미지 프리뷰 */}
       <input
         ref={fileInputRef}
         type='file'

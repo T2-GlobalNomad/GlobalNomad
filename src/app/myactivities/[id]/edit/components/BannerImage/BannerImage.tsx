@@ -1,6 +1,5 @@
 'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react';
 import { Plus, X } from 'lucide-react';
 import styles from './postImage.module.css';
 import Image from 'next/image';
@@ -8,16 +7,14 @@ import { useActivityStore } from '@/stores/useActivityStore';
 import useUploadImagesMutation from '@/hooks/query/useImageUrl';
 
 export default function BannerImage() {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const bannerImageUrl = useActivityStore((state) => state.activity.bannerImageUrl);
-  const bannerImageFile = useActivityStore((state) => state.activity.bannerImageFile);
-
-
-
-  const setActivity = useActivityStore((state) => state.setActivity);
+  
+  const { activity, setActivity } = useActivityStore();
+  const { bannerImageFile, bannerImageUrl } = activity; 
 
   const { mutate: uploadImages } = useUploadImagesMutation();
 
+
+  
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file || !file.type.startsWith('image/')) return;
@@ -31,9 +28,11 @@ export default function BannerImage() {
 
     uploadImages(formData, {
       onSuccess: (data: any) => {
-        useActivityStore.getState().setActivity({
-          bannerImageUrl: data.activityImageUrl,
+        console.log("📦 서버 응답 전체:", data);
+        setActivity({
+          bannerImageUrl: data.bannerImageUrl,
         });
+        console.log("✅ 업로드된 이미지 URL:", data.bannerImageUrl);
       },
       onError: () => {
         alert('이미지 업로드 실패');
@@ -43,20 +42,27 @@ export default function BannerImage() {
 
   const handleRemoveImage = () => {
     setActivity({ bannerImageFile: null, bannerImageUrl: '' });
-    setPreviewUrl(null);
+ 
   };
 
-  useEffect(() => {
-    if (bannerImageFile) {
-      const objectUrl = URL.createObjectURL(bannerImageFile);
-      setPreviewUrl(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
-    } else if (bannerImageUrl) {
-      setPreviewUrl(bannerImageUrl); // ✅ 이 조건 추가 중요!
-    } else {
-      setPreviewUrl(null);
-    }
-  }, [bannerImageFile, bannerImageUrl]); // ✅ 의존성에 bannerImageUrl도 넣기
+  const previewUrl = bannerImageFile
+      ? URL.createObjectURL(bannerImageFile)
+      : bannerImageUrl || null;
+
+  // useEffect(() => {
+  //   if (bannerImageFile) {
+  //     const objectUrl = URL.createObjectURL(bannerImageFile);
+  //     setPreviewUrl(objectUrl);
+
+  //     return () => {
+  //       URL.revokeObjectURL(objectUrl);
+  //     };
+  //   } else if (bannerImageUrl) {
+  //     setPreviewUrl(bannerImageUrl);
+  //   } else {
+  //     setPreviewUrl(null);
+  //   }
+  // }, [bannerImageFile, bannerImageUrl]); 
   
   
   

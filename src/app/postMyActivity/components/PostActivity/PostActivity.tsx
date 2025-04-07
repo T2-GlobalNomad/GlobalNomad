@@ -59,11 +59,7 @@ export default function PostActivity() {
 
     postActivity(payload, {
       onSuccess: () => {
-        setShowModal(true);
-  
-        router.push('/myactivities')
-
-        
+        setShowModal(true);       
       },
       onError: () => {
         alert('등록 실패!');

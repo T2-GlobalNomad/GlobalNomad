@@ -5,17 +5,20 @@
     margin-bottom: 24px;
 }
 
+
+
+
 .container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-   
-}
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
 
 .uploadButton {
     position: relative;
     cursor:pointer;
-    /* margin-right: 20px; */
 }
 
 
@@ -60,10 +63,9 @@
 
 /* 이미지 미리보기 컨테이너 */
 .imagePreviewContainer {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 한 줄에 최대 3개 */
-    gap: 20px;
+    display: flex;
    
+    
 }
 
 /* 업로드된 이미지 */
@@ -73,6 +75,7 @@
     height: 180px;
     border-radius: 24px;
     overflow: hidden;
+    
 }
 
 /* 미리보기 이미지 */
@@ -87,11 +90,12 @@
 .imageItem{
     position: relative;
 }
+
 /* X 버튼 (삭제) */
 .removeButton {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: -9px;
+    right: 0px;
     background: rgba(0, 0, 0, 0.7);
     border: none;
     border-radius: 50%;

@@ -26,6 +26,7 @@ export default function ActivityListCard({
       <div className={styles.bannerImg}>
 
         <Image
+          key={`${activities.updatedAt}`}
           src={`${activities.bannerImageUrl}?v=${activities.updatedAt}`}
           alt={activities.title!}
           width={204}

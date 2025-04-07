@@ -1,5 +1,5 @@
 'use client';
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 
 import { useRef } from 'react';
 import { Plus, X } from 'lucide-react';
@@ -15,7 +15,7 @@ export default function SubImage() {
   const { activity, setActivity } = useActivityStore();
   const { mutate: uploadSubImage } = useSubImageUrl();
   
-  const { subImageFiles, subImageUrls, subImageUrlsToAdd} = activity;  
+  const { subImageFiles, subImageUrls} = activity;  
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;

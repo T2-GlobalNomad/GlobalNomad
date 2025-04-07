@@ -15,10 +15,27 @@ declare global {
   }
 }
 
+interface DaumPostcodeData {
+  address: string;
+  roadAddress: string;
+  jibunAddress: string;
+  zonecode: string;
+
+}
+
+interface KakaoGeocoderResult {
+  address_name: string;
+  y: string;
+  x: string;
+
+}
+
 export default function AddressInput() {
+
+  
   const { activity, setActivity } = useActivityStore();
-  const mapInstance = useRef<any>(null);
-  const markerInstance = useRef<any>(null);
+  const mapInstance = useRef<any>(null);  // eslint-disable-line @typescript-eslint/no-explicit-any
+  const markerInstance = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const [daumLoaded, setDaumLoaded] = useState(false);
   const [kakaoLoaded, setKakaoLoaded] = useState(false);
   const scriptLoaded = daumLoaded && kakaoLoaded; // 둘 다 로드됐을 때만 true
@@ -33,12 +50,12 @@ export default function AddressInput() {
     }
   
     new window.daum.Postcode({
-      oncomplete: function (data: any) {
+      oncomplete: function (data: DaumPostcodeData) {
         const selectedAddress = data.address;
         setActivity({ address: selectedAddress });
   
         const geocoder = new window.kakao.maps.services.Geocoder();
-        geocoder.addressSearch(selectedAddress, function (results: any, status: any) {
+        geocoder.addressSearch(selectedAddress, function (results:  KakaoGeocoderResult[], status: string) {
           if (status === window.kakao.maps.services.Status.OK) {
             const result = results[0];
             const coords = new window.kakao.maps.LatLng(result.y, result.x);

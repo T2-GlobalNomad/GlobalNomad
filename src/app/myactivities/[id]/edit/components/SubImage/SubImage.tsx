@@ -6,14 +6,14 @@ import { Plus, X } from 'lucide-react';
 import Image from 'next/image';
 import styles from './SubImage.module.css';
 import { useActivityStore } from '@/stores/useActivityStore';
-import useUploadImagesMutation from '@/hooks/query/useImageUrl';
+import useSubImageUrl from '@/hooks/query/useSubImageUrl';
 
 
 export default function SubImage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { activity, setActivity } = useActivityStore();
-  const { mutate: uploadImages } = useUploadImagesMutation();
+  const { mutate: uploadSubImage } = useSubImageUrl();
   
   const { subImageFiles, subImageUrls, subImageUrlsToAdd} = activity;  
 
@@ -40,28 +40,30 @@ export default function SubImage() {
         const formData = new FormData();
         formData.append('image', file);
 
-        uploadImages(formData, {
-          onSuccess: (data: any) => {
-            const newUrls = Array.isArray(data.subImages)
-            ? data.subImages 
-            : data.activityImageUrl 
-            ? [data.activityImageUrl] 
-            : [];
-  
-            setActivity((prev) => ({
+      uploadSubImage(file, {
+        onSuccess: (url: string) => {
+          setActivity((prev) => {
+            // 중복 제거
+            const newSubImageUrls = prev.subImageUrls.includes(url)
+              ? prev.subImageUrls
+              : [...prev.subImageUrls, url];
+        
+            const newSubImageUrlsToAdd = prev.subImageUrlsToAdd.includes(url)
+              ? prev.subImageUrlsToAdd
+              : [...prev.subImageUrlsToAdd, url];
+        
+            return {
               ...prev,
-              subImageUrls: [...prev.subImageUrls, ...newUrls],
-              subImageFiles: [...prev.subImageFiles, file],
-            }));
-            // setActivity({
-            //   subImageUrls: [...activity.subImageUrls, ...newUrls],
-            //   subImageFiles: [...activity.subImageFiles, file],
-            // });
-          },
-          onError: () => {
-            alert('서브 이미지 업로드 실패');
-          },
-        });
+              subImageUrls: newSubImageUrls,
+              subImageUrlsToAdd: newSubImageUrlsToAdd,
+            };
+          });
+        },
+  onError: () => {
+    alert('서브 이미지 업로드 실패');
+  },
+});
+     
     })
 
     
@@ -88,10 +90,9 @@ export default function SubImage() {
 
   const previewUrls = [
     ...subImageUrls,
-    ...subImageUrlsToAdd,
     ...subImageFiles.map((file) => URL.createObjectURL(file)),
   ];
-
+  
   return (
     <div>
       <p className={styles.title}>서브 이미지</p>

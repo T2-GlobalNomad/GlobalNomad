@@ -13,17 +13,31 @@ import ModalType2 from '@/components/modal/ModalType2';
 
 export default function EditMyActivity() {
   const router = useRouter();
-   const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { mutate: editMyActivity, isPending: editing } = useEditMyActivities(); // ✅ 여기로 옮기기
-  
+  const { resetActivity } = useActivityStore();
   const params = useParams () as {id : string};
   const activityId = Number(params.id);
   console.log('🆔 activityId:', activityId);
   
-  const { data: activity, isLoading } = useFetchMyActivity(activityId);
+  const { data: activity, isFetched } = useFetchMyActivity(activityId);
   console.log("📦 activity 전체 응답", activity);
   
   const queryClient = useQueryClient(); 
+
+
+// 전역 상태 가져오기
+const activities = useActivityStore.getState().activity;
+
+// 콘솔로 출력
+console.log("📸 서브 이미지 URLs:", activities.subImageUrls);
+console.log("🧾 서브 이미지 개수:", activities.subImageUrls.length);
+
+console.log("📁 파일로 업로드된 이미지들:", activities.subImageFiles);
+console.log("🧮 파일 이미지 개수:", activities.subImageFiles.length);
+
+console.log("➕ 서버에 보낼 subImageUrlsToAdd:", activities.subImageUrlsToAdd);
+
 
   const {
     activity: {
@@ -38,13 +52,16 @@ export default function EditMyActivity() {
       scheduleIdsToRemove,
       schedulesToAdd,
     },
-    setActivity, // ✅ 이렇게 activity 바깥에서 꺼내야 함!
+    setActivity, // 
   } = useActivityStore();
 
 
   useEffect(() => {
-    if (activity) {
-      setActivity({
+    if (isFetched && activity) {
+      resetActivity(); // 초기 상태로 완전 리셋
+      console.log("초기화완료!")
+
+      setActivity(() => ({
         title: activity.title,
         category: activity.category,
         description: activity.description,
@@ -60,13 +77,13 @@ export default function EditMyActivity() {
           endTime: s.endTime,
         })) || [],
         schedulesToAdd: [], 
-      });
+      }));
     }
   }, [activity]);
 
 
   console.log('🧩 activity:', activity);
-  console.log('🎯 activity.schedule:', activity?.schedules);
+
 
 
 
@@ -87,7 +104,6 @@ export default function EditMyActivity() {
 
     editMyActivity({activityId, payload}, {
       onSuccess: (data) => {
-        console.log('🎯 최종 서버 응답 확인:', data.bannerImageUrl);
         queryClient.invalidateQueries({ queryKey: ['myActivities'], exact: false });
         queryClient.refetchQueries({ queryKey: ['myActivities'], exact: false });
         

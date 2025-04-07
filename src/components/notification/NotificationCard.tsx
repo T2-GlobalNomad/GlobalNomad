@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
 import { FaCircle } from 'react-icons/fa';
+import Link from 'next/link';
 import styles from './NotificationCard.module.css';
 
 dayjs.extend(relativeTime);
@@ -86,21 +87,25 @@ export default function NotificationCard() {
         <ul className={styles.wrapper}>
           {notifications.map((notification) => (
             <li className={styles.container} key={notification.id}>
-              <div className={styles.header}>
-                <FaCircle
-                  className={`${styles.faCircle} ${getStatusColor(
-                    notification.content,
-                  )}`}
-                />
-                <CloseButton
-                  className={styles.closeBtn}
-                  onClick={() => handleDelete(notification.id)}
-                />
-              </div>
-              <p className={styles.content}>
-                {highlightText(notification.content)}
-              </p>
-              <p className={styles.time}>{timeDiff(notification.createdAt)}</p>
+              <Link href='/myreservation'>
+                <div className={styles.header}>
+                  <FaCircle
+                    className={`${styles.faCircle} ${getStatusColor(
+                      notification.content,
+                    )}`}
+                  />
+                  <CloseButton
+                    className={styles.closeBtn}
+                    onClick={() => handleDelete(notification.id)}
+                  />
+                </div>
+                <p className={styles.content}>
+                  {highlightText(notification.content)}
+                </p>
+                <p className={styles.time}>
+                  {timeDiff(notification.createdAt)}
+                </p>
+              </Link>
             </li>
           ))}
         </ul>

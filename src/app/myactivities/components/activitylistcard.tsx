@@ -32,6 +32,9 @@ export default function ActivityListCard({
           width={204}
           height={204}
           className={styles.bannerImg}
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/images/no_thumbnail.png';
+          }}
         />
 
       </div>

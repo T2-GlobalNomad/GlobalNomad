@@ -35,5 +35,6 @@ line-height: 42px;
 .page_container{
   display: flex;
   gap: 24px;
-  margin-top: 142px;
+  margin-top: 72px;
+  margin-bottom: 142px;
 }

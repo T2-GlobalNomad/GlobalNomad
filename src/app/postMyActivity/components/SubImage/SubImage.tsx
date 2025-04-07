@@ -84,61 +84,60 @@ export default function SubImage() {
     ...subImageUrls,
     ...subImageFiles.map((file) => URL.createObjectURL(file)),
   ];
-  return (
+  return(
     <div>
-      <p className={styles.title}>서브 이미지</p>
-      <div className={styles.container}>
-        {/* 업로드 버튼 */}
-        <label htmlFor='subImageUpload' className={styles.uploadButton}>
-          <Image
-            src='/images/postImage.png'
-            alt='upload'
-            width={180}
-            height={180}
-            className={styles.buttonImg}
-          />
-          <div className={styles.buttonComponents}>
-            <Plus strokeWidth={1} className={styles.plusSign} size={50} />
-            <p className={styles.buttonText}>이미지 등록</p>
-          </div>
-        </label>
-
-        {/* 이미지 프리뷰 */}
-        <div className={styles.imagePreviewContainer}>
-          {previewUrls.map((url, index) => (
-            <div key={index} className={styles.imageItem}>
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={url}
-                  alt={`sub-${index}`}
-                  width={180}
-                  height={180}
-                  className={styles.previewImg}
-                />
-              </div>
-              <button
-                className={styles.removeButton}
-                onClick={() => handleRemoveImage(index)}
-              >
-                <X className={styles.xIcon} size={16} strokeWidth={2} />
-              </button>
+        <p className={styles.title}>서브 이미지</p>
+        <div className={styles.container}>
+          {/* 업로드 버튼 */}
+          <label htmlFor='subImageUpload' className={styles.uploadButton}>
+            <Image
+              src='/images/postImage.png'
+              alt='upload'
+              width={180}
+              height={180}
+              className={styles.buttonImg}
+            />
+            <div className={styles.buttonComponents}>
+              <Plus strokeWidth={1} className={styles.plusSign} size={50} />
+              <p className={styles.buttonText}>이미지 등록</p>
             </div>
-          ))}
-        </div>
+          
+  
+          </label>
+          {previewUrls.map((url, index) => (
+              <div key={index} className={styles.imageItem}>
+                <div className={styles.imageWrapper}>
+                  <Image
+                    src={url}
+                    alt={`sub-${index}`}
+                    width={180}
+                    height={180}
+                    className={styles.previewImg}
+                  />
+                </div>
+                <button
+                  className={styles.removeButton}
+                  onClick={() => handleRemoveImage(index)}
+                >
+                  <X className={styles.xIcon} size={16} strokeWidth={2} />
+                </button>
+              </div>
+            ))}
+          </div>
+  
+          {/* 이미지 프리뷰 */}
+        <input
+          ref={fileInputRef}
+          type='file'
+          id='subImageUpload'
+          accept='image/*'
+          multiple
+          onChange={handleImageChange}
+          className={styles.hiddenInput}
+        />
+        <p className={styles.imageAlert}>
+          *이미지는 최대 4개까지 등록 가능합니다.
+        </p>
       </div>
-
-      <input
-        ref={fileInputRef}
-        type='file'
-        id='subImageUpload'
-        accept='image/*'
-        multiple
-        onChange={handleImageChange}
-        className={styles.hiddenInput}
-      />
-      <p className={styles.imageAlert}>
-        *이미지는 최대 4개까지 등록 가능합니다.
-      </p>
-    </div>
-  );
+    );
 }

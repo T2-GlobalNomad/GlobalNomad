@@ -31,6 +31,7 @@ export default function ActivityListCard({
           alt={activities.title!}
           width={204}
           height={204}
+          className={styles.bannerImg}
         />
 
       </div>

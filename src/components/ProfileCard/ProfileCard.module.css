@@ -55,7 +55,7 @@
 }
 
 @media (max-width: 375px) {
-  .container {
-    flex: 0;
+  .card {
+    display: none;
   }
 }

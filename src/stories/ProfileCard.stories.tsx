@@ -9,7 +9,7 @@ export default meta;
 
 type Story = StoryObj<typeof MockedProfileCard>;
 
-export const Default: Story = {
+export const MyPgae: Story = {
   args: {
     activeTab: 'mypage',
   },

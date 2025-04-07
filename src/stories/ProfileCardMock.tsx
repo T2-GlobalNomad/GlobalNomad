@@ -1,11 +1,9 @@
-// src/components/MockedProfileCard.tsx
 'use client';
 
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './ProfileCard.module.css';
-
+import styles from '@/components/ProfileCard/ProfileCard.module.css';
 type ActiveTab = 'mypage' | 'myactivities' | 'myreservation' | 'mynotification';
 
 const tab = [
@@ -46,7 +44,6 @@ const MockedProfileCard = ({
 }) => {
   const mockUser = {
     profileImageUrl: '/images/defaultProfile.svg',
-    nickname: 'yeon',
   };
 
   return (

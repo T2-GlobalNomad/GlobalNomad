@@ -23,14 +23,6 @@ export default function ModalType2({
   isModalMessage,
   onConfirm,
 }: Props) {
-  const confirmationButton: React.CSSProperties = {
-    width: 'calc(100vw * (120/1200))',
-    minWidth: '120px',
-    maxWidth: '138px',
-    fontWeight: '700',
-    background: '#121',
-  };
-
   if (!showModal) return null;
 
   /**
@@ -51,7 +43,7 @@ export default function ModalType2({
               type='button'
               fontSize='sm'
               variant='black'
-              style={confirmationButton}
+              style={{ width: '120px' }}
               onClick={handleConfirmationButton}
             >
               확인

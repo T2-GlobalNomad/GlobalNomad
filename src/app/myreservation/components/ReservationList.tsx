@@ -21,9 +21,9 @@ export default function ListContainer({ reservationsData }: Props) {
   };
 
   const [modalType, setModalType] = useState('');
-  const [showToast, setShowToast] = useState(false);
   const [reservationId, setReservationId] = useState<number>();
   const [isReviewData, setIsReviewData] = useState<Reservation | undefined>();
+  const [showToast, setShowToast] = useState(false);
 
   const { showModal, setShowModal, isModalMessage, setIsModalMessage } =
     useModalController();
@@ -63,7 +63,11 @@ export default function ListContainer({ reservationsData }: Props) {
             transition={{ duration: 0.5 }}
             className={styles.toast}
           >
-            예약 취소가 완료되었습니다
+            {modalType === 'cancel'
+              ? '예약 취소가 완료되었습니다'
+              : modalType === 'review'
+              ? '작성하신 후기가 등록되었습니다'
+              : ''}
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,0 +1,26 @@
+.starContainer {
+    display: flex;
+    justify-content: center;
+    margin:46px 0;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  .star {
+    width: 56px;
+    height: 56px;
+    transition: fill 0.1s ease-in-out;
+  }
+  
+  .filled {
+    fill: var(--yellow);
+    stroke:var(--yellow);
+    stroke-width:.8px
+  }
+  
+  .empty {
+    fill: var(--white);
+    stroke:var(--black);
+    stroke-width:.8px
+  }
+  

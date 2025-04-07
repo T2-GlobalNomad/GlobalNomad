@@ -29,7 +29,9 @@ interface ActivityData {
 }
 interface ActivityStore {
     activity: ActivityData;
-    setActivity: (data: Partial<ActivityData>) => void;
+    setActivity: (
+      data: Partial<ActivityData> | ((prev: ActivityData) => Partial<ActivityData>)
+    ) => void;
     addSchedule: () => void;
     removeSchedule: (index: number) => void;
     updateSchedule: (index: number, field: keyof Schedule, value: string) => void;
@@ -60,11 +62,18 @@ interface ActivityStore {
   
   export const useActivityStore = create<ActivityStore>((set) => ({
     activity: { ...initialActivityState },
-  
     setActivity: (data) =>
       set((state) => ({
-        activity: { ...state.activity, ...data },
+        activity: {
+          ...state.activity,
+          ...(typeof data === 'function' ? data(state.activity) : data),
+        },
       })),
+
+    // setActivity: (data) =>
+    //   set((state) => ({
+    //     activity: { ...state.activity, ...data },
+    //   })),
   
     addSchedule: () =>
       set((state) => {

@@ -49,22 +49,7 @@ export default function BannerImage() {
       ? URL.createObjectURL(bannerImageFile)
       : bannerImageUrl || null;
 
-  // useEffect(() => {
-  //   if (bannerImageFile) {
-  //     const objectUrl = URL.createObjectURL(bannerImageFile);
-  //     setPreviewUrl(objectUrl);
 
-  //     return () => {
-  //       URL.revokeObjectURL(objectUrl);
-  //     };
-  //   } else if (bannerImageUrl) {
-  //     setPreviewUrl(bannerImageUrl);
-  //   } else {
-  //     setPreviewUrl(null);
-  //   }
-  // }, [bannerImageFile, bannerImageUrl]); 
-  
-  
   
 
   return (

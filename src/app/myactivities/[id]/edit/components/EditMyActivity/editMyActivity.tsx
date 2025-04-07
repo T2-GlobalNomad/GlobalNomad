@@ -7,7 +7,7 @@ import useFetchMyActivity from '@/hooks/useFetchMyActivity';
 import { useActivityStore } from '@/stores/useActivityStore';
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import ModalType2 from '@/components/modal/ModalType2';
 
@@ -19,8 +19,8 @@ export default function EditMyActivity() {
   const params = useParams () as {id : string};
   const activityId = Number(params.id);
   console.log('🆔 activityId:', activityId);
-  
-  const { data: activity, isFetched } = useFetchMyActivity(activityId);
+  const hasInitialized = useRef(false);
+  const { data: activity } = useFetchMyActivity(activityId);
   console.log("📦 activity 전체 응답", activity);
   
   const queryClient = useQueryClient(); 
@@ -51,13 +51,15 @@ console.log("➕ 서버에 보낼 subImageUrlsToAdd:", activities.subImageUrlsTo
       subImageIdsToRemove,
       scheduleIdsToRemove,
       schedulesToAdd,
+ 
     },
     setActivity, // 
   } = useActivityStore();
 
 
   useEffect(() => {
-    if (isFetched && activity) {
+    if (activity && !hasInitialized.current) {
+      hasInitialized.current = true;
       resetActivity(); // 초기 상태로 완전 리셋
       console.log("초기화완료!")
 
@@ -70,7 +72,7 @@ console.log("➕ 서버에 보낼 subImageUrlsToAdd:", activities.subImageUrlsTo
         bannerImageUrl: activity.bannerImageUrl,
         subImageUrls: activity.subImages?.map((img) => img.imageUrl) || [],
         subImageIdsToRemove: [],
-        scheduleIdsToRemove: [],
+        subImageUrlsToAdd: [],
         schedules: activity.schedules?.map((s) => ({
           date: s.date,
           startTime: s.startTime,
@@ -101,7 +103,9 @@ console.log("➕ 서버에 보낼 subImageUrlsToAdd:", activities.subImageUrlsTo
       scheduleIdsToRemove,
       schedulesToAdd,
     };
+    
 
+    
     editMyActivity({activityId, payload}, {
       onSuccess: (data) => {
         queryClient.invalidateQueries({ queryKey: ['myActivities'], exact: false });

@@ -10,6 +10,7 @@ import useSubImageUrl from '@/hooks/query/useSubImageUrl';
 
 export default function SubImage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+ 
 
   const { activity, setActivity } = useActivityStore();
   const { mutate: uploadSubImage } = useSubImageUrl();
@@ -42,6 +43,7 @@ export default function SubImage() {
       uploadSubImage(file, {
         onSuccess: (url: string) => {
           setActivity((prev) => {
+            console.log('🔍 before update', prev.subImageUrls.length, prev.subImageUrls);
             // 중복 제거
             const newSubImageUrls = prev.subImageUrls.includes(url)
               ? prev.subImageUrls
@@ -73,18 +75,24 @@ export default function SubImage() {
   };
 
   const handleRemoveImage = (index: number) => {
-    if (index < subImageUrls.length) {
-      // 서버에서 가져온 이미지 삭제
-      setActivity({
-        subImageUrls: subImageUrls.filter((_, i) => i !== index),
-      });
-    } else {
-      // 로컬에서 추가한 이미지 삭제
-      const fileIndex = index - subImageUrls.length;
-      setActivity({
-        subImageFiles: subImageFiles.filter((_, i) => i !== fileIndex),
-      });
-    }
+    setActivity((prev) => {
+      const isServerImage = index < prev.subImageUrls.length;
+  
+      if (isServerImage) {
+        const removedUrl = prev.subImageUrls[index];
+        return {
+          ...prev,
+          subImageUrls: prev.subImageUrls.filter((_, i) => i !== index),
+          subImageUrlsToAdd: prev.subImageUrlsToAdd.filter((url) => url !== removedUrl),
+        };
+      } else {
+        const fileIndex = index - prev.subImageUrls.length;
+        return {
+          ...prev,
+          subImageFiles: prev.subImageFiles.filter((_, i) => i !== fileIndex),
+        };
+      }
+    });
   };
 
   const previewUrls = [

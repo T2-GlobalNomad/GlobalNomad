@@ -81,7 +81,7 @@ console.log("➕ 서버에 보낼 subImageUrlsToAdd:", activities.subImageUrlsTo
         schedulesToAdd: [], 
       }));
     }
-  }, [activity]);
+  }, [activity]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   console.log('🧩 activity:', activity);
@@ -107,7 +107,7 @@ console.log("➕ 서버에 보낼 subImageUrlsToAdd:", activities.subImageUrlsTo
 
     
     editMyActivity({activityId, payload}, {
-      onSuccess: (data) => {
+      onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['myActivities'], exact: false });
         queryClient.refetchQueries({ queryKey: ['myActivities'], exact: false });
         

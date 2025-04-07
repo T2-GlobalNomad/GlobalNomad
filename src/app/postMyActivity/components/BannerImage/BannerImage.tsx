@@ -1,12 +1,15 @@
 'use client';
-import { useEffect, useState } from 'react';
+
 import { Plus, X } from 'lucide-react';
 import styles from './postImage.module.css';
 import Image from 'next/image';
 import { useActivityStore } from '@/stores/useActivityStore';
-// import useUploadImagesMutation from '@/hooks/query/useImageUrl';
 import useBannerImageUrl from '@/hooks/query/useBannerImageUrl';
 
+
+interface UploadBannerImageResponse {
+  bannerImageUrl: string;
+}
 export default function BannerImage() {
 
   const { activity, setActivity } = useActivityStore();
@@ -28,7 +31,7 @@ export default function BannerImage() {
     formData.append('image', file);
 
     uploadBanneImage(formData, {
-      onSuccess: (data: any) => {
+      onSuccess: (data: UploadBannerImageResponse) => {
         console.log("📦 서버 응답 전체:", data);
         setActivity({
           bannerImageUrl: data.bannerImageUrl,

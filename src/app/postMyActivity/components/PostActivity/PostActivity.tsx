@@ -17,8 +17,8 @@ export default function PostActivity() {
   
 
   useEffect(() => {
-    resetActivity(); // ✅ 컴포넌트 진입 시 초기화
-  }, []);
+    resetActivity(); 
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
 

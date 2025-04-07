@@ -40,7 +40,7 @@ const uploadBannerImage = async (
   const { bannerImageFile } =
     useActivityStore.getState().activity;
 
-  const subImageUrls: string[] = [];
+
 
   // 배너 이미지 업로드
   let bannerImageUrl = '';

@@ -4,14 +4,14 @@ import { Plus, X } from 'lucide-react';
 import styles from './postImage.module.css';
 import Image from 'next/image';
 import { useActivityStore } from '@/stores/useActivityStore';
-import useUploadImagesMutation from '@/hooks/query/useImageUrl';
-
+import useBannerImageUrl from '@/hooks/query/useBannerImageUrl';
+// import useUploadImagesMutation from '@/hooks/query/useImageUrl';
 export default function BannerImage() {
   
   const { activity, setActivity } = useActivityStore();
   const { bannerImageFile, bannerImageUrl } = activity; 
 
-  const { mutate: uploadImages } = useUploadImagesMutation();
+  const { mutate: uploadBanneImage } = useBannerImageUrl();
 
 
   
@@ -26,7 +26,7 @@ export default function BannerImage() {
     const formData = new FormData();
     formData.append('image', file);
 
-    uploadImages(formData, {
+    uploadBanneImage(formData, {
       onSuccess: (data: any) => {
         console.log("📦 서버 응답 전체:", data);
         setActivity({

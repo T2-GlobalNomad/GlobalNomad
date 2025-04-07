@@ -1,17 +1,20 @@
 'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useEffect, useState } from 'react';
 import { Plus, X } from 'lucide-react';
 import Image from 'next/image';
 import styles from './SubImage.module.css';
 import { useActivityStore } from '@/stores/useActivityStore';
-import useUploadImagesMutation from '@/hooks/query/useImageUrl';
+import useSubImageUrl from '@/hooks/query/useSubImageUrl';
 
 
 export default function SubImage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const { activity, setActivity } = useActivityStore();
-  const { mutate: uploadImages } = useUploadImagesMutation();
-  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const { mutate: uploadSubImage } = useSubImageUrl();
+
+  const { subImageFiles, subImageUrls, subImageUrlsToAdd} = activity; 
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -21,49 +24,66 @@ export default function SubImage() {
       file.type.startsWith('image/'),
     );
 
-    validFiles.forEach((file) => {
-      // 파일 → 업로드
-      const formData = new FormData();
-      formData.append('image', file);
+    const totalImages = activity.subImageUrls.length + activity.subImageFiles.length;
 
-      uploadImages(formData, {
-        onSuccess: (data: any) => {  // eslint-disable-line @typescript-eslint/no-explicit-any
-          setActivity({
-            subImageUrls: [...activity.subImageUrls, data.activityImageUrl],
-            subImageFiles: [...activity.subImageFiles, file],
-          });
-        },
-        onError: () => {
-          alert('서브 이미지 업로드 실패');
-        },
-      });
-    });
+    if(totalImages >= 4){
+      alert('이미지는 최대 4개 까지만 등록할수있습니다.');
+      return;
+    }
+
+    const remainingSlots = 4 - totalImages;
+    const filesToUpload = validFiles.slice(0, remainingSlots);
+
+    filesToUpload.forEach((file)=>{
+        const formData = new FormData();
+        formData.append('image', file);
+
+        uploadSubImage(file, {
+          onSuccess: (url: string) => {
+            console.log("서브이미지업로드성공:", url)
+            setActivity((prev) => ({
+              ...prev,
+              subImageUrls: [...prev.subImageUrls, url],
+              // subImageFiles: [...prev.subImageFiles, file],
+              subImageUrlsToAdd: [...prev.subImageUrlsToAdd, url], // 이거도 잊지 말기
+            }));
+          },
+          onError: () => {
+            alert('서브 이미지 업로드 실패');
+          },
+        });
+       
+        });
+
+  
 
     // 같은 파일 다시 업로드 가능하게 초기화
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  useEffect(() => {
-    const objectUrls = activity.subImageFiles.map((file) =>
-      URL.createObjectURL(file),
-    );
-    setPreviewUrls(objectUrls);
 
-    return () => {
-      objectUrls.forEach((url) => URL.revokeObjectURL(url));
-    };
-  }, [activity.subImageFiles]);
 
   const handleRemoveImage = (index: number) => {
-    const newSubImageUrls = activity.subImageUrls.filter((_, i) => i !== index);
-    const newSubImageFiles = activity.subImageFiles.filter((_, i) => i !== index);
-  
-    setActivity({
-      subImageUrls: newSubImageUrls,
-      subImageFiles: newSubImageFiles,
-    });
+    if (index < subImageUrls.length) {
+      // 서버에서 가져온 이미지 삭제
+      setActivity({
+        subImageUrls: subImageUrls.filter((_, i) => i !== index),
+      });
+    } else {
+      // 로컬에서 추가한 이미지 삭제
+      const fileIndex = index - subImageUrls.length;
+      setActivity({
+        subImageFiles: subImageFiles.filter((_, i) => i !== fileIndex),
+      });
+    }
   };
 
+ 
+
+  const previewUrls = [
+    ...subImageUrls,
+    ...subImageFiles.map((file) => URL.createObjectURL(file)),
+  ];
   return (
     <div>
       <p className={styles.title}>서브 이미지</p>

@@ -49,7 +49,7 @@ const useUploadImagesMutation = () => {
   return useMutation({
     mutationFn: uploadActivityImages,
     onSuccess: (data) => {
-      console.log('업로드 완료:', data);
+      console.log('업로드 완료 통합합:', data);
     },
     onError: (error) => {
       console.error('이미지 업로드 실패:', error);

@@ -46,7 +46,7 @@ export default function MyReservation() {
     return () => {
       queryClient.removeQueries({ queryKey: ['reservation', status] });
     };
-  }, []);
+  }, [queryClient, status]);
 
   return (
     <div className={styles.wrapper}>

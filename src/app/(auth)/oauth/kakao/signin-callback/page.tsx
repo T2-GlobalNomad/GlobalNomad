@@ -9,7 +9,6 @@ export default function KakaoSignInCallbackPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const kakaoSignIn = useKakaoSignInMutation();
-  const [isProcessed, setIsProcessed] = useState(false);
   const [code, setCode] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,11 +25,9 @@ export default function KakaoSignInCallbackPage() {
       }, 1500);
       return;
     }
-    if (isProcessed) return;
-    setIsProcessed(true);
 
     kakaoSignIn.mutate(code);
-  }, [code, router, kakaoSignIn, isProcessed]);
+  }, [code, router]);
 
   return <LoadingSpinner text='카카오 로그인 처리중입니다...' />;
 }

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './nav.module.css';
+import useUser from '@/hooks/query/useUser';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 interface Props {
@@ -14,7 +15,8 @@ export default function NavProfileCard({
   imageSrcMap,
   handleImageError,
 }: Props) {
-  const { user, logout } = useAuthStore();
+  const { logout } = useAuthStore();
+  const { data: user } = useUser();
 
   return (
     <div className={styles.profileCardContainer}>

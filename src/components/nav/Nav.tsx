@@ -7,7 +7,7 @@ import styles from './nav.module.css';
 import NavProfileCard from './NavProfileCard';
 import NotificationModal from '../notification/NotificationModal';
 import useClickOutside from '@/utils/useClickOutside';
-import { useAuthStore } from '@/stores/useAuthStore';
+import useUser from '@/hooks/query/useUser';
 
 export default function Nav() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +18,7 @@ export default function Nav() {
   const modalRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
 
-  const { user } = useAuthStore();
+  const { data: user } = useUser();
 
   const handleImageError = (id: string) => {
     setImageSrcMap((prev) => ({ ...prev, [id]: '/images/no_profileImg.svg' }));
@@ -88,6 +88,7 @@ export default function Nav() {
               {isModalOpen && (
                 <div ref={modalRef}>
                   <NotificationModal
+                    isLoading={false}
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                   />

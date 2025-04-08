@@ -50,7 +50,7 @@ export default function PostActivity() {
       startTime,
       endTime,
       bannerImageUrl,
-      subImageUrls: subImageUrls.filter(Boolean),
+      subImageUrls: subImageUrls.map(img => img.imageUrl),
       schedules,
     };
 

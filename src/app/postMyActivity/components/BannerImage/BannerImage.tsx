@@ -56,52 +56,6 @@ export default function BannerImage() {
 
   
 
-  // const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
-  // const bannerImageFile = useActivityStore(
-  //   (state) => state.activity.bannerImageFile,
-  // );
-  // const setActivity = useActivityStore((state) => state.setActivity);
-
-  // const { mutate: uploadBannerImage } = useBannerImageUrl();
-
-  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   if (!file || !file.type.startsWith('image/')) return;
-
-  //   // Zustand에 저장
-  //   setActivity({ bannerImageFile: file });
-
-  //   // 업로드 즉시 실행
-  //   const formData = new FormData();
-  //   formData.append('image', file);
-
-  //   uploadBannerImage(formData, {
-  //     onSuccess: (data: any) => {  // eslint-disable-line @typescript-eslint/no-explicit-any
-  //       useActivityStore.getState().setActivity({
-  //         bannerImageUrl: data.activityImageUrl,
-  //       });
-  //     },
-  //     onError: () => {
-  //       alert('이미지 업로드 실패');
-  //     },
-  //   });
-  // };
-
-  // const handleRemoveImage = () => {
-  //   setActivity({ bannerImageFile: null, bannerImageUrl: '' });
-  //   setPreviewUrl(null);
-  // };
-
-  // useEffect(() => {
-  //   if (bannerImageFile) {
-  //     const objectUrl = URL.createObjectURL(bannerImageFile);
-  //     setPreviewUrl(objectUrl);
-  //     return () => URL.revokeObjectURL(objectUrl);
-  //   } else {
-  //     setPreviewUrl(null);
-  //   }
-  // }, [bannerImageFile]);
 
   return (
     <div>

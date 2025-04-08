@@ -13,3 +13,15 @@
     margin: 0 -8px;
 
 }
+
+@media(max-width: 768px){
+    .select {
+        width: 104px;
+        margin: 0 5px;
+        height: 56px;
+    }
+    .waveSymbol{
+       display: none;
+    
+    }
+}

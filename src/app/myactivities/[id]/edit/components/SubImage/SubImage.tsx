@@ -95,26 +95,7 @@ export default function SubImage() {
   };
   
 
-  // const handleRemoveImage = (index: number) => {
-  //   setActivity((prev) => {
-  //     const isServerImage = index < prev.subImageUrls.length;
-  
-  //     if (isServerImage) {
-  //       const removedUrl = prev.subImageUrls[index];
-  //       return {
-  //         ...prev,
-  //         subImageUrls: prev.subImageUrls.filter((_, i) => i !== index),
-  //         subImageUrlsToAdd: prev.subImageUrlsToAdd.filter((url) => url !== removedUrl),
-  //       };
-  //     } else {
-  //       const fileIndex = index - prev.subImageUrls.length;
-  //       return {
-  //         ...prev,
-  //         subImageFiles: prev.subImageFiles.filter((_, i) => i !== fileIndex),
-  //       };
-  //     }
-  //   });
-  // };
+
 
   const previewUrls = [
     ...subImageUrls.map((img) => img.imageUrl),

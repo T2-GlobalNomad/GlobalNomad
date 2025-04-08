@@ -81,13 +81,11 @@ export default function SubImage() {
  
 
   const previewUrls = [
-    ...subImageUrls,
+    ...subImageUrls.map((img) => img.imageUrl),
     ...subImageFiles.map((file) => URL.createObjectURL(file)),
   ];
 
-  const getImageUrl = (img: string | { id: number; imageUrl: string }) =>
-    typeof img === 'string' ? img : img.imageUrl;
-
+ 
   return(
     <div>
         <p className={styles.title}>서브 이미지</p>
@@ -113,7 +111,7 @@ export default function SubImage() {
               <div key={index} className={styles.imageItem}>
                 <div className={styles.imageWrapper}>
                   <Image
-                   src={getImageUrl(img)}
+                   src={img}
                     alt={`sub-${index}`}
                     width={180}
                     height={180}

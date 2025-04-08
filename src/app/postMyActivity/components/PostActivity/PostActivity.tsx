@@ -17,8 +17,8 @@ export default function PostActivity() {
   
 
   useEffect(() => {
-    resetActivity(); 
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    resetActivity(); // ✅ 컴포넌트 진입 시 초기화
+  }, []); 
 
 
 
@@ -50,7 +50,7 @@ export default function PostActivity() {
       startTime,
       endTime,
       bannerImageUrl,
-      subImageUrls: subImageUrls.map(img => img.imageUrl),
+      subImageUrls: subImageUrls.map((img) => img.imageUrl),
       schedules,
     };
 
@@ -59,7 +59,11 @@ export default function PostActivity() {
 
     postActivity(payload, {
       onSuccess: () => {
-        setShowModal(true);       
+        setShowModal(true);
+  
+        router.push('/myactivities')
+
+        
       },
       onError: () => {
         alert('등록 실패!');

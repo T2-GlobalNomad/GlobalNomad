@@ -73,11 +73,10 @@ export default function BannerImage() {
             <Plus strokeWidth={1} className={styles.plusSign} size={50} />
             <p className={styles.buttonText}>이미지 등록</p>
           </div>
+          
         </label>
-
-        <div className={styles.imagePreviewContainer}>
-          {previewUrl && (
-            <div className={styles.imageItem}>
+        {previewUrl && (
+          <div className={styles.imageItem}>
               <div className={styles.imageWrapper}>
                 <Image
                   src={previewUrl}
@@ -93,9 +92,11 @@ export default function BannerImage() {
               >
                 <X className={styles.xIcon} strokeWidth={2} size={16} />
               </button>
-            </div>
+          </div>
           )}
-        </div>
+       
+       
+       
       </div>
 
       <input

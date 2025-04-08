@@ -98,3 +98,75 @@
     width: 140px;
     
 }
+
+@media(max-width: 768px) {
+
+
+.subTitles p{
+    font-size: 20px;
+}
+
+.subTitle{
+    margin-right:119px;
+}
+
+.startTime{
+    margin-right: 34px;
+}
+
+.dateInputAdded{
+    
+    width: 149px !important;
+    margin-right: 5px !important;
+
+}
+
+.customTimeAdded{
+    width: 104px;
+    
+}
+
+}
+
+@media(max-width: 375px) {
+.customButton{
+    width: 44px;
+    height: 44px;
+
+}
+.title{
+    display: none;
+}
+    .subTitles p{
+        font-size: 16px;
+    }
+    
+    .subTitle{
+        margin-right:106px;
+    }
+    
+    .startTime{
+        margin-right: 23px;
+    }
+    
+.dateInputAdded{
+    
+    width: 130px !important;
+    margin-right: 4px !important;
+
+}
+
+.customTimeAdded{
+    width: 79px;
+    
+}
+.customButtonMinus{
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white !important;
+    border: 1px solid #dddddd !important;
+}
+    }

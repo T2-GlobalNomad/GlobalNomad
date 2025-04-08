@@ -38,7 +38,7 @@ interface SelectInputProps {
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
 const options: OptionType[] = [
-  { value: '문화·예술', label: '문화·예술' },
+  { value: '문화 예술', label: '문화 예술' },
   { value: '식음료', label: '식음료' },
   { value: '스포츠', label: '스포츠' },
   { value: '투어', label: '투어' },
@@ -110,6 +110,7 @@ export default function SelectInput({ onChange }: SelectInputProps) {
           }
         }}
         components={{ Option: CustomOption }}
+        className={styles.selectInput}
       />
     </div>
   );

@@ -6,10 +6,13 @@
 }
 
 .container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+    max-width:384px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    flex-wrap: wrap;
+    gap: 5px;
+  }
 
 .uploadButton {
     position: relative;
@@ -116,10 +119,13 @@
     }
     
     .container {
-        display: flex;
-        align-items: center;
+        max-width:429px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: wrap;
       
-    }
+      }
     
     .uploadButton {
         position: relative;
@@ -227,10 +233,13 @@
     }
     
     .container {
-        display: flex;
-        align-items: center;
-      
-    }
+        max-width:343px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: wrap;
+        gap: 8px;
+      }
     
     .uploadButton {
         position: relative;
@@ -242,17 +251,14 @@
         width: 167px;
         height: 167px;
     }
-    .previewImg{
-        width: 167px;
-        height: 167px;
-    }
+   
     
     
     
     .buttonComponents{
         position:  absolute;
         top: 20%;
-        left: 15%;
+        left: 13%;
         display:  flex;
         flex-direction: column;
         justify-content: center;
@@ -295,8 +301,8 @@
     /* 업로드된 이미지 */
     .imageWrapper {
         position: relative;
-        width: 180px;
-        height: 180px;
+        width: 167px;
+        height: 167px;
         border-radius: 24px;
         overflow: hidden;
     }

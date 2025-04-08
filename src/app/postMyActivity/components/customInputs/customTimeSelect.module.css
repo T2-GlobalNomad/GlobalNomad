@@ -25,3 +25,19 @@
     
     }
 }
+
+@media(max-width: 375px){
+    .select {
+        width: 79px;
+        margin: 0 5px;
+        height: 44px;
+    }
+    
+    .select::placeholder{
+        font-size: 12px;
+    }
+    .waveSymbol{
+       display: none;
+    
+    }
+}

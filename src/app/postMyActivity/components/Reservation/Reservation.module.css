@@ -129,10 +129,16 @@
 }
 
 @media(max-width: 375px) {
+.customButton{
+    width: 44px;
+    height: 44px;
 
-
+}
+.title{
+    display: none;
+}
     .subTitles p{
-        font-size: 20px;
+        font-size: 16px;
     }
     
     .subTitle{

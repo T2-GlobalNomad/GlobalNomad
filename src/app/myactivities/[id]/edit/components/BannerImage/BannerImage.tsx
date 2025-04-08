@@ -7,14 +7,11 @@ import { useActivityStore } from '@/stores/useActivityStore';
 import useBannerImageUrl from '@/hooks/query/useBannerImageUrl';
 // import useUploadImagesMutation from '@/hooks/query/useImageUrl';
 export default function BannerImage() {
-  
   const { activity, setActivity } = useActivityStore();
-  const { bannerImageFile, bannerImageUrl } = activity; 
+  const { bannerImageFile, bannerImageUrl } = activity;
 
   const { mutate: uploadBanneImage } = useBannerImageUrl();
 
-
-  
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file || !file.type.startsWith('image/')) return;
@@ -28,11 +25,11 @@ export default function BannerImage() {
 
     uploadBanneImage(formData, {
       onSuccess: (data: any) => {
-        console.log("📦 서버 응답 전체:", data);
+        console.log('📦 서버 응답 전체:', data);
         setActivity({
           bannerImageUrl: data.bannerImageUrl,
         });
-        console.log("✅ 업로드된 이미지 URL:", data.bannerImageUrl);
+        console.log('✅ 업로드된 이미지 URL:', data.bannerImageUrl);
       },
       onError: () => {
         alert('이미지 업로드 실패');
@@ -42,15 +39,11 @@ export default function BannerImage() {
 
   const handleRemoveImage = () => {
     setActivity({ bannerImageFile: null, bannerImageUrl: '' });
- 
   };
 
   const previewUrl = bannerImageFile
-      ? URL.createObjectURL(bannerImageFile)
-      : bannerImageUrl || null;
-
-
-  
+    ? URL.createObjectURL(bannerImageFile)
+    : bannerImageUrl || null;
 
   return (
     <div>
@@ -70,27 +63,22 @@ export default function BannerImage() {
           </div>
         </label>
 
-        <div className={styles.imagePreviewContainer}>
-          {previewUrl && (
-            <div className={styles.imageItem}>
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={previewUrl}
-                  alt='BannerImage'
-                  className={styles.previewImg}
-                  width={180}
-                  height={180}
-                />
-              </div>
-              <button
-                className={styles.removeButton}
-                onClick={handleRemoveImage}
-              >
-                <X className={styles.xIcon} strokeWidth={2} size={16} />
-              </button>
+        {previewUrl && (
+          <div className={styles.imageItem}>
+            <div className={styles.imageWrapper}>
+              <Image
+                src={previewUrl}
+                alt='BannerImage'
+                className={styles.previewImg}
+                width={180}
+                height={180}
+              />
             </div>
-          )}
-        </div>
+            <button className={styles.removeButton} onClick={handleRemoveImage}>
+              <X className={styles.xIcon} strokeWidth={2} size={16} />
+            </button>
+          </div>
+        )}
       </div>
 
       <input

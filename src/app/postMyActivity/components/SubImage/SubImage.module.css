@@ -337,8 +337,8 @@
     /* 업로드된 이미지 */
     .imageWrapper {
         position: relative;
-        width: 180px;
-        height: 180px;
+        width: 167px;
+        height: 167px;
         border-radius: 24px;
         overflow: hidden;
         

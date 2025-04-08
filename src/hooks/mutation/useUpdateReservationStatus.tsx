@@ -29,6 +29,9 @@ const useUpdateReservationStatus = (
       queryClient.invalidateQueries({
         queryKey: ['reservations', activityId, scheduleId, currentStatus],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['scheduleByMonth', activityId],
+      });
     },
   });
 };

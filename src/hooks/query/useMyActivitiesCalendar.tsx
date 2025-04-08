@@ -17,11 +17,11 @@ const fetchMyActivities = async (): Promise<Activities[]> => {
 };
 
 // React Query 훅
-const useMyActivities = () => {
+const useMyActivitiesCalendar = () => {
   return useQuery<Activities[]>({
     queryKey: ['myActivities'],
     queryFn: fetchMyActivities,
   });
 };
 
-export default useMyActivities;
+export default useMyActivitiesCalendar;

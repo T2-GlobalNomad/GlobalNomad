@@ -30,8 +30,8 @@
 }
 
 .dropdownList {
-  width: 792px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 792px;
   border-radius: 4px;
   text-align: left;
 }
@@ -49,9 +49,14 @@
   .container {
     width: 100%;
   }
+
+  .dropdownList {
+    max-width: 100%;
+    font-size: 14px;
+  }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
   .container {
     width: 100%;
     padding: 0 12px;

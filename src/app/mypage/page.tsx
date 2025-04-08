@@ -6,7 +6,6 @@ import Image from 'next/image';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
 import CustomButton from '@/components/CustomButton';
 import ProfileUpdateModal from './components/ProfileUpdateModal';
-import Footer from '@/components/footer/Footer';
 import styles from './MyPage.module.css';
 
 export default function MyPage() {
@@ -82,6 +81,7 @@ export default function MyPage() {
                   width={160}
                   height={160}
                   alt='프로필 이미지'
+                  priority
                 />
               )}
             </div>
@@ -111,9 +111,6 @@ export default function MyPage() {
           />
         )}
       </div>
-      <footer>
-        <Footer />
-      </footer>
     </>
   );
 }

@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Empty from '@/components/empty/Empty';
-import Footer from '@/components/footer/Footer';
 import ReservationList from './components/ReservationList';
 import useReservation from '@/hooks/query/useReservation';
 import styles from './style.module.css';
@@ -42,7 +41,9 @@ export default function MyReservation() {
 
   return (
     <div className={styles.wrapper}>
-      <ProfileCard activeTab={'myreservation'} />
+      <div className={styles.profileCard}>
+        <ProfileCard activeTab={'myreservation'} />
+      </div>
       <div ref={listRef} className={styles.pageContainer}>
         <PageController
           reservationsData={reservationsData}
@@ -74,7 +75,6 @@ export default function MyReservation() {
           </>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

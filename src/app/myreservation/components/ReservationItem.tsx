@@ -7,7 +7,7 @@ import styles from '../style.module.css';
 import { RESERVATION_STATUS } from '@/constants/ReservationStatus';
 import { Reservation } from '@/lib/types';
 import { isPastDateTime } from '@/utils/dateUtils';
-import { FormattedDate } from '@/utils/formattedDate';
+import { formattedDate } from '@/utils/formattedDate';
 
 interface Props {
   reservationsData: Reservation[] | undefined;
@@ -28,18 +28,6 @@ export default function ReservationItem({
   setReservationId,
   setIsReviewData,
 }: Props) {
-  const cancelReservationButton: React.CSSProperties = {
-    padding: '8px 20px',
-    background: '#fff',
-    color: '#112211',
-    border: '1px solid #112211',
-    fontWeight: '700',
-  };
-  const writeReviewButton: React.CSSProperties = {
-    padding: '8px 20px',
-    fontWeight: '700',
-  };
-
   const statusMode = RESERVATION_STATUS;
 
   const [imageSrcMap, setImageSrcMap] = useState<Record<string, string>>({});
@@ -55,9 +43,10 @@ export default function ReservationItem({
     setReservationId(id);
   }
 
-  function handleWriteReview(reservation: Reservation) {
+  function handleWriteReview(id: number | undefined, reservation: Reservation) {
     setModalType('review');
     setShowModal(true);
+    setReservationId(id);
     setIsReviewData(reservation);
   }
 
@@ -115,7 +104,7 @@ export default function ReservationItem({
                 <div className={styles.info}>
                   <p className={styles.title}>{activity.title}</p>
                   <p className={styles.plan}>
-                    {FormattedDate(date!)}
+                    <span>{formattedDate(date!)}</span>
                     <span className={styles.circle}>·</span>
                     {reservation.startTime} - {reservation.endTime}
                     <span className={styles.circle}>·</span>
@@ -130,26 +119,32 @@ export default function ReservationItem({
                 {statusInfo.text === '예약 신청' &&
                 !isPastDateTime(reservation.date, reservation.startTime) ? (
                   <CustomButton
-                    style={cancelReservationButton}
+                    variant='white'
                     onClick={(e) => {
                       e.stopPropagation();
                       handleCancelReservation(reservation.id);
                     }}
+                    style={{ padding: '8px 20px' }}
                   >
                     예약 취소
                   </CustomButton>
+                ) : statusInfo.text === '예약 신청' &&
+                  isPastDateTime(reservation.date, reservation.startTime) ? (
+                  <div className={styles.notice}>기한 만료</div>
+                ) : statusInfo.text === '체험 완료' &&
+                  reservation.reviewSubmitted ? (
+                  <div className={styles.notice}>후기 작성 완료</div>
                 ) : statusInfo.text === '체험 완료' ? (
                   <CustomButton
-                    style={writeReviewButton}
+                    variant='black'
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleWriteReview(reservation);
+                      handleWriteReview(reservation.id, reservation);
                     }}
+                    style={{ padding: '8px 20px' }}
                   >
                     후기 작성
                   </CustomButton>
-                ) : isPastDateTime(reservation.date, reservation.startTime) ? (
-                  <div className={styles.notice}>기한 만료</div>
                 ) : (
                   ''
                 )}

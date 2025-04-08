@@ -44,6 +44,95 @@
         vertical-align: bottom;
       }
     }
+
+    .head{
+      -webkit-display:flex;
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size:24px;
+      font-weight:700;
+    }
+  }
+
+  .contents.review{
+    padding-top:0;
+    max-width: min-content;
+
+    .title{
+      padding-top:5px;
+    }
+
+    .close{
+      cursor: pointer;
+    }
+
+    .info{
+      -webkit-display:flex;
+      display:flex;
+      margin-top:45px;
+      text-align:left;
+
+      .thumbnail{
+        position:relative;
+        margin-right:24px;
+        width:126px;
+        min-width:126px;
+        height:126px;
+        border-radius:12px;
+        overflow:hidden;
+      }
+
+      .detail{
+        -webkit-display:flex;
+        display:flex;
+        -webkit-flex-direction:column;
+        flex-direction:column;
+        justify-content: space-between;
+
+        .top{
+          border-bottom:1px solid rgba(17, 34, 17, .1);
+
+          .title{
+            min-width: 250px;
+            font-size: 20px;
+            font-weight: 700;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            word-break: break-word;
+          }
+          .date{
+            margin:12px 0;
+            font-size:18px;
+            font-weight:400
+          }
+        }
+
+        .bottom{
+          font-size:32px;
+          font-weight:700
+        }
+      }
+    }
+    .textarea{
+      display:block;
+      width:100%;
+      height:calc(100vw * (240/1200));
+      min-height:240px;
+      max-height:280px;
+      padding:16px;
+      border:1px solid var(--gray);
+      border-radius:4px;
+      font-size:16px;
+      font-weight:400;
+      
+      &::placeholder{
+        
+        color:var(--gray)
+      }
+    }
   }
 
   .contents.type2{
@@ -65,13 +154,10 @@
     margin-top: 25px;
     cursor: pointer;
     border-radius: 8px;
-    background: var(--primary);
-    color: var(--white);
   }
   
   .buttonContainer .cancel {
     margin-right: 10px;
-    border: 1px solid var(--primary);
     background: var(--white);
     color: var(--primary);
   }

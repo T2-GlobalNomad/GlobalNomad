@@ -67,7 +67,7 @@
   text-align: left;
 }
 
-@media (max-width: 430px) {
+@media (max-width: 450px) {
   .container {
     margin-left: 0;
   }

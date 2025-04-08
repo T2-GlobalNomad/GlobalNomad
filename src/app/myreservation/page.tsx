@@ -41,7 +41,9 @@ export default function MyReservation() {
 
   return (
     <div className={styles.wrapper}>
-      <ProfileCard activeTab={'myreservation'} />
+      <div className={styles.profileCard}>
+        <ProfileCard activeTab={'myreservation'} />
+      </div>
       <div ref={listRef} className={styles.pageContainer}>
         <PageController
           reservationsData={reservationsData}

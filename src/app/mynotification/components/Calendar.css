@@ -1,5 +1,5 @@
 .react-calendar {
-  width: 800px;
+  /* width: 800px; */
   max-width: 100%;
   border: 1px solid #a0a096;
   font-family: 'Pretendard', 'Helvetica', sans-serif;
@@ -7,6 +7,9 @@
   margin: 32px auto;
   border: none;
   border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .react-calendar--doubleView {
@@ -52,7 +55,7 @@
   justify-content: space-between; /* 버튼 간격 정렬 */
   align-items: center;
   padding: 0 10px;
-  width: 342px;
+  /* width: 342px; */
   height: 44px;
   margin: 8px auto;
   border: none;
@@ -188,3 +191,33 @@
 .react-calendar--selectRange .react-calendar__tile--hover {
   /* background-color: #e6e6e6; */
 }
+
+@media (max-width: 768px) {
+  .react-calendar--doubleView {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .react-calendar--doubleView .react-calendar__viewContainer {
+    flex-direction: column;
+  }
+
+  .react-calendar--doubleView .react-calendar__viewContainer > * {
+    width: 100%;
+    margin: 0;
+  }
+
+  .react-calendar__tile {
+    height: auto;
+    min-height: 60px;
+    font-size: 12px;
+    padding: 4px 2px;
+  }
+
+  .react-calendar__navigation {
+    width: 100%;
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
+}
+

@@ -68,7 +68,6 @@ export async function kakaoSignIn(code: string) {
       redirectUri: process.env.NEXT_PUBLIC_KAKAO_REDIRECT_SIGNIN_URI,
       token: code,
     });
-    console.log('카카오 로그인 성공:', response.data);
     return response.data;
   } catch (error: unknown) {
     if (error instanceof AxiosError) {

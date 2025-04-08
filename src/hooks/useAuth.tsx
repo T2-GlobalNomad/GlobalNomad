@@ -29,7 +29,6 @@ function useSignInMutation() {
       router.push('/');
     },
     onError: (error: unknown) => {
-      console.error('카카오 로그인 오류:', error); // ⭐️ 로그 찍기
       if (error instanceof Error) {
         toast.error(error.message);
       } else {

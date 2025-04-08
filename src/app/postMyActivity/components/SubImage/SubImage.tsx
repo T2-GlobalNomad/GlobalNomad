@@ -43,7 +43,7 @@ export default function SubImage() {
             console.log("서브이미지업로드성공:", url)
             setActivity((prev) => ({
               ...prev,
-              subImageUrls: [...prev.subImageUrls, url],
+              subImageUrls: [...prev.subImageUrls, { id: Date.now(), imageUrl: url }],
               // subImageFiles: [...prev.subImageFiles, file],
               subImageUrlsToAdd: [...prev.subImageUrlsToAdd, url], // 이거도 잊지 말기
             }));
@@ -84,6 +84,10 @@ export default function SubImage() {
     ...subImageUrls,
     ...subImageFiles.map((file) => URL.createObjectURL(file)),
   ];
+
+  const getImageUrl = (img: string | { id: number; imageUrl: string }) =>
+    typeof img === 'string' ? img : img.imageUrl;
+
   return(
     <div>
         <p className={styles.title}>서브 이미지</p>
@@ -102,13 +106,14 @@ export default function SubImage() {
               <p className={styles.buttonText}>이미지 등록</p>
             </div>
           
+          
   
           </label>
-          {previewUrls.map((url, index) => (
+          {previewUrls.map((img, index) => (
               <div key={index} className={styles.imageItem}>
                 <div className={styles.imageWrapper}>
                   <Image
-                    src={url}
+                   src={getImageUrl(img)}
                     alt={`sub-${index}`}
                     width={180}
                     height={180}

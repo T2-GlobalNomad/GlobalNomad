@@ -7,6 +7,7 @@ import Image from 'next/image';
 import styles from './SubImage.module.css';
 import { useActivityStore } from '@/stores/useActivityStore';
 import useSubImageUrl from '@/hooks/query/useSubImageUrl';
+import { a2 } from 'vitest/dist/chunks/reporters.66aFHiyX.js';
 
 export default function SubImage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -40,30 +41,31 @@ export default function SubImage() {
         const formData = new FormData();
         formData.append('image', file);
 
-      uploadSubImage(file, {
-        onSuccess: (url: string) => {
-          setActivity((prev) => {
-            console.log('🔍 before update', prev.subImageUrls.length, prev.subImageUrls);
-            // 중복 제거
-            const newSubImageUrls = prev.subImageUrls.includes(url)
-              ? prev.subImageUrls
-              : [...prev.subImageUrls, url];
+        uploadSubImage(file, {
+          onSuccess: (url: string) => {
+            setActivity((prev) => {
+              const alreadyExists = prev.subImageUrls.some(
+                (img) => img.imageUrl === url
+              );
         
-            const newSubImageUrlsToAdd = prev.subImageUrlsToAdd.includes(url)
-              ? prev.subImageUrlsToAdd
-              : [...prev.subImageUrlsToAdd, url];
+              const newSubImages = alreadyExists
+                ? prev.subImageUrls
+                : [...prev.subImageUrls, { id: Date.now(), imageUrl: url }];
         
-            return {
-              ...prev,
-              subImageUrls: newSubImageUrls,
-              subImageUrlsToAdd: newSubImageUrlsToAdd,
-            };
-          });
-        },
-  onError: () => {
-    alert('서브 이미지 업로드 실패');
-  },
-});
+              const newSubImageUrlsToAdd = prev.subImageUrlsToAdd.includes(url)
+                ? prev.subImageUrlsToAdd
+                : [...prev.subImageUrlsToAdd, url];
+        
+              return {
+                subImageUrls: newSubImages,
+                subImageUrlsToAdd: newSubImageUrlsToAdd,
+              };
+            });
+          },
+          onError: () => {
+            alert("서브 이미지 업로드 실패");
+          },
+        });
      
     })
 
@@ -73,30 +75,49 @@ export default function SubImage() {
 
     
   };
+  
 
   const handleRemoveImage = (index: number) => {
     setActivity((prev) => {
-      const isServerImage = index < prev.subImageUrls.length;
+      const removedImage = prev.subImageUrls[index]; // 이건 객체임
   
-      if (isServerImage) {
-        const removedUrl = prev.subImageUrls[index];
-        return {
-          ...prev,
-          subImageUrls: prev.subImageUrls.filter((_, i) => i !== index),
-          subImageUrlsToAdd: prev.subImageUrlsToAdd.filter((url) => url !== removedUrl),
-        };
-      } else {
-        const fileIndex = index - prev.subImageUrls.length;
-        return {
-          ...prev,
-          subImageFiles: prev.subImageFiles.filter((_, i) => i !== fileIndex),
-        };
-      }
+      return {
+        ...prev,
+        subImageUrls: prev.subImageUrls.filter((_, i) => i !== index),
+        subImageIdsToRemove: removedImage?.id
+          ? [...prev.subImageIdsToRemove, removedImage.id]
+          : prev.subImageIdsToRemove,
+        subImageUrlsToAdd: prev.subImageUrlsToAdd.filter(
+          (url) => url !== removedImage.imageUrl
+        ),
+      };
     });
   };
+  
+
+  // const handleRemoveImage = (index: number) => {
+  //   setActivity((prev) => {
+  //     const isServerImage = index < prev.subImageUrls.length;
+  
+  //     if (isServerImage) {
+  //       const removedUrl = prev.subImageUrls[index];
+  //       return {
+  //         ...prev,
+  //         subImageUrls: prev.subImageUrls.filter((_, i) => i !== index),
+  //         subImageUrlsToAdd: prev.subImageUrlsToAdd.filter((url) => url !== removedUrl),
+  //       };
+  //     } else {
+  //       const fileIndex = index - prev.subImageUrls.length;
+  //       return {
+  //         ...prev,
+  //         subImageFiles: prev.subImageFiles.filter((_, i) => i !== fileIndex),
+  //       };
+  //     }
+  //   });
+  // };
 
   const previewUrls = [
-    ...subImageUrls,
+    ...subImageUrls.map((img) => img.imageUrl),
     ...subImageFiles.map((file) => URL.createObjectURL(file)),
   ];
   
@@ -120,11 +141,11 @@ export default function SubImage() {
         
 
         </label>
-        {previewUrls.map((url, index) => (
+        {previewUrls.map((img, index) => (
             <div key={index} className={styles.imageItem}>
               <div className={styles.imageWrapper}>
                 <Image
-                  src={url}
+                  src={img}
                   alt={`sub-${index}`}
                   width={180}
                   height={180}

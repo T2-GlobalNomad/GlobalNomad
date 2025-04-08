@@ -14,7 +14,10 @@ interface ActivityData {
   price: number;
   schedules: Schedule[];
   bannerImageUrl: string;
-  subImageUrls: string[];
+  subImageUrls: {
+    id: number;
+    imageUrl: string;
+  }[]
   subImageFiles: File[]; 
   startTime: string;
   endTime: string;  

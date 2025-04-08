@@ -47,10 +47,10 @@ console.log("➕ 서버에 보낼 subImageUrlsToAdd:", activities.subImageUrlsTo
       address,
       price,
       bannerImageUrl,
-      subImageUrls,
       subImageIdsToRemove,
       scheduleIdsToRemove,
       schedulesToAdd,
+      subImageUrlsToAdd
  
     },
     setActivity, // 
@@ -70,7 +70,10 @@ console.log("➕ 서버에 보낼 subImageUrlsToAdd:", activities.subImageUrlsTo
         address: activity.address,
         price: activity.price,
         bannerImageUrl: activity.bannerImageUrl,
-        subImageUrls: activity.subImages?.map((img) => img.imageUrl) || [],
+        subImageUrls: activity.subImages?.map((img) => ({
+          id: img.id,
+          imageUrl: img.imageUrl,
+        })) || [],
         subImageIdsToRemove: [],
         subImageUrlsToAdd: [],
         schedules: activity.schedules?.map((s) => ({
@@ -98,8 +101,8 @@ console.log("➕ 서버에 보낼 subImageUrlsToAdd:", activities.subImageUrlsTo
       address,
       price,
       bannerImageUrl,
-      subImageUrlsToAdd: subImageUrls.filter(Boolean),
-      subImageIdsToRemove,
+      subImageUrlsToAdd: subImageUrlsToAdd.filter(Boolean),
+      subImageIdsToRemove: subImageIdsToRemove,
       scheduleIdsToRemove,
       schedulesToAdd,
     };

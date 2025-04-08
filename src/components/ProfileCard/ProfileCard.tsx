@@ -66,7 +66,6 @@ const ProfileCard = ({
 
   return (
 
-
     <div>
       {!isLoading && (
         <div className={styles.card}>
@@ -80,8 +79,6 @@ const ProfileCard = ({
               priority
             />
           </div>
-
-
           <nav className={styles.nav}>
             {tab.map((item) => (
               <Link key={item.key} href={item.href}>

@@ -3,58 +3,84 @@ import styles from './activityBody.module.css';
 import { Activities } from '@/lib/types';
 import ActivityReviews from './ActivityReviews';
 import ReservationCard from './ReservationCard';
+import { useAuthStore } from '@/stores/useAuthStore';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import KakaoMap from './KakaoMap';
+import { SliderNextArrow, SliderPrevArrow } from './SliderArrow';
+import useDeviceType from '@/hooks/useDeviceType';
 
-interface ActivityBodyProps {
+export interface Activityprops {
   activityData: Activities;
 }
 
-export default function ActivityBody({ activityData }: ActivityBodyProps) {
+export default function ActivityBody({ activityData }: Activityprops) {
+  const { user } = useAuthStore();
+  const deviceType = useDeviceType();
+
+  const imageCount = 1 + (activityData.subImages?.length ?? 0);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: imageCount > 1,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    nextArrow: <SliderNextArrow />,
+    prevArrow: <SliderPrevArrow />,
+    appendDots: (dots: React.ReactNode) => (
+      <ul className={styles['slick-dots']}>{dots}</ul>
+    ),
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.imageSection}>
-        <div className={styles.bannerImage}>
-          <Image
-            src={activityData.bannerImageUrl || ''}
-            alt='bannerimage'
-            fill
-            objectFit='cover'
-          />
+      {deviceType === 'mobile' ? (
+        <Slider {...sliderSettings} className={styles.customSlider}>
+          <div className={styles.bannerImage}>
+            <Image
+              src={activityData.bannerImageUrl ?? '/images/icon_location.svg'}
+              alt='bannerimage'
+              fill
+              objectFit='cover'
+            />
+          </div>
+          {activityData.subImages?.map((subImage) => (
+            <div className={styles.subImage} key={subImage.imageUrl}>
+              <Image
+                src={subImage.imageUrl ?? '/images/icon_location.svg'}
+                alt='subImage'
+                fill
+                objectFit='cover'
+              />
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <div className={styles.imageSection}>
+          <div className={styles.bannerImage}>
+            <Image
+              src={activityData.bannerImageUrl ?? '/images/icon_location.svg'}
+              alt='bannerimage'
+              fill
+              objectFit='cover'
+            />
+          </div>
+          <div className={styles.subImageSection}>
+            {activityData.subImages?.map((subImage) => (
+              <div className={styles.subImage} key={subImage.imageUrl}>
+                <Image
+                  src={subImage.imageUrl ?? '/images/icon_location.svg'}
+                  alt='subImage'
+                  fill
+                  objectFit='cover'
+                />
+              </div>
+            ))}
+          </div>
         </div>
-        <div className={styles.subImageSection}>
-          <div className={styles.subImage}>
-            <Image
-              src={activityData.subImages?.[0].imageUrl || ''}
-              alt='location'
-              fill
-              objectFit='cover'
-            />
-          </div>
-          <div className={styles.subImage}>
-            <Image
-              src={activityData.bannerImageUrl || ''}
-              alt='location'
-              fill
-              objectFit='cover'
-            />
-          </div>
-          <div className={styles.subImage}>
-            <Image
-              src={activityData.bannerImageUrl || ''}
-              alt='location'
-              fill
-              objectFit='cover'
-            />
-          </div>
-          <div className={styles.subImage}>
-            <Image
-              src={activityData.bannerImageUrl || ''}
-              alt='location'
-              fill
-              objectFit='cover'
-            />
-          </div>
-        </div>
-      </div>
+      )}
       <div className={styles.bodyContainer}>
         <div className={styles.bodyDetailContainer}>
           <div className={styles.bodyDetail}>
@@ -68,7 +94,9 @@ export default function ActivityBody({ activityData }: ActivityBodyProps) {
           <div className={styles.bodyDetail}>
             <div></div>
             <div className={styles.addressSection}>
-              <div className={styles.map}>1</div>
+              <div className={styles.map}>
+                <KakaoMap address={activityData.address || ''} />
+              </div>
               <div className={styles.address}>
                 <div className={styles.location}>
                   <Image
@@ -87,11 +115,13 @@ export default function ActivityBody({ activityData }: ActivityBodyProps) {
           </div>
         </div>
         <div className={styles.reservationCard}>
-          <ReservationCard
-            price={activityData.price || 0}
-            schedules={activityData.schedules || []}
-            activityId={activityData.id}
-          />
+          {user && (
+            <ReservationCard
+              price={activityData.price ?? 0}
+              schedules={activityData.schedules ?? []}
+              activityId={activityData.id ?? 0}
+            />
+          )}
         </div>
       </div>
     </div>

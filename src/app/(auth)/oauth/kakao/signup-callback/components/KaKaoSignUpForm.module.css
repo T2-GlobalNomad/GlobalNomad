@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  margin: 0 auto;
+
+  max-width: 640px;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+
+.btn {
+  padding: 14px;
+}
+
+.error {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--red);
+}
+
+.errorBorder {
+  border-color: var(--red);
+}

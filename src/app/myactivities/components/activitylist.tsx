@@ -51,12 +51,15 @@ export default function ActivityList({ status }: { status: string }) {
   if (!activityData || activityData.length === 0) {
     return <Empty />;
   }
-
+  
+  console.log('🧩 리스트에 들어온 활동들:', activityData);
   return (
+    
     <div
       className={styles.listcardcontainer}
       ref={listRef} // ✅ 이 줄 꼭 추가해야 스크롤 감지됨
     >
+      
       {activityData.map((activity) => (
         <ActivityListCard key={activity.id} activities={activity} />
       ))}

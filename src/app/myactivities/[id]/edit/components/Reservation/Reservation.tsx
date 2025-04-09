@@ -11,6 +11,8 @@ export default function Reservation() {
   const { activity, setActivity, addSchedule, removeSchedule, updateSchedule } =
     useActivityStore();
 
+
+    console.log("🧩 activity.schedules 상태", activity.schedules);
   // 수정된 addSchedule 함수: 현재 입력된 날짜/시간을 일정으로 추가
   const handleAddSchedule = () => {
     if (!activity.date) {
@@ -18,7 +20,26 @@ export default function Reservation() {
       return;
     }
 
-    addSchedule(); // Zustand의 addSchedule() 호출
+   // 새 스케줄 객체 생성
+  const newSchedule = {
+    date: activity.date,
+    startTime: activity.startTime,
+    endTime: activity.endTime,
+  };
+
+  // 기존 addSchedule 실행 → schedules 배열에 추가
+  addSchedule();
+
+  // ✅ schedulesToAdd 배열에도 추가
+  setActivity({
+    schedulesToAdd: [...activity.schedulesToAdd, newSchedule],
+    // ✅ 입력 필드 초기화
+    date: '',
+    startTime: '0:00',
+    endTime: '0:00',
+  });
+
+    
   };
 
   return (

@@ -35,5 +35,52 @@ line-height: 42px;
 .page_container{
   display: flex;
   gap: 24px;
-  margin-top: 142px;
+  margin-top: 72px;
+  margin-bottom: 142px;
+}
+
+
+@media(max-width:768px){
+
+  .page_container{
+    display: flex;
+    margin-top: 72px;
+    margin-bottom: 142px;
+  }
+  
+}
+
+@media(max-width:375px){
+
+  .page_container{
+    display: flex;
+    margin-top: 72px;
+    margin-bottom: 142px;
+  }
+  .title{
+    display: flex;
+    width: 344px;
+    height: 48px;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 60px;
+}
+  .title p{
+    font-size: 32px;
+    font-style: bold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 42px;
+    }
+    
+    .custombutton{
+      width: 120px;
+      height: 48px;
+      display:flex !important;
+      text-align: center;
+      align-items:center;
+      justify-content:center;
+    }
+    
 }

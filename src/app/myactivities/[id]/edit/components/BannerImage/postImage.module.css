@@ -5,6 +5,8 @@
     margin-bottom: 24px;
 }
 
+
+
 .container {
     max-width:384px;
     width: 100%;
@@ -13,7 +15,6 @@
     flex-wrap: wrap;
     gap: 5px;
   }
-
 .uploadButton {
     position: relative;
     cursor:pointer;

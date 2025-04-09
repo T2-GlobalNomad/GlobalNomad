@@ -1,7 +1,7 @@
 "use client"
 import Input from "../customInputs/customInput";
 import { useActivityStore } from "@/stores/useActivityStore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from './PriceInput.module.css'
 
  
@@ -11,6 +11,12 @@ export default function PriceInput (){
     const [displayPrice, setDisplayPrice] = useState(
         activity.price?.toLocaleString() || ""
     );
+
+    useEffect(() => {
+        if (typeof activity.price === "number" && !isNaN(activity.price)) {
+          setDisplayPrice(activity.price.toLocaleString());
+        }
+      }, [activity.price]);
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

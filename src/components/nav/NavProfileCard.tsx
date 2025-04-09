@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './nav.module.css';
-import useUser from '@/hooks/query/useUser';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 interface Props {
   imageSrcMap: Record<string, string>;
@@ -14,7 +14,7 @@ export default function NavProfileCard({
   imageSrcMap,
   handleImageError,
 }: Props) {
-  const { data:user } = useUser();
+  const { user, logout } = useAuthStore();
 
   return (
     <div className={styles.profileCardContainer}>
@@ -81,7 +81,9 @@ export default function NavProfileCard({
             예약 현황
           </Link>
         </li>
-        <li className={styles.logoutBtn}>로그아웃</li>
+        <li className={styles.logoutBtn} onClick={() => logout()}>
+          로그아웃
+        </li>
       </ul>
     </div>
   );

@@ -59,48 +59,43 @@ const ProfileCard = ({
     error: unknown;
   };
 
+  if (isLoading) return <div>로딩 중...</div>;
   if (error) {
     console.error(error);
     return <div>에러가 발생했습니다.</div>;
   }
 
   return (
-    <div>
-      {!isLoading && (
-        <div className={styles.card}>
-          <div className={styles.imageWrapper}>
-            <Image
-              src={user?.profileImageUrl || '/images/defaultProfile.svg'}
-              alt='프로필 이미지'
-              width={160}
-              height={160}
-              className={styles.profileImage}
-              priority
-            />
-          </div>
+    <div className={styles.card}>
+      <div className={styles.imageWrapper}>
+        <Image
+          src={user?.profileImageUrl || '/images/defaultProfile.svg'}
+          alt='프로필 이미지'
+          width={160}
+          height={160}
+          className={styles.profileImage}
+        />
+      </div>
 
-          <nav className={styles.nav}>
-            {tab.map((item) => (
-              <Link key={item.key} href={item.href}>
-                <div
-                  className={`${styles.tabItem} ${
-                    activeTab === item.key ? styles.active : ''
-                  }`}
-                >
-                  <Image
-                    src={activeTab === item.key ? item.activeImg : item.img}
-                    alt={item.label}
-                    width={20}
-                    height={20}
-                    priority
-                  />
-                  <span>{item.label}</span>
-                </div>
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
+      <nav className={styles.nav}>
+        {tab.map((item) => (
+          <Link key={item.key} href={item.href}>
+            <div
+              className={`${styles.tabItem} ${
+                activeTab === item.key ? styles.active : ''
+              }`}
+            >
+              <Image
+                src={activeTab === item.key ? item.activeImg : item.img}
+                alt={item.label}
+                width={20}
+                height={20}
+              />
+              <span>{item.label}</span>
+            </div>
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 };

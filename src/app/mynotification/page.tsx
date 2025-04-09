@@ -7,6 +7,7 @@ import ReservationInfoModal from './components/ReservationInfoModal';
 import useMyActivitiesCalendar from '@/hooks/query/useMyActivitiesCalendar';
 import useScheduleByMonth from '@/hooks/query/useScheduleByMonth';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
+import Footer from '@/components/footer/Footer';
 import styles from './MyNotification.module.css';
 
 type Activity = {
@@ -67,7 +68,7 @@ export default function MyNotification() {
     setSelectedDate(dateString);
   };
 
-  // 에러 처리
+  // 로딩 및 에러 처리
   const errorMessage =
     (activitiesError instanceof Error ? activitiesError.message : '') ||
     (scheduleError instanceof Error ? scheduleError.message : '');
@@ -122,6 +123,9 @@ export default function MyNotification() {
           )}
         </div>
       </div>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }

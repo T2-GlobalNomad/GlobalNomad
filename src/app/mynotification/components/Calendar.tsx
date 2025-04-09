@@ -78,11 +78,11 @@ export default function MyNotificationCalendar({
         onClickDay={(date) => !isLoading && onDateClick?.(date)}
         tileDisabled={() => false}
         tileClassName={({ date }) => {
-          if (isLoading) return styles.loadingTile; //로딩상태
+          if (isLoading) return styles.loadingTile;
           const dateString = date.toISOString().split('T')[0];
           const statuses = markedDates[dateString];
           if (statuses) return styles.markedTile;
-          return '';
+          return ''; // 기본 타일
         }}
         tileContent={({ date }) => {
           const dateString = date.toISOString().split('T')[0];
@@ -108,13 +108,6 @@ export default function MyNotificationCalendar({
                         className={`${styles.reservationBox} ${styles.confirmed}`}
                       >
                         승인 {statuses.confirmed}
-                      </div>
-                    )}
-                    {statuses.completed > 0 && (
-                      <div
-                        className={`${styles.reservationBox} ${styles.completed}`}
-                      >
-                        완료 {statuses.completed}
                       </div>
                     )}
                   </div>

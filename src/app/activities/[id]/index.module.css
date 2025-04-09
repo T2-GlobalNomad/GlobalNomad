@@ -1,13 +1,6 @@
 .container {
   width: 100%;
   max-width: 1200px;
-  min-width: 738px;
   height: auto;
   margin: 70px auto 0 auto;
-}
-
-@media (max-width: 768px) {
-}
-
-@media (max-width: 375px) {
 }

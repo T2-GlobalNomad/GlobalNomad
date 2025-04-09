@@ -15,21 +15,14 @@ export default function ActivitiesById() {
     queryFn: () => getActivity(id),
   });
 
-  console.log(id);
   console.log(activity);
 
   return (
     <>
       {activity && (
         <div className={styles.container}>
-          <ActivityHeader
-            title={activity.title || ''}
-            category={activity.category || ''}
-            rating={activity.rating || 0}
-            address={activity.address || ''}
-            reviewCount={activity.reviewCount || 0}
-          />
-          <ActivityBody activityData={activity || ''} />
+          <ActivityHeader activityData={activity} />
+          <ActivityBody activityData={activity} />
         </div>
       )}
     </>

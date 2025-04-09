@@ -70,7 +70,7 @@ export default function NavProfileCard({
           </Link>
         </li>
         <li className={styles.menu}>
-          <Link href='mynotification' className={styles.link}>
+          <Link href='/mynotification' className={styles.link}>
             <Image
               src='/images/icon_menu4.svg'
               width={24}

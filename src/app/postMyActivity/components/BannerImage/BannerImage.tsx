@@ -1,21 +1,24 @@
 'use client';
-import { useEffect, useState } from 'react';
+
 import { Plus, X } from 'lucide-react';
 import styles from './postImage.module.css';
 import Image from 'next/image';
 import { useActivityStore } from '@/stores/useActivityStore';
-import useUploadImagesMutation from '@/hooks/query/useImageUrl';
+import useBannerImageUrl from '@/hooks/query/useBannerImageUrl';
 
+
+interface UploadBannerImageResponse {
+  bannerImageUrl: string;
+}
 export default function BannerImage() {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  const bannerImageFile = useActivityStore(
-    (state) => state.activity.bannerImageFile,
-  );
-  const setActivity = useActivityStore((state) => state.setActivity);
+  const { activity, setActivity } = useActivityStore();
+  const { bannerImageFile, bannerImageUrl } = activity; 
 
-  const { mutate: uploadImages } = useUploadImagesMutation();
+  const { mutate: uploadBanneImage } = useBannerImageUrl();
 
+
+  
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file || !file.type.startsWith('image/')) return;
@@ -27,11 +30,13 @@ export default function BannerImage() {
     const formData = new FormData();
     formData.append('image', file);
 
-    uploadImages(formData, {
-      onSuccess: (data: any) => {  // eslint-disable-line @typescript-eslint/no-explicit-any
-        useActivityStore.getState().setActivity({
-          bannerImageUrl: data.activityImageUrl,
+    uploadBanneImage(formData, {
+      onSuccess: (data: UploadBannerImageResponse) => {
+        console.log("📦 서버 응답 전체:", data);
+        setActivity({
+          bannerImageUrl: data.bannerImageUrl,
         });
+        console.log("✅ 업로드된 이미지 URL:", data.bannerImageUrl);
       },
       onError: () => {
         alert('이미지 업로드 실패');
@@ -41,18 +46,16 @@ export default function BannerImage() {
 
   const handleRemoveImage = () => {
     setActivity({ bannerImageFile: null, bannerImageUrl: '' });
-    setPreviewUrl(null);
+ 
   };
 
-  useEffect(() => {
-    if (bannerImageFile) {
-      const objectUrl = URL.createObjectURL(bannerImageFile);
-      setPreviewUrl(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
-    } else {
-      setPreviewUrl(null);
-    }
-  }, [bannerImageFile]);
+  const previewUrl = bannerImageFile
+      ? URL.createObjectURL(bannerImageFile)
+      : bannerImageUrl || null;
+
+
+  
+
 
   return (
     <div>
@@ -70,11 +73,10 @@ export default function BannerImage() {
             <Plus strokeWidth={1} className={styles.plusSign} size={50} />
             <p className={styles.buttonText}>이미지 등록</p>
           </div>
+          
         </label>
-
-        <div className={styles.imagePreviewContainer}>
-          {previewUrl && (
-            <div className={styles.imageItem}>
+        {previewUrl && (
+          <div className={styles.imageItem}>
               <div className={styles.imageWrapper}>
                 <Image
                   src={previewUrl}
@@ -90,9 +92,11 @@ export default function BannerImage() {
               >
                 <X className={styles.xIcon} strokeWidth={2} size={16} />
               </button>
-            </div>
+          </div>
           )}
-        </div>
+       
+       
+       
       </div>
 
       <input

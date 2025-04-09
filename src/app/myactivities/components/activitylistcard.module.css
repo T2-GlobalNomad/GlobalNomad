@@ -20,6 +20,8 @@
 .bannerImg{
 width: 204px;
 height: 204px;
+border-top-left-radius: 14px;   /* 왼쪽 위 */
+border-bottom-left-radius: 14px; /* 왼쪽 아래 */
 }
 
 .info{
@@ -59,25 +61,162 @@ color: #112211;
 }
 
 .price{
-
-
 font-family: 'Pretendard';
 font-style: normal;
 font-weight: 500;
 font-size: 24px;
 line-height: 32px;
-
 text-align: right;
-
-
 color: #4B4B4B;
-
-
-
-
 }
+
 .bottomInfo{
 display: flex;
 justify-content: space-between;
 
+}
+
+@media(max-width:768px){
+  .container{
+    display: flex;
+    width: 429px;
+    height: 156px;
+    border-radius: 14px;
+    background-color: var(--white);
+    margin-bottom: 14px;
+    margin-top: 10px;
+    box-shadow: 0px 4px 16px 0 rgba(17, 34, 17, 0.05);
+  }
+
+  .bannerImg{
+    width: 156px;
+    height: 156px;
+    border-top-left-radius: 14px;   /* 왼쪽 위 */
+    border-bottom-left-radius: 14px; /* 왼쪽 아래 */
+    }
+
+    .info{
+      display: flex;
+      flex-direction: column;
+      gap: 33px;
+      width: 243px;
+      margin: 12px 12px;
+      }
+
+      .upperInfo{
+      display: flex;
+      flex-direction: column;
+      
+      }
+      
+      .reviews{
+      display: flex;
+      gap: 5px;
+      }
+      
+      .rating {
+      font-size: 16px;
+      }
+      
+      .reviewCount{
+      font-size: 16px;
+      }
+      .title{
+      width: 491px;
+      height: 32px;
+      font-family: 'Pretendard';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 32px;
+      color: #112211;
+      }
+      
+      .price{
+      font-family: 'Pretendard';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 32px;
+      text-align: right;
+      color: #4B4B4B;
+      }
+      
+      .bottomInfo{
+      display: flex;
+      justify-content: space-between;
+      
+      }
+}
+
+@media(max-width:375px){
+  .container{
+    display: flex;
+    width: 344px;
+    height: 128px;
+    border-radius: 14px;
+    background-color: var(--white);
+    margin: 8px 15px;
+    box-shadow: 0px 4px 16px 0 rgba(17, 34, 17, 0.05);
+  }
+
+  .bannerImg{
+    width: 128px;
+    height: 128px;
+    border-top-left-radius: 14px;   /* 왼쪽 위 */
+    border-bottom-left-radius: 14px; /* 왼쪽 아래 */
+    }
+
+    .info{
+      display: flex;
+      flex-direction: column;
+      gap: 29px;
+      width: 243px;
+      margin: 12px 12px;
+      }
+
+      .upperInfo{
+      display: flex;
+      flex-direction: column;
+      
+      }
+      
+      .reviews{
+      display: flex;
+      gap: 2px;
+      }
+      
+      .rating {
+      font-size: 1px;
+      }
+      
+      .reviewCount{
+      font-size: 14px;
+      }
+      .title{
+      width: 171px;
+      height: 20px;
+      font-family: 'Pretendard';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 32px;
+      color: #112211;
+      }
+      
+      .price{
+      font-family: 'Pretendard';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 32px;
+      text-align: right;
+      color: #4B4B4B;
+      }
+      
+      .bottomInfo{
+      display: flex;
+      justify-content: space-between;
+      
+      }
 }

@@ -27,3 +27,19 @@
         align-items:center;
         justify-content:center;
     }
+
+    @media(max-width: 768px){
+        .container{
+            width: 429px;
+        }
+        
+
+    }
+    @media(max-width: 375px){
+        .container{
+            width: 343px;
+        }
+        
+
+    }
+    

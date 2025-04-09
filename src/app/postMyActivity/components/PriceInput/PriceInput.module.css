@@ -13,3 +13,16 @@
 .priceInput {
     padding-left: 24px; /* 여백 확보 (₩과 안 겹치게) */ 
   }
+
+  @media(max-width: 375px){
+    .inputWrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .priceTitle{
+      margin-bottom: 8px;
+      font-size: 20px;
+      font-weight: 700;
+  }
+  }

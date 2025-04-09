@@ -8,15 +8,18 @@ import styles from './style.module.css';
 import PageController from './components/PageController';
 import { useStatusFilter } from '@/utils/useStatusFilter';
 import { useScrollDetector } from '@/utils/useScrollDetector';
-import { RefObject } from 'react';
+import { RefObject, useEffect } from 'react';
 import { useScrollPositioning } from '@/utils/useScrollPositioning';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function MyReservation() {
   const { value, setValue, status, options } = useStatusFilter();
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useReservation(status);
+
+  const queryClient = useQueryClient();
 
   const reservationsData =
     data?.pages.flatMap((page) => page.reservations) ?? [];
@@ -38,6 +41,12 @@ export default function MyReservation() {
       fetchNextPage();
     }
   });
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({ queryKey: ['reservation', status] });
+    };
+  }, [queryClient, status]);
 
   return (
     <div className={styles.wrapper}>

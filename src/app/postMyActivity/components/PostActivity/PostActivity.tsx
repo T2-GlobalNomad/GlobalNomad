@@ -7,6 +7,7 @@ import { useActivityStore } from '@/stores/useActivityStore';
 import ModalType2 from '@/components/modal/ModalType2';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 
 
 export default function PostActivity() {
@@ -14,7 +15,7 @@ export default function PostActivity() {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   const { mutate: postActivity, isPending: posting } = usePostMyActivities(); // ✅ 여기로 옮기기
-  
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     resetActivity(); 
@@ -59,6 +60,7 @@ export default function PostActivity() {
 
     postActivity(payload, {
       onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['myActivities'] });
         setShowModal(true);       
       },
       onError: () => {

@@ -37,10 +37,10 @@ export default function ReservationInfoByStatus({
   if (error instanceof Error) return <p>에러: {error.message}</p>;
 
   return (
-    <div className={styles.container}>
+    <div>
       {reservations.length > 0 ? (
         reservations.map((res) => (
-          <div key={res.id}>
+          <div className={styles.container} key={res.id}>
             <div className={styles.info}>
               <div className={styles.infoContainer}>
                 <p className={styles.index}>닉네임&nbsp;&nbsp;</p>

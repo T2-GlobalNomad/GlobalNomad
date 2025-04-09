@@ -1,14 +1,9 @@
 'use client';
 
-// 사용법
-// <ProfileCard activeTab='mynotification(본인 탭 앤드포인트)' />
-import React, { ReactElement } from 'react';
-import useUser from '@/hooks/query/useUser';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './ProfileCard.module.css';
-import { User } from '@/lib/types';
-
+import styles from '@/components/ProfileCard/ProfileCard.module.css';
 type ActiveTab = 'mypage' | 'myactivities' | 'myreservation' | 'mynotification';
 
 const tab = [
@@ -42,34 +37,20 @@ const tab = [
   },
 ];
 
-type ProfileCardProps = {
-  activeTab?: ActiveTab;
-};
-
-const ProfileCard = ({
+const MockedProfileCard = ({
   activeTab = 'mynotification',
-}: ProfileCardProps): ReactElement => {
-  const {
-    data: user,
-    isLoading,
-    error,
-  } = useUser() as {
-    data: User;
-    isLoading: boolean;
-    error: unknown;
+}: {
+  activeTab: ActiveTab;
+}) => {
+  const mockUser = {
+    profileImageUrl: '/images/defaultProfile.svg',
   };
-
-  if (isLoading) return <div>로딩 중...</div>;
-  if (error) {
-    console.error(error);
-    return <div>에러가 발생했습니다.</div>;
-  }
 
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
         <Image
-          src={user?.profileImageUrl || '/images/defaultProfile.svg'}
+          src={mockUser.profileImageUrl}
           alt='프로필 이미지'
           width={160}
           height={160}
@@ -100,4 +81,4 @@ const ProfileCard = ({
   );
 };
 
-export default ProfileCard;
+export default MockedProfileCard;

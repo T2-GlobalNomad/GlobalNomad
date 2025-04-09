@@ -1,6 +1,17 @@
+export interface SignUpData {
+  email: string;
+  password: string;
+  nickname: string;
+}
+
 export interface SignInData {
   email: string;
   password: string;
+}
+
+export interface KakaoSignUpData {
+  code: string;
+  nickname: string;
 }
 
 export interface SignInResponse {

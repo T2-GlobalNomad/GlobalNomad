@@ -3,12 +3,6 @@ import styles from './not-found.module.css';
 import CustomButton from '@/components/CustomButton';
 
 export default function NotFoundPage() {
-  const buttonStyles: React.CSSProperties = {
-    padding: '8px 15px',
-    backgroundColor: '#0b3b2d',
-    fontWeight: '600',
-  };
-
   return (
     <div className={styles.container}>
       <Image
@@ -28,7 +22,7 @@ export default function NotFoundPage() {
         href='/'
         type={'button'}
         fontSize={'md'}
-        style={buttonStyles}
+        style={{ padding: '8px 15px', background: 'var(--green)' }}
         className={styles.link}
       >
         홈으로 돌아가기

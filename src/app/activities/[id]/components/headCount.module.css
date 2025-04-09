@@ -1,0 +1,23 @@
+.headCount {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  margin: 11px 0 15px;
+  color: var(--nomad-black);
+}
+
+.headCountButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 120px;
+  height: 40px;
+  border-radius: 6px;
+  margin-bottom: 24px;
+  border: 1px solid var(--gray-muted);
+}
+
+.headButton {
+  width: 40px;
+  height: 40px;
+}

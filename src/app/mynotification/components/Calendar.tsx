@@ -110,6 +110,13 @@ export default function MyNotificationCalendar({
                         승인 {statuses.confirmed}
                       </div>
                     )}
+                    {statuses.completed > 0 && (
+                      <div
+                        className={`${styles.reservationBox} ${styles.completed}`}
+                      >
+                        완료 {statuses.completed}
+                      </div>
+                    )}
                   </div>
                 </>
               )}

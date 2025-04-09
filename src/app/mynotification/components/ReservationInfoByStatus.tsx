@@ -3,6 +3,7 @@
 import CustomButton from '@/components/CustomButton';
 import useReservationsByStatus from '@/hooks/query/useReservationsByStatus';
 import useUpdateReservationStatus from '@/hooks/mutation/useUpdateReservationStatus';
+import LoadingSpinner from '@/components/loadingSpinner/LoadingSpinner';
 import styles from './ReservationInfoByStatus.module.css';
 
 interface Props {
@@ -33,7 +34,7 @@ export default function ReservationInfoByStatus({
     mutation.mutate({ reservationId, newStatus });
   };
 
-  if (isLoading) return <p>로딩 중...</p>;
+  if (isLoading) return <LoadingSpinner />;
   if (error instanceof Error) return <p>에러: {error.message}</p>;
 
   return (

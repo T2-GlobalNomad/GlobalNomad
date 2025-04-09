@@ -8,6 +8,7 @@ import useMyActivitiesCalendar from '@/hooks/query/useMyActivitiesCalendar';
 import useScheduleByMonth from '@/hooks/query/useScheduleByMonth';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
 import Footer from '@/components/footer/Footer';
+import LoadingSpinner from '@/components/loadingSpinner/LoadingSpinner';
 import styles from './MyNotification.module.css';
 
 type Activity = {
@@ -35,6 +36,7 @@ export default function MyNotification() {
     String(new Date().getMonth() + 1).padStart(2, '0'),
   );
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const isLoading = isActivitiesLoading;
 
   // 활동 목록이 로드되면 첫 항목 기본 선택
   useEffect(() => {
@@ -74,6 +76,7 @@ export default function MyNotification() {
     (scheduleError instanceof Error ? scheduleError.message : '');
 
   if (errorMessage) return <p>에러 발생: {errorMessage}</p>;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <>

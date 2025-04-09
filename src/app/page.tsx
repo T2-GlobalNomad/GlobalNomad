@@ -9,6 +9,7 @@ import PopularActivities from './landingComponents/PopulorActivities';
 import ActivitiesList from './landingComponents/ActivitiesList';
 import Pagination from './landingComponents/Pagination';
 import Category from './landingComponents/Category';
+import Footer from '@/components/footer/Footer';
 import styles from './landingComponents/LandingPage.module.css';
 
 export default function Home() {
@@ -193,6 +194,8 @@ export default function Home() {
         totalPages={totalPages}
         setPage={handlePageChange}
       />
+
+      <Footer />
     </div>
   );
 }

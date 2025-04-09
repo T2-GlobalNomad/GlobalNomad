@@ -1,21 +1,16 @@
 'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react';
 import { Plus, X } from 'lucide-react';
 import styles from './postImage.module.css';
 import Image from 'next/image';
 import { useActivityStore } from '@/stores/useActivityStore';
-import useUploadImagesMutation from '@/hooks/query/useImageUrl';
-
+import useBannerImageUrl from '@/hooks/query/useBannerImageUrl';
+// import useUploadImagesMutation from '@/hooks/query/useImageUrl';
 export default function BannerImage() {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const { activity, setActivity } = useActivityStore();
+  const { bannerImageFile, bannerImageUrl } = activity;
 
-  const bannerImageFile = useActivityStore(
-    (state) => state.activity.bannerImageFile,
-  );
-  const setActivity = useActivityStore((state) => state.setActivity);
-
-  const { mutate: uploadImages } = useUploadImagesMutation();
+  const { mutate: uploadBanneImage } = useBannerImageUrl();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -28,11 +23,13 @@ export default function BannerImage() {
     const formData = new FormData();
     formData.append('image', file);
 
-    uploadImages(formData, {
+    uploadBanneImage(formData, {
       onSuccess: (data: any) => {
-        useActivityStore.getState().setActivity({
-          bannerImageUrl: data.activityImageUrl,
+        console.log('📦 서버 응답 전체:', data);
+        setActivity({
+          bannerImageUrl: data.bannerImageUrl,
         });
+        console.log('✅ 업로드된 이미지 URL:', data.bannerImageUrl);
       },
       onError: () => {
         alert('이미지 업로드 실패');
@@ -42,18 +39,11 @@ export default function BannerImage() {
 
   const handleRemoveImage = () => {
     setActivity({ bannerImageFile: null, bannerImageUrl: '' });
-    setPreviewUrl(null);
   };
 
-  useEffect(() => {
-    if (bannerImageFile) {
-      const objectUrl = URL.createObjectURL(bannerImageFile);
-      setPreviewUrl(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
-    } else {
-      setPreviewUrl(null);
-    }
-  }, [bannerImageFile]);
+  const previewUrl = bannerImageFile
+    ? URL.createObjectURL(bannerImageFile)
+    : bannerImageUrl || null;
 
   return (
     <div>
@@ -73,27 +63,22 @@ export default function BannerImage() {
           </div>
         </label>
 
-        <div className={styles.imagePreviewContainer}>
-          {previewUrl && (
-            <div className={styles.imageItem}>
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={previewUrl}
-                  alt='BannerImage'
-                  className={styles.previewImg}
-                  width={180}
-                  height={180}
-                />
-              </div>
-              <button
-                className={styles.removeButton}
-                onClick={handleRemoveImage}
-              >
-                <X className={styles.xIcon} strokeWidth={2} size={16} />
-              </button>
+        {previewUrl && (
+          <div className={styles.imageItem}>
+            <div className={styles.imageWrapper}>
+              <Image
+                src={previewUrl}
+                alt='BannerImage'
+                className={styles.previewImg}
+                width={180}
+                height={180}
+              />
             </div>
-          )}
-        </div>
+            <button className={styles.removeButton} onClick={handleRemoveImage}>
+              <X className={styles.xIcon} strokeWidth={2} size={16} />
+            </button>
+          </div>
+        )}
       </div>
 
       <input

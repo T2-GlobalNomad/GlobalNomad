@@ -38,18 +38,20 @@ const uploadActivityImages = async (
   //  전역 상태에 저장
   useActivityStore.getState().setActivity({
     bannerImageUrl,
-    subImageUrls,
+    subImageUrls: subImageUrls.map((url, idx) => ({
+      id: Date.now() + idx, // 임시 ID 생성
+      imageUrl: url,
+    })),
   });
 
   return { bannerImageUrl, subImageUrls };
 };
-
 // React Query 훅
 const useUploadImagesMutation = () => {
   return useMutation({
     mutationFn: uploadActivityImages,
     onSuccess: (data) => {
-      console.log('업로드 완료:', data);
+      console.log('업로드 완료 통합합:', data);
     },
     onError: (error) => {
       console.error('이미지 업로드 실패:', error);

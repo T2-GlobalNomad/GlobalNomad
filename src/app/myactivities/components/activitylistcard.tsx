@@ -5,6 +5,8 @@ import { Activities } from '@/lib/types';
 import KebabDropdown from './kebabdropdown';
 import styles from './activitylistcard.module.css';
 
+
+
 type ActivityListCardProps = {
   activities: Activities;
 };
@@ -12,16 +14,27 @@ type ActivityListCardProps = {
 export default function ActivityListCard({
   activities,
 }: ActivityListCardProps) {
+
+
+
+
+
+  console.log('🖼️ 카드 이미지 URL:', `${activities.bannerImageUrl}?v=${activities.updatedAt}`);
   return (
     <div className={styles.container}>
       {/* 이미지 */}
       <div className={styles.bannerImg}>
 
         <Image
-          src={activities.bannerImageUrl!}
+          key={`${activities.updatedAt}`}
+          src={`${activities.bannerImageUrl}?v=${activities.updatedAt}`}
           alt={activities.title!}
           width={204}
           height={204}
+          className={styles.bannerImg}
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/images/no_thumbnail.png';
+          }}
         />
 
       </div>

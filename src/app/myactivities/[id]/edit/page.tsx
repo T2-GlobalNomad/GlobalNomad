@@ -4,9 +4,9 @@ import PriceInput from './components/PriceInput/PriceInput';
 import AddressInput from './components/AddressInput/AddressInput';
 import Reservation from './components/Reservation/Reservation';
 import BannerImage from './components/BannerImage/BannerImage';
-import PostActivity from './components/PostActivity/PostActivity';
+import PostActivity from './components/EditMyActivity/editMyActivity';
 import SubImage from './components/SubImage/SubImage';
-import styles from './page.module.css';
+import styles from './editPage.module.css';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
 export default function PostMyActivity() {
   return (

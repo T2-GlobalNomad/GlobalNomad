@@ -7,7 +7,7 @@
 }
 
 .loadingTile {
-  background-color: var(--gray-light);
+  background-color: #f0f0f0;
   color: #aaa;
   pointer-events: none;
   opacity: 0.6;
@@ -30,31 +30,6 @@
   height: 6px;
 }
 
-.tileContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  height: 100%;
-  box-sizing: border-box;
-}
-
-.reservationWrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.reservationBox {
-  box-sizing: border-box;
-  word-break: keep-all;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-
 .pending {
   display: flex;
   text-align: left;
@@ -65,7 +40,7 @@
   color: var(--white);
   font-size: 14px;
   font-weight: 400;
-  width: 100%;
+  width: 100px;
 }
 
 .confirmed {
@@ -78,36 +53,57 @@
   color: var(--orange);
   font-size: 14px;
   font-weight: 400;
-  width: 100%;
+  width: 100px;
 }
 
 .completed {
   text-align: left;
-  background-color: var(--gray-lighter);
+  background-color: var(--light-gray);
   border-radius: 4px;
   padding: 3px 4px;
   margin: 3px auto;
   color: var(--gray);
   font-size: 14px;
   font-weight: 400;
-  width: 100%;
+  width: 100px;
 }
 
 @media (max-width: 768px) {
-  .completed,
-  .pending,
-  .confirmed {
-    min-width: 0;
-    width: auto;
-    max-width: 100%;
-    font-size: 12px;
-  }
+.pending {
+  min-width: 72px;
+  width: auto;
+  max-width: 80%;
+}
+
+.confirmed {
+  min-width: 72px;
+  width: auto;
+  max-width: 100%;
+}
+
+.completed {
+  min-width: 72px;
+  width: auto;
+  max-width: 100%;
+}
 }
 
 @media (max-width: 375px) {
-  .pending,
-  .completed,
-  .completed {
+  .pending {
+    font-size: 12px;
+    min-width: 45px;
+    width: auto;
+    max-width: 100%;
+  }
+  
+  .confirmed {
+    font-size: 12px;
+    min-width: 45px;
+    width: auto;
+    max-width: 100%;
+  }
+  
+  .completed {    
     font-size: 12px;
     min-width: 45px;
     width: auto;

@@ -12,15 +12,19 @@ import { kakaoSignIn, kakaoSignUp, signIn, signUp } from '@/lib/auth-api';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import { signInViaServerRoute } from '@/lib/client-auth-api';
 
 // 일반 로그인 hook
 function useSignInMutation() {
+  const { setAuth } = useAuthStore();
   const router = useRouter();
 
   return useMutation({
-    mutationFn: (data: SignInData) => signInViaServerRoute(data),
-    onSuccess: () => {
+    mutationFn: (data: SignInData) => signIn(data),
+    onSuccess: (response: SignInResponse) => {
+      setAuth(response.user);
+      // js-cookie에 토큰 저장. next action으로 하면 보안이 더좋음 추후논의.
+      Cookies.set('accessToken', response.accessToken);
+      Cookies.set('refreshToken', response.refreshToken);
       toast.success('로그인 성공!');
       router.push('/');
     },

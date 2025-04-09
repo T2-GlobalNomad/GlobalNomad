@@ -7,7 +7,7 @@ import Image from 'next/image';
 import styles from './SubImage.module.css';
 import { useActivityStore } from '@/stores/useActivityStore';
 import useSubImageUrl from '@/hooks/query/useSubImageUrl';
-import { a2 } from 'vitest/dist/chunks/reporters.66aFHiyX.js';
+
 
 export default function SubImage() {
   const fileInputRef = useRef<HTMLInputElement>(null);

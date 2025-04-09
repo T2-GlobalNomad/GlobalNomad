@@ -14,7 +14,7 @@ export const signInSchema = z.object({
     .trim(),
 });
 
-export type LoginFormValues = z.infer<typeof signInSchema>;
+export type SignInSchema = z.infer<typeof signInSchema>;
 
 // 회원가입 스키마
 export const signUpSchema = z

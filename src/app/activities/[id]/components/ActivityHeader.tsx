@@ -1,27 +1,21 @@
 import KebabDropdown from '@/app/myactivities/components/kebabdropdown';
 import styles from './activityHeader.module.css';
 import Image from 'next/image';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { Activities } from '@/lib/types';
 
-interface ActivityHeaderProps {
-  title: string;
-  category: string;
-  rating: number;
-  address: string;
-  reviewCount: number;
+export interface Activityprops {
+  activityData: Activities;
 }
 
-export default function ActivityHeader({
-  title,
-  category,
-  rating,
-  address,
-  reviewCount,
-}: ActivityHeaderProps) {
+export default function ActivityHeader({ activityData }: Activityprops) {
+  const { user } = useAuthStore();
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <p className={styles.headerCategory}>{category}</p>
-        <h1 className={styles.headerTitle}>{title}</h1>
+        <p className={styles.headerCategory}>{activityData.category}</p>
+        <h1 className={styles.headerTitle}>{activityData.title}</h1>
         <div className={styles.headerInfo}>
           <div className={styles.headerInfoDiv}>
             <div className={styles.headerStar}>
@@ -33,7 +27,7 @@ export default function ActivityHeader({
               />
             </div>
             <p className={styles.headerRating}>
-              {rating.toFixed(1)} ({reviewCount})
+              {activityData.rating?.toFixed(1)} ({activityData.reviewCount})
             </p>
           </div>
           <div className={styles.headerInfoDiv}>
@@ -45,11 +39,13 @@ export default function ActivityHeader({
                 height={16}
               />
             </div>
-            <p className={styles.headerAddress}>{address}</p>
+            <p className={styles.headerAddress}>{activityData.address}</p>
           </div>
         </div>
       </div>
-      <KebabDropdown />
+      {user?.id === activityData.userId && (
+        <KebabDropdown activityId={activityData.id ?? 0} />
+      )}
     </div>
   );
 }

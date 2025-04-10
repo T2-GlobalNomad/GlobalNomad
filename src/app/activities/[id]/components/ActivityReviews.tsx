@@ -2,15 +2,11 @@
 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  keepPreviousData,
-} from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { getActivityReviews } from '@/api/activities';
 import styles from './activityReviews.module.css';
 import Image from 'next/image';
+import Pagination from '@/app/landingComponents/Pagination';
 
 interface ReviewUserData {
   profileImageUrl: string;
@@ -36,47 +32,46 @@ interface ActivityReviews {
 
 export default function ActivityReviews() {
   const [page, setPage] = useState(1);
-  const queryClient = useQueryClient();
 
   const { id } = useParams<{ id: string }>();
-  const {
-    data: reviewsData,
-    isPending,
-    isPlaceholderData,
-  } = useQuery<ActivityReviews>({
+  const { data: reviewsData } = useQuery<ActivityReviews>({
     queryKey: ['activityReviews', id, page],
     queryFn: () => getActivityReviews({ activityId: id, page: page, size: 3 }),
     placeholderData: keepPreviousData,
   });
 
+  const handlePageChange = (page: number) => {
+    setPage(page);
+  };
+
   return (
     <>
       <p className={styles.reviewText}>후기</p>
-      {reviewsData ? (
-        <>
-          <div className={styles.reviewTitleContainer}>
-            <p className={styles.averageRating}>
-              {reviewsData?.averageRating.toFixed(1)}
-            </p>
-            <div className={styles.totalReviewContainer}>
-              <p>만족도</p>
-              <div>
-                <div className={styles.ReviewsInfoDiv}>
-                  <div className={styles.ReviewsStar}>
-                    <Image
-                      src='/images/icon_star.svg'
-                      alt='star'
-                      width={14}
-                      height={15}
-                    />
-                  </div>
-                  <p className={styles.ReviewsCount}>
-                    {reviewsData?.totalCount.toLocaleString()}개 후기
-                  </p>
-                </div>
+      <div className={styles.reviewTitleContainer}>
+        <p className={styles.averageRating}>
+          {reviewsData?.averageRating.toFixed(1)}
+        </p>
+        <div className={styles.totalReviewContainer}>
+          <p>만족도</p>
+          <div>
+            <div className={styles.ReviewsInfoDiv}>
+              <div className={styles.ReviewsStar}>
+                <Image
+                  src='/images/icon_star.svg'
+                  alt='star'
+                  width={14}
+                  height={15}
+                />
               </div>
+              <p className={styles.ReviewsCount}>
+                {reviewsData?.totalCount.toLocaleString()}개 후기
+              </p>
             </div>
           </div>
+        </div>
+      </div>
+      {reviewsData?.totalCount ? (
+        <>
           <div className={styles.reviewCardContainer}>
             {reviewsData?.reviews.map((review) => (
               <div key={review.id} className={styles.reviewCard}>
@@ -106,6 +101,11 @@ export default function ActivityReviews() {
               </div>
             ))}
           </div>
+          <Pagination
+            currentPage={page}
+            totalPages={Math.ceil(reviewsData?.totalCount / 3)}
+            setPage={handlePageChange}
+          />
         </>
       ) : (
         <div>리뷰없음</div>

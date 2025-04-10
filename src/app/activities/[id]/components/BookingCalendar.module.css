@@ -1,6 +1,7 @@
 .infoSection {
   padding-bottom: 15px;
   border-bottom: 1px solid var(--gray-lighter);
+  margin-bottom: 15px;
 }
 
 .availableTimes {
@@ -102,10 +103,4 @@
 .calendar :global(.react-calendar__tile--active) {
   background-color: var(--green) !important;
   color: var(--white) !important;
-}
-
-@media (max-width: 1199) {
-  .infoSection {
-    border-bottom: none;
-  }  
 }

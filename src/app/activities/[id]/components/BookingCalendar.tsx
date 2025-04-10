@@ -64,12 +64,27 @@ export default function BookingCalendar({
           }
           next2Label={null}
           prev2Label={null}
-          tileDisabled={({ date }) => {
-            const isDisabled = !schedules.some(
-              (schedule) =>
-                new Date(schedule.date).toDateString() === date.toDateString(),
-            );
-            return isDisabled;
+          minDetail='year'
+          maxDetail='month'
+          tileDisabled={({ date, view }) => {
+            if (view === 'month') {
+              const isDisabled = !schedules.some(
+                (schedule) =>
+                  new Date(schedule.date).toDateString() ===
+                  date.toDateString(),
+              );
+              return isDisabled;
+            }
+            if (view === 'year') {
+              return !schedules.some((schedule) => {
+                const scheduleDate = new Date(schedule.date);
+                return (
+                  scheduleDate.getFullYear() === date.getFullYear() &&
+                  scheduleDate.getMonth() === date.getMonth()
+                );
+              });
+            }
+            return false;
           }}
         />
         <div>

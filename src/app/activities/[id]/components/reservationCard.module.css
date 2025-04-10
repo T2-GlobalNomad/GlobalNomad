@@ -39,7 +39,7 @@
   margin-bottom: 16px;
 }
 
-.headcount {
+.headCount {
   font-weight: 700;
   font-size: 18px;
   line-height: 26px;
@@ -87,5 +87,55 @@
 @media (max-width: 1199) {
   .dateLabel {
     margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 767) {
+  .reservationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .totalSection {
+    justify-content: space-between;
+    align-items: center;
+    border-top: none;
+    padding: none;
+  }
+  
+  .totalPrice {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 32px;
+    color: var(--nomad-black);
+  }
+
+  .perPerson {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--green);
+  }
+
+  .dateButton {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 100%;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  color: var(--green);
+  }
+
+  .reservationButton {
+    width: 106px;
+    height: 48px;
+    border-radius: 6px;  
+    margin: 0; 
+  }
+
+  .OKButton {
+    width: 100%;
+    height: 56px;
   }
 }

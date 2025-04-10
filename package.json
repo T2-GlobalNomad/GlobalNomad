@@ -20,7 +20,7 @@
     "axios": "^1.8.2",
     "combined-stream": "^1.0.8",
     "dayjs": "^1.11.13",
-    "framer-motion": "^12.5.0",
+    "framer-motion": "^12.6.3",
     "js-cookie": "^3.0.5",
     "lightningcss": "^1.29.3",
     "lucide-react": "^0.479.0",

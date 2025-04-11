@@ -27,7 +27,7 @@ export default function KakaoSignInCallbackPage() {
     }
 
     kakaoSignIn.mutate(code);
-  }, [code, router]);
+  }, [code, router, kakaoSignIn]);
 
   return <LoadingSpinner text='카카오 로그인 처리중입니다...' />;
 }

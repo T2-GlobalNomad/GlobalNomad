@@ -3,7 +3,7 @@
 import CustomButton from '@/components/CustomButton';
 import styles from './reservationCard.module.css';
 import { Schedules } from '@/lib/types';
-import { ReservationState, ReservationHandlers } from './props';
+import { ReservationState, ReservationHandlers } from '@/lib/types';
 import { CalendarMobileModal } from './CalendarModal';
 import HeadCount from './HeadCount';
 import BookingCalendar from './BookingCalendar';

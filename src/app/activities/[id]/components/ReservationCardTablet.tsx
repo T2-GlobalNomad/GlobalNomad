@@ -7,7 +7,7 @@ import BookingCalendar from './BookingCalendar';
 import { CalendarTabletModal } from './CalendarModal';
 import { formatDate } from '@/app/utils/dateFormatter';
 import HeadCount from './HeadCount';
-import { ReservationState, ReservationHandlers } from './props';
+import { ReservationState, ReservationHandlers } from '@/lib/types';
 
 interface ReservationCardInfoProps {
   price: number;

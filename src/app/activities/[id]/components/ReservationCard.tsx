@@ -7,6 +7,9 @@ import ReservationCardTablet from './ReservationCardTablet';
 import ReservationCardDesk from './ReservationCardDesk';
 import ReservationCardMobile from './ReservationCardMobile';
 import useDeviceType from '@/hooks/useDeviceType';
+import CustomModal from '@/components/modal/CustomModal';
+import styles from './reservationCard.module.css';
+import CustomButton from '@/components/CustomButton';
 
 interface ReservationCardProps {
   price: number;
@@ -22,6 +25,7 @@ export default function ReservationCard({
   const [headCount, setHeadCount] = useState<number>(1);
   const [selectedScheduleId, setSelectedScheduleId] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccessModal, setIsSuccessModal] = useState(false);
   const deviceType = useDeviceType();
 
   const selectedSchedule = schedules.find(
@@ -35,7 +39,7 @@ export default function ReservationCard({
         headCount,
       };
       await postReservation(activityId, reservationData);
-      console.log('예약이 완료되었습니다!');
+      setIsSuccessModal(true);
     } catch (error) {
       console.log(error);
     }
@@ -82,6 +86,20 @@ export default function ReservationCard({
           handlers={handlers}
         />
       )}
+      <CustomModal
+        isOpen={isSuccessModal}
+        onClose={() => setIsSuccessModal(false)}
+        className={styles.successModal}
+      >
+        <p>예약이 완료되었습니다</p>
+        <CustomButton
+          fontSize='md'
+          className={styles.successModalButton}
+          onClick={() => setIsSuccessModal(false)}
+        >
+          확인
+        </CustomButton>
+      </CustomModal>
     </>
   );
 }

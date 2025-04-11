@@ -30,7 +30,7 @@ type SubImages = {
   imageUrl: string;
 };
 
-type Schedules = {
+export type Schedules = {
   id: number;
   date: string;
   startTime: string;

@@ -3,7 +3,7 @@ import Input from './customInput';
 import styles from './AddressInput.module.css';
 import { useActivityStore } from '@/stores/useActivityStore';
 
-import {  useRef } from 'react';
+import { useRef } from 'react';
 import Script from 'next/script';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import DaumPostcode from 'react-daum-postcode';
@@ -11,10 +11,9 @@ import CustomButton from '@/components/CustomButton';
 
 declare global {
   interface Window {
-    kakao: any;  // eslint-disable-line @typescript-eslint/no-explicit-any
+    kakao: typeof kakao;
   }
 }
-
 export default function AddressInput() {
   const { activity, setActivity } = useActivityStore();
   const mapInstance = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -24,14 +23,16 @@ export default function AddressInput() {
     if (!window.daum?.Postcode || !window.kakao?.maps) return;
 
     new window.daum.Postcode({
-      oncomplete: function (data: any) {         // eslint-disable-line @typescript-eslint/no-explicit-any
+      oncomplete: function (data: any) {
+        // eslint-disable-line @typescript-eslint/no-explicit-any
         const selectedAddress = data.address;
         setActivity({ address: selectedAddress }); // 💡 store에 저장
 
         const geocoder = new window.kakao.maps.services.Geocoder();
         geocoder.addressSearch(
           selectedAddress,
-          function (results: any, status: any) {     // eslint-disable-line @typescript-eslint/no-explicit-any
+          function (results: any, status: any) {
+            // eslint-disable-line @typescript-eslint/no-explicit-any
             if (status === window.kakao.maps.services.Status.OK) {
               const result = results[0];
               const coords = new window.kakao.maps.LatLng(result.y, result.x);
@@ -77,8 +78,8 @@ export default function AddressInput() {
           >
             주소찾기
           </CustomButton>
-          </div>
         </div>
+      </div>
     </>
   );
 }

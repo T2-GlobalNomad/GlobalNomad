@@ -2,47 +2,28 @@
 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
-import { getActivityReviews } from '@/api/activities';
 import styles from './activityReviews.module.css';
 import Image from 'next/image';
 import Pagination from '@/app/landingComponents/Pagination';
-
-interface ReviewUserData {
-  profileImageUrl: string;
-  nickname: string;
-  id: number;
-}
-
-interface ReviewData {
-  id: number;
-  user: ReviewUserData;
-  activityId: number;
-  rating: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface ActivityReviews {
-  averageRating: number;
-  totalCount: number;
-  reviews: ReviewData[];
-}
+import useActivityReviews from '@/hooks/query/useActivityReviews';
 
 export default function ActivityReviews() {
   const [page, setPage] = useState(1);
 
   const { id } = useParams<{ id: string }>();
-  const { data: reviewsData } = useQuery<ActivityReviews>({
-    queryKey: ['activityReviews', id, page],
-    queryFn: () => getActivityReviews({ activityId: id, page: page, size: 3 }),
-    placeholderData: keepPreviousData,
-  });
+  const { data: reviewsData, isLoading, error } = useActivityReviews(id);
 
   const handlePageChange = (page: number) => {
     setPage(page);
   };
+
+  if (isLoading) {
+    return <div>리뷰 로딩 중...</div>;
+  }
+
+  if (error) {
+    return <div>리뷰를 불러오는 데 실패했습니다.</div>;
+  }
 
   return (
     <>

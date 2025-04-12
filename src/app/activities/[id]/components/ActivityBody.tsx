@@ -114,15 +114,15 @@ export default function ActivityBody({ activityData }: Activityprops) {
             <ActivityReviews />
           </div>
         </div>
-        <div className={styles.reservationCard}>
-          {user && (
+        {user?.id !== activityData.userId && (
+          <div className={styles.reservationCard}>
             <ReservationCard
               price={activityData.price ?? 0}
               schedules={activityData.schedules ?? []}
               activityId={activityData.id ?? 0}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

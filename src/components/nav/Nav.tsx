@@ -7,7 +7,6 @@ import styles from './nav.module.css';
 import NavProfileCard from './NavProfileCard';
 import NotificationModal from '../notification/NotificationModal';
 import useClickOutside from '@/utils/useClickOutside';
-// import { useAuthStore } from '@/stores/useAuthStore';
 import useUser from '@/hooks/query/useUser';
 
 export default function Nav() {

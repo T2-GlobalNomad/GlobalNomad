@@ -41,6 +41,7 @@ export default function ReservationCard({
       await postReservation(activityId, reservationData);
       setIsSuccessModal(true);
     } catch (error) {
+      alert(error);
       console.log(error);
     }
   };

@@ -1,4 +1,3 @@
-// hooks/mutation/useDeleteNotification.ts
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import instance from '@/lib/api';
 

@@ -182,7 +182,7 @@
     overflow: hidden;
   }
   
-  .slick-dots:global(.slick-dots li.slick-active button) {
+  .customSlider :global(.slick-dots li.slick-active button) {
     background: var(--gray-dark);
   }
 

@@ -40,16 +40,19 @@ export default function ActivityBody({ activityData }: Activityprops) {
         <Slider {...sliderSettings} className={styles.customSlider}>
           <div className={styles.bannerImage}>
             <Image
-              src={activityData.bannerImageUrl ?? '/images/icon_location.svg'}
+              src={activityData.bannerImageUrl ?? '/images/no_thumbnail.png'}
               alt='bannerimage'
               fill
               objectFit='cover'
             />
           </div>
-          {activityData.subImages?.map((subImage) => (
-            <div className={styles.subImage} key={subImage.imageUrl}>
+          {activityData.subImages?.map((subImage, index) => (
+            <div
+              className={styles.subImage}
+              key={`${subImage.imageUrl}-${index}`}
+            >
               <Image
-                src={subImage.imageUrl ?? '/images/icon_location.svg'}
+                src={subImage.imageUrl ?? '/images/no_thumbnail.png'}
                 alt='subImage'
                 fill
                 objectFit='cover'
@@ -61,17 +64,20 @@ export default function ActivityBody({ activityData }: Activityprops) {
         <div className={styles.imageSection}>
           <div className={styles.bannerImage}>
             <Image
-              src={activityData.bannerImageUrl ?? '/images/icon_location.svg'}
+              src={activityData.bannerImageUrl ?? '/images/no_thumbnail.png'}
               alt='bannerimage'
               fill
               objectFit='cover'
             />
           </div>
           <div className={styles.subImageSection}>
-            {activityData.subImages?.map((subImage) => (
-              <div className={styles.subImage} key={subImage.imageUrl}>
+            {activityData.subImages?.map((subImage, index) => (
+              <div
+                className={styles.subImage}
+                key={`${subImage.imageUrl}-${index}`}
+              >
                 <Image
-                  src={subImage.imageUrl ?? '/images/icon_location.svg'}
+                  src={subImage.imageUrl ?? '/images/no_thumbnail.png'}
                   alt='subImage'
                   fill
                   objectFit='cover'

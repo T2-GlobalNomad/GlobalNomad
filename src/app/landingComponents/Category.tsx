@@ -50,6 +50,10 @@ export default function Category({
         ))}
       </ul>
       <Dropdown
+        dropdownClassName={styles.dropdownList ?? ''}
+        toggleClassName={styles.dropdownList}
+        menuClassName={styles.dropdownList}
+        menuItemClassName={styles.dropdownList}
         options={sortOptions}
         selectedValue={selectedSort}
         onChange={(value) => {

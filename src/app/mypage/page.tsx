@@ -7,6 +7,7 @@ import ProfileCard from '@/components/ProfileCard/ProfileCard';
 import CustomButton from '@/components/CustomButton';
 import ProfileUpdateModal from './components/ProfileUpdateModal';
 import Footer from '@/components/footer/Footer';
+import LoadingSpinner from '@/components/loadingSpinner/LoadingSpinner';
 import styles from './MyPage.module.css';
 
 export default function MyPage() {
@@ -48,7 +49,7 @@ export default function MyPage() {
     setIsModalOpen(false);
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
+  if (isLoading) return <LoadingSpinner />;
   if (error) {
     console.error(error);
     return <div>에러가 발생했습니다.</div>;

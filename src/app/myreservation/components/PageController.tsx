@@ -24,6 +24,10 @@ export default function PageController<
           ''
         ) : (
           <Dropdown<{ value: string; label: string }>
+            dropdownClassName={styles.dropdownList ?? ''}
+            toggleClassName={styles.dropdownList}
+            menuClassName={styles.dropdownList}
+            menuItemClassName={styles.dropdownList}
             options={options}
             selectedValue={value}
             onChange={setValue}

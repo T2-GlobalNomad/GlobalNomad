@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 116px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.headerCategory {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: var(--nomad-black);
+}
+
+.headerTitle {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 42px;
+  letter-spacing: 0%;
+  color: var(--nomad-black);
+}
+
+.headerInfo {
+  display: flex;
+  gap: 12px;
+}
+
+.headerInfoDiv {
+  display: flex;
+  align-items: center;
+}
+
+.headerStar {
+  margin-top: 2px;
+  margin-right: 6px;
+}
+
+.headerLocation {
+  margin-top: 4px;
+  margin-right: 2px;
+}
+
+.headerRating {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: var(--nomad-black);
+}
+
+.headerAddress {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: var(--nomad-black);
+}

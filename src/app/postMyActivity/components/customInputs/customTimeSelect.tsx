@@ -36,7 +36,7 @@ const CustomSelect = {
     ...provided,
     border: '1px solid #79747E',
     borderRadius: '4px',
-    padding: '7px 12px',
+    padding: '3px 12px',
   }),
   option: (provided, state) => ({
     ...provided,

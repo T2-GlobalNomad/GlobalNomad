@@ -6,6 +6,7 @@ import useReservationSchedules from '@/hooks/query/useReservationsSchedules';
 import CloseButton from '@/components/CloseButton';
 import Dropdown from '@/components/Dropdown';
 import useClickOutside from '@/utils/useClickOutside';
+import LoadingSpinner from '@/components/loadingSpinner/LoadingSpinner';
 import styles from './ReservationInfoModal.module.css';
 
 interface Props {
@@ -60,7 +61,7 @@ export default function ReservationInfoModal({
     0,
   );
 
-  if (isLoading) return <p>로딩 중...</p>;
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <p>{error.message}</p>;
 
   return (

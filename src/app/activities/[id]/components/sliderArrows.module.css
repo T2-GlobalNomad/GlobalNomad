@@ -1,0 +1,24 @@
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--black);
+  border-radius: 8px;
+  padding-top: 11px;
+  width: 24px;
+  height: 47px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.left {
+  left: 10px;
+}
+
+.right {
+  right: 10px;
+}
+
+.arrow:hover {
+  background-color: var(--gray-dark);
+}

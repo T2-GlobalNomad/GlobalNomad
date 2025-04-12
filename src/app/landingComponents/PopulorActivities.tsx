@@ -67,7 +67,7 @@ export default function PopularActivities({ activities }: Props) {
       </div>
 
       {/* 인기 체험 목록 */}
-      <Slider ref={sliderRef} {...settings} className={styles.carousel}>
+      <Slider ref={sliderRef} {...settings}>
         {activities.map((activity) => {
           const sortedActivities = [...activities].sort(
             (a, b) => (b.rating ?? 0) - (a.rating ?? 0),
@@ -76,42 +76,44 @@ export default function PopularActivities({ activities }: Props) {
             sortedActivities.findIndex((act) => act.id === activity.id) + 1;
 
           return (
-            <div key={activity.id} className={styles.card}>
-              <Link href={`/activities/${activity.id}`}>
-                <div className={styles.activityImage}>
-                  <Image
-                    src={
-                      (activity.id && imageSrcMap[activity.id]) ||
-                      activity.bannerImageUrl ||
-                      '/images/no_thumbnail.png'
-                    }
-                    alt={activity.title || '체험 이미지'}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    priority
-                    onError={() => handleImageError(String(activity.id))}
-                  />
-                </div>
-                <div className={styles.info}>
-                  <div className={styles.activitiesRating}>
-                    <FaStar color='var(--yellow)' size={14} />
-                    <p>
-                      {activity.rating ?? 0}
-                      <span> ({activity.reviewCount})</span>
-                    </p>
+            <div key={activity.id} className={styles.carousel}>
+              <div className={styles.card}>
+                <Link href={`/activities/${activity.id}`}>
+                  <div className={styles.activityImage}>
+                    <Image
+                      src={
+                        (activity.id && imageSrcMap[activity.id]) ||
+                        activity.bannerImageUrl ||
+                        '/images/no_thumbnail.png'
+                      }
+                      alt={activity.title || '체험 이미지'}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      priority
+                      onError={() => handleImageError(String(activity.id))}
+                    />
                   </div>
+                  <div className={styles.info}>
+                    <div className={styles.activitiesRating}>
+                      <FaStar color='var(--yellow)' size={14} />
+                      <p>
+                        {activity.rating ?? 0}
+                        <span> ({activity.reviewCount})</span>
+                      </p>
+                    </div>
 
-                  <h3>{activity.title}</h3>
-                  <div className={styles.infoPrice}>
-                    <p className={styles.price}>
-                      ₩ {activity.price?.toLocaleString()} <span>/ 인</span>
-                    </p>
-                    <p className={styles.rank}>
-                      {order} / {activities.length}
-                    </p>
+                    <h3>{activity.title}</h3>
+                    <div className={styles.infoPrice}>
+                      <p className={styles.price}>
+                        ₩ {activity.price?.toLocaleString()} <span>/ 인</span>
+                      </p>
+                      <p className={styles.rank}>
+                        {order} / {activities.length}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
             </div>
           );
         })}

@@ -1,0 +1,345 @@
+.title{
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+
+
+.container {
+    max-width:384px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+.uploadButton {
+    position: relative;
+    cursor:pointer;
+    margin-right: 20px;
+}
+
+
+
+
+.buttonComponents{
+    position:  absolute;
+    top: 20%;
+    left: 15%;
+    display:  flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    color: #4b4b4b;
+
+
+}
+.plusSign {
+    margin-right: 5px;
+}
+
+.buttonText {
+    font-size: 24px;
+    color: #333;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+/* X 버튼 (이미지가 등록되었을 때만 보임) */
+.removeButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* 이미지 미리보기 컨테이너 */
+.imagePreviewContainer {
+    display: flex;
+    gap: 20px;
+}
+
+/* 업로드된 이미지 */
+.imageWrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+/* 미리보기 이미지 */
+.previewImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+
+.imageItem{
+    position: relative;
+}
+/* X 버튼 (삭제) */
+.removeButton {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.xIcon {
+    color: white;
+    width: 25px;
+    height: 25px;
+}
+
+@media(max-width: 768px){
+    .title{
+        font-size: 24px;
+        font-weight: 700;
+        margin-top: 12px;
+        margin-bottom: 24px;
+    }
+    
+    .container {
+        max-width:429px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: wrap;
+      
+      }
+    
+    .uploadButton {
+        position: relative;
+        cursor:pointer;
+        
+    }
+    
+    
+    
+    
+    .buttonComponents{
+        position:  absolute;
+        top: 20%;
+        left: 15%;
+        display:  flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+ 
+        color: #4b4b4b;
+    
+    
+    }
+    .plusSign {
+        margin-right: 5px;
+    }
+    
+    .buttonText {
+        font-size: 24px;
+        color: #333;
+    }
+    
+    .hiddenInput {
+        display: none;
+    }
+    
+    /* X 버튼 (이미지가 등록되었을 때만 보임) */
+    .removeButton {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    
+    /* 이미지 미리보기 컨테이너 */
+    .imagePreviewContainer {
+        display: flex;
+        gap: 16px;
+    }
+    
+    /* 업로드된 이미지 */
+    .imageWrapper {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        border-radius: 24px;
+        overflow: hidden;
+    }
+    
+    /* 미리보기 이미지 */
+    .previewImg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    
+    
+    .imageItem{
+        position: relative;
+    }
+    /* X 버튼 (삭제) */
+    .removeButton {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: rgba(0, 0, 0, 0.7);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+    }
+    
+    .xIcon {
+        color: white;
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media(max-width: 375px){
+    .title{
+        font-size: 20px;
+        font-weight: 700;
+        margin-top: 12px;
+        margin-bottom: 24px;
+    }
+    
+    .container {
+        max-width:343px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+    
+    .uploadButton {
+        position: relative;
+        cursor:pointer;
+        
+    }
+    
+    .buttonImg{
+        width: 167px;
+        height: 167px;
+    }
+   
+    
+    
+    
+    .buttonComponents{
+        position:  absolute;
+        top: 20%;
+        left: 13%;
+        display:  flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+ 
+        color: #4b4b4b;
+    
+    
+    }
+    .plusSign {
+        margin-right: 5px;
+    }
+    
+    .buttonText {
+        font-size: 24px;
+        color: #333;
+    }
+    
+    .hiddenInput {
+        display: none;
+    }
+    
+    /* X 버튼 (이미지가 등록되었을 때만 보임) */
+    .removeButton {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    
+    /* 이미지 미리보기 컨테이너 */
+    .imagePreviewContainer {
+        display: flex;
+        gap: 16px;
+    }
+    
+    /* 업로드된 이미지 */
+    .imageWrapper {
+        position: relative;
+        width: 167px;
+        height: 167px;
+        border-radius: 24px;
+        overflow: hidden;
+    }
+    
+    /* 미리보기 이미지 */
+    .previewImg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    
+    
+    .imageItem{
+        position: relative;
+    }
+    /* X 버튼 (삭제) */
+    .removeButton {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: rgba(0, 0, 0, 0.7);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+    }
+    
+    .xIcon {
+        color: white;
+        width: 25px;
+        height: 25px;
+    }
+}

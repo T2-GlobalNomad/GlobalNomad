@@ -9,7 +9,7 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 26px;
-  width: 130px;
+  /* width: 130px; */
   border: 1px solid var(--green);
   border-radius: 15px;
   padding: 11px 14px 8px 15px;

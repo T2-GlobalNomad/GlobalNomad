@@ -153,6 +153,10 @@
   }
 }
 
+.dropdownList {
+  width: 130px;
+}
+
 .reservationBox.noClick {
   cursor: default;
 }

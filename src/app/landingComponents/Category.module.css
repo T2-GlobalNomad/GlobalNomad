@@ -62,3 +62,7 @@
   background-color: var(--white);
   color: var(--green);
 }
+
+.dropdownList {
+  width: 130px;
+}

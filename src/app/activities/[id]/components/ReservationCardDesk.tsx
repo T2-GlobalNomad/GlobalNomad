@@ -5,7 +5,7 @@ import { Schedules } from '@/lib/types';
 import CustomButton from '@/components/CustomButton';
 import BookingCalendar from './BookingCalendar';
 import HeadCount from './HeadCount';
-import { ReservationState, ReservationHandlers } from './props';
+import { ReservationState, ReservationHandlers } from '@/lib/types';
 
 interface ReservationCardInfoProps {
   price: number;

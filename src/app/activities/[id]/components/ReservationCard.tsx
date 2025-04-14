@@ -44,7 +44,7 @@ export default function ReservationCard({
     } catch (err) {
       const error = err as AxiosError;
       if (error.response && error.response.status === 400) {
-        alert('이미 지난 예정입니다');
+        alert('이미 지난 예정은 예약할 수 없습니다.');
       } else {
         alert(err);
       }

@@ -6,6 +6,7 @@ import styles from './activitylistcard.module.css';
 import { useScrollDetector } from '@/utils/useScrollDetector';
 import { RefObject } from 'react';
 import { useScrollPositioning } from '@/utils/useScrollPositioning';
+import LoadingSpinner from '@/components/loadingSpinner/LoadingSpinner';
 import Empty from '@/components/empty/Empty';
 
 export default function ActivityList({ status }: { status: string }) {
@@ -38,9 +39,6 @@ export default function ActivityList({ status }: { status: string }) {
     }
   });
 
-  if (isLoading)
-    return <p className='text-center'>활동 목록을 불러오는 중...</p>;
-
   if (isError)
     return (
       <p className='text-center text-red-500'>데이터를 불러오지 못했습니다.</p>
@@ -51,10 +49,16 @@ export default function ActivityList({ status }: { status: string }) {
   }
 
   return (
-    <div className={styles.listcardcontainer} ref={listRef}>
-      {activityData.map((activity) => (
-        <ActivityListCard key={activity.id} activities={activity} />
-      ))}
-    </div>
+    <>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className={styles.listcardcontainer} ref={listRef}>
+          {activityData.map((activity) => (
+            <ActivityListCard key={activity.id} activities={activity} />
+          ))}
+        </div>
+      )}
+    </>
   );
 }

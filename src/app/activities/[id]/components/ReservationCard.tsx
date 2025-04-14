@@ -10,6 +10,7 @@ import useDeviceType from '@/hooks/useDeviceType';
 import CustomModal from '@/components/modal/CustomModal';
 import styles from './reservationCard.module.css';
 import CustomButton from '@/components/CustomButton';
+import { AxiosError } from 'axios';
 
 interface ReservationCardProps {
   price: number;
@@ -40,9 +41,14 @@ export default function ReservationCard({
       };
       await postReservation(activityId, reservationData);
       setIsSuccessModal(true);
-    } catch (error) {
-      alert(error);
-      console.log(error);
+    } catch (err) {
+      const error = err as AxiosError;
+      if (error.response && error.response.status === 400) {
+        alert('이미 지난 예정은 예약할 수 없습니다.');
+      } else {
+        alert(err);
+      }
+      console.log(err);
     }
   };
 

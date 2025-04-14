@@ -8,10 +8,14 @@ import instance from '@/lib/api';
 const deleteMyActivity = async (activityId: number) => {
   try {
     const response = await instance.delete(`/my-activities/${activityId}`);
+    console.log('del Id', response.data.activities);
     return response.data.activities;
-  } catch (error: unknown) {
-    console.error('API 요청 실패:', error);
-    throw new Error('데이터를 불러오는 데 실패했습니다.');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    const message =
+      error.response?.data?.message || '삭제 중 오류가 발생했습니다.';
+    alert(message);
+    throw new Error(message);
   }
 };
 

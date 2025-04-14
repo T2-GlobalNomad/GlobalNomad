@@ -2,7 +2,7 @@ import CustomButton from '@/components/CustomButton';
 import Input from '@/components/Input/Input';
 import { useForm } from 'react-hook-form';
 import styles from './KaKaoSignUpForm.module.css';
-import { useKakaoSignUpMutation } from '@/hooks/useAuth';
+import { useKakaoSignUpMutation } from '@/hooks/mutation/useAuth';
 
 type FormData = {
   nickname: string;

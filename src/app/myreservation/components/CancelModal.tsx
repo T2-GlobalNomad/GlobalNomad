@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from '@/components/modal/customModal.module.css';
 import CustomButton from '@/components/CustomButton';
-import useCancelReservation from '@/hooks/query/useCancelReservation';
+import useCancelReservation from '@/hooks/mutation/useCancelReservation';
 import { SetStateAction } from 'react';
 
 interface Props {

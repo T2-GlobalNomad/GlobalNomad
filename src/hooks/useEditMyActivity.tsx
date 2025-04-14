@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -25,16 +24,23 @@ interface EditActivityPayload {
 }
 
 // 수정 요청 함수
-const editMyActivity = async ({activityId, payload} : {
-    activityId: number;
-    payload: EditActivityPayload;
-}) : Promise<Activities> => {
+const editMyActivity = async ({
+  activityId,
+  payload,
+}: {
+  activityId: number;
+  payload: EditActivityPayload;
+}): Promise<Activities> => {
   try {
-    const response = await instance.patch(`/my-activities/${activityId}`, payload, {
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await instance.patch(
+      `/my-activities/${activityId}`,
+      payload,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
     return response.data;
   } catch (error: unknown) {
     console.error('API 요청 실패:', error);
@@ -49,8 +55,11 @@ const useEditMyActivity = () => {
   return useMutation({
     mutationFn: editMyActivity,
     onSuccess: (data: Activities) => {
-      console.log('✅ 수정된 응답 데이터:', data); // ← 여기서 확인!
-      queryClient.invalidateQueries({ queryKey: ['myActivities'], exact: false }); // 캐시 새로고침
+      console.log('수정된 응답 데이터:', data);
+      queryClient.invalidateQueries({
+        queryKey: ['myActivities'],
+        exact: false,
+      }); // 캐시 새로고침
     },
   });
 };

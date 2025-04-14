@@ -15,8 +15,8 @@ export default function ActivityList({ status }: { status: string }) {
     isError,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage, // ✅ 오타 수정
-  } = useMyActivities(status); // ✅ status 제거
+    isFetchingNextPage,
+  } = useMyActivities(status);
 
   const activityData = data?.pages.flatMap((page) => page.activities) ?? [];
 
@@ -39,27 +39,19 @@ export default function ActivityList({ status }: { status: string }) {
   });
 
   if (isLoading)
-    return <p className='text-center'>⏳ 활동 목록을 불러오는 중...</p>;
+    return <p className='text-center'>활동 목록을 불러오는 중...</p>;
 
   if (isError)
     return (
-      <p className='text-center text-red-500'>
-        ❌ 데이터를 불러오지 못했습니다.
-      </p>
+      <p className='text-center text-red-500'>데이터를 불러오지 못했습니다.</p>
     );
 
   if (!activityData || activityData.length === 0) {
     return <Empty />;
   }
-  
-  console.log('🧩 리스트에 들어온 활동들:', activityData);
+
   return (
-    
-    <div
-      className={styles.listcardcontainer}
-      ref={listRef} // ✅ 이 줄 꼭 추가해야 스크롤 감지됨
-    >
-      
+    <div className={styles.listcardcontainer} ref={listRef}>
       {activityData.map((activity) => (
         <ActivityListCard key={activity.id} activities={activity} />
       ))}

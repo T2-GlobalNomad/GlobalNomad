@@ -85,12 +85,12 @@
   }
 
   .buttons {
-    justify-content: center;
+    justify-content: flex-end;
     flex-wrap: wrap;
   }
 
   .button {
-    width: 100%;
+    width: 80px;
     padding: 10px;
     font-size: 14px;
   }

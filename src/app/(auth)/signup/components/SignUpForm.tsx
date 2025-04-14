@@ -10,7 +10,7 @@ import {
   signUpSchema,
   type SignUpFormValues,
 } from '@/lib/schemas/auth-schemas';
-import { useSignUpMutation } from '@/hooks/useAuth';
+import { useSignUpMutation } from '@/hooks/mutation/useAuth';
 
 export default function SignUpForm() {
   const {

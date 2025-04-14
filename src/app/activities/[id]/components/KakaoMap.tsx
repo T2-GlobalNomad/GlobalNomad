@@ -26,13 +26,13 @@ export default function KakaoMap({ address }: KakaoMapProps) {
           result: kakao.maps.services.Address[],
           status: kakao.maps.services.Status,
         ) => {
-          if (status === window.kakao.maps.services.Status.OK) {
-            const coords = new window.kakao.maps.LatLng(
+          if (status === 'OK') {
+            const coords = new kakao.maps.LatLng(
               parseFloat(result[0].y),
               parseFloat(result[0].x),
             );
             map.setCenter(coords);
-            new window.kakao.maps.Marker({
+            new kakao.maps.Marker({
               map,
               position: coords,
             });

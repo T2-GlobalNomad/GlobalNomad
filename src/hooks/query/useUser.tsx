@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import instance from '@/lib/api';
+import Cookies from 'js-cookie';
 import { User } from '@/lib/types';
 
 // API 요청 함수
@@ -16,9 +17,12 @@ const fetchUser = async (): Promise<User> => {
 
 // React Query 훅
 const useUser = () => {
+  const token =
+    typeof window !== 'undefined' ? Cookies.get('accessToken') : null;
   return useQuery<User>({
     queryKey: ['user'],
     queryFn: fetchUser,
+    enabled: !!token,
   });
 };
 

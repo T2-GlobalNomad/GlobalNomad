@@ -1,11 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
 import { Activities } from '@/lib/types';
 import KebabDropdown from './kebabdropdown';
 import styles from './activitylistcard.module.css';
-
-
 
 type ActivityListCardProps = {
   activities: Activities;
@@ -14,29 +13,28 @@ type ActivityListCardProps = {
 export default function ActivityListCard({
   activities,
 }: ActivityListCardProps) {
+  const [imageSrcMap, setImageSrcMap] = useState<Record<string, string>>({});
 
-
-
-
-
-  console.log('🖼️ 카드 이미지 URL:', `${activities.bannerImageUrl}?v=${activities.updatedAt}`);
+  const handleImageError = (id: string) => {
+    setImageSrcMap((prev) => ({ ...prev, [id]: '/images/no_thumbnail.png' }));
+  };
   return (
     <div className={styles.container}>
       {/* 이미지 */}
       <div className={styles.bannerImg}>
-
         <Image
-          key={`${activities.updatedAt}`}
-          src={`${activities.bannerImageUrl}?v=${activities.updatedAt}`}
-          alt={activities.title!}
+          src={
+            imageSrcMap[activities.id] ||
+            activities.bannerImageUrl ||
+            '/images/no_thumbnail.png'
+          }
+          alt='썸네일'
           width={204}
           height={204}
+          priority
           className={styles.bannerImg}
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = '/images/no_thumbnail.png';
-          }}
+          onError={() => handleImageError(String(activities.id))}
         />
-
       </div>
 
       {/* 정보 */}
@@ -55,12 +53,10 @@ export default function ActivityListCard({
           <h3 className={styles.title}>{activities.title}</h3>
         </div>
         <div className={styles.bottomInfo}>
-
           <p className={styles.price}>
             ₩{new Intl.NumberFormat('ko-KR').format(activities.price!)} / 인
           </p>
           <KebabDropdown activityId={activities.id!} />
-
         </div>
       </div>
     </div>

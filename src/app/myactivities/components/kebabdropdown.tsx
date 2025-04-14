@@ -5,7 +5,7 @@ import CustomDropdown from './customDropdown';
 import { useState, useCallback } from 'react';
 import styles from './customDropdown.module.css';
 import { useRouter } from 'next/navigation';
-import useDeleteMyActivity from '@/hooks/useDeleteActivities';
+import useDeleteMyActivity from '@/hooks/mutation/useDeleteActivities';
 import ModalType1 from './ModalType1';
 
 interface KebabDropdownProps {
@@ -13,7 +13,6 @@ interface KebabDropdownProps {
 }
 
 export default function KebabDropdown({ activityId }: KebabDropdownProps) {
-
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { mutate: deleteActivity } = useDeleteMyActivity();
@@ -44,7 +43,6 @@ export default function KebabDropdown({ activityId }: KebabDropdownProps) {
               options={['수정하기', '삭제하기']}
               onChange={(value) => {
                 if (value === '수정하기') {
-                  console.log('수정하기 클릭!');
                   router.push(`/myactivities/${activityId}/edit`);
                 } else if (value === '삭제하기') {
                   setShowModal(true);

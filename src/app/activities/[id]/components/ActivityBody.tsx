@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import styles from './activityBody.module.css';
 import { Activities } from '@/lib/types';
 import ActivityReviews from './ActivityReviews';
@@ -17,6 +18,14 @@ export interface Activityprops {
 export default function ActivityBody({ activityData }: Activityprops) {
   const { user } = useAuthStore();
   const deviceType = useDeviceType();
+  const [imageSrcMap, setImageSrcMap] = useState<Record<string, string>>({});
+
+  const handleImageError = (key: string) => {
+    setImageSrcMap((prev) => ({
+      ...prev,
+      [key]: '/images/no_thumbnail.png',
+    }));
+  };
 
   const imageCount = 1 + (activityData.subImages?.length ?? 0);
 
@@ -40,34 +49,52 @@ export default function ActivityBody({ activityData }: Activityprops) {
         <Slider {...sliderSettings} className={styles.customSlider}>
           <div className={styles.bannerImage}>
             <Image
-              src={activityData.bannerImageUrl ?? '/images/no_thumbnail.png'}
+              src={
+                imageSrcMap['banner'] ||
+                activityData.bannerImageUrl ||
+                '/images/no_thumbnail.png'
+              }
               alt='bannerimage'
               fill
               objectFit='cover'
+              onError={() => handleImageError('banner')}
             />
           </div>
-          {activityData.subImages?.map((subImage, index) => (
-            <div
-              className={styles.subImage}
-              key={`${subImage.imageUrl}-${index}`}
-            >
-              <Image
-                src={subImage.imageUrl ?? '/images/no_thumbnail.png'}
-                alt='subImage'
-                fill
-                objectFit='cover'
-              />
-            </div>
-          ))}
+          {activityData.subImages?.map((subImage, index) => {
+            const key = `sub-${index}`;
+            return (
+              <div
+                className={styles.subImage}
+                key={`${subImage.imageUrl}-${index}`}
+              >
+                <Image
+                  src={
+                    imageSrcMap[key] ||
+                    subImage.imageUrl ||
+                    '/images/no_thumbnail.png'
+                  }
+                  alt='subImage'
+                  fill
+                  objectFit='cover'
+                  onError={() => handleImageError(key)}
+                />
+              </div>
+            );
+          })}
         </Slider>
       ) : (
         <div className={styles.imageSection}>
           <div className={styles.bannerImage}>
             <Image
-              src={activityData.bannerImageUrl ?? '/images/no_thumbnail.png'}
+              src={
+                imageSrcMap['banner'] ||
+                activityData.bannerImageUrl ||
+                '/images/no_thumbnail.png'
+              }
               alt='bannerimage'
               fill
               objectFit='cover'
+              onError={() => handleImageError('banner')}
             />
           </div>
           <div className={styles.subImageSection}>
@@ -76,12 +103,27 @@ export default function ActivityBody({ activityData }: Activityprops) {
                 className={styles.subImage}
                 key={`${subImage.imageUrl}-${index}`}
               >
-                <Image
-                  src={subImage.imageUrl ?? '/images/no_thumbnail.png'}
-                  alt='subImage'
-                  fill
-                  objectFit='cover'
-                />
+                {activityData.subImages?.map((subImage, index) => {
+                  const key = `sub-${index}`;
+                  return (
+                    <div
+                      className={styles.subImage}
+                      key={`${subImage.imageUrl}-${index}`}
+                    >
+                      <Image
+                        src={
+                          imageSrcMap[key] ||
+                          subImage.imageUrl ||
+                          '/images/no_thumbnail.png'
+                        }
+                        alt='subImage'
+                        fill
+                        objectFit='cover'
+                        onError={() => handleImageError(key)}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             ))}
           </div>

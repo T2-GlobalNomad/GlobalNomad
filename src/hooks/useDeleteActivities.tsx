@@ -8,6 +8,7 @@ import instance from '@/lib/api';
 const deleteMyActivity = async (activityId: number) => {
   try {
     const response = await instance.delete(`/my-activities/${activityId}`);
+    console.log('del Id', response.data.activities);
     return response.data.activities;
   } catch (error: unknown) {
     console.error('API 요청 실패:', error);

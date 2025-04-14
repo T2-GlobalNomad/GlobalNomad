@@ -13,7 +13,6 @@ interface KebabDropdownProps {
 }
 
 export default function KebabDropdown({ activityId }: KebabDropdownProps) {
-
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { mutate: deleteActivity } = useDeleteMyActivity();
@@ -44,7 +43,6 @@ export default function KebabDropdown({ activityId }: KebabDropdownProps) {
               options={['수정하기', '삭제하기']}
               onChange={(value) => {
                 if (value === '수정하기') {
-                  console.log('수정하기 클릭!');
                   router.push(`/myactivities/${activityId}/edit`);
                 } else if (value === '삭제하기') {
                   setShowModal(true);

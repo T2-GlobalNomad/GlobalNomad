@@ -22,17 +22,6 @@ export default function ActivityListCard({
     <div className={styles.container}>
       {/* 이미지 */}
       <div className={styles.bannerImg}>
-        {/* <Image
-          key={`${activities.updatedAt}`}
-          src={`${activities.bannerImageUrl}?v=${activities.updatedAt}`}
-          alt={activities.title!}
-          width={204}
-          height={204}
-          className={styles.bannerImg}
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = '/images/no_thumbnail.png';
-          }}
-        /> */}
         <Image
           src={
             imageSrcMap[activities.id] ||

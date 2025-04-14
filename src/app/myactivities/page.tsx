@@ -7,7 +7,9 @@ import styles from './myactivities.module.css';
 export default function MyActivities() {
   return (
     <div className={styles.page_container}>
-      <ProfileCard activeTab='myactivities' />
+      <div className={styles.profileCard}>
+        <ProfileCard activeTab='myactivities' />
+      </div>
       <MyActivityContainer />
     </div>
   );

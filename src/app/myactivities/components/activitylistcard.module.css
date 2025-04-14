@@ -20,6 +20,7 @@
 .bannerImg{
 width: 204px;
 height: 204px;
+object-fit: cover;
 border-top-left-radius: 14px;   /* 왼쪽 위 */
 border-bottom-left-radius: 14px; /* 왼쪽 아래 */
 }

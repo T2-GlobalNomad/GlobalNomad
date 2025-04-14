@@ -53,7 +53,7 @@ export type Schedules = {
  * @type {string} updatedAt - 수정일
  */
 export interface Activities {
-  id?: number;
+  id: number;
   userId?: number;
   title?: string;
   description?: string;

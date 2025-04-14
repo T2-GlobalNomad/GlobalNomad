@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { signInSchema } from '@/lib/schemas/auth-schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignInData } from '@/lib/auth-types';
-import { useSignInMutation } from '@/hooks/useAuth';
+import { useSignInMutation } from '@/hooks/mutation/useAuth';
 
 export default function SignInForm() {
   const {

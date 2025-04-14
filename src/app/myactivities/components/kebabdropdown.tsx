@@ -5,7 +5,7 @@ import CustomDropdown from './customDropdown';
 import { useState, useCallback } from 'react';
 import styles from './customDropdown.module.css';
 import { useRouter } from 'next/navigation';
-import useDeleteMyActivity from '@/hooks/useDeleteActivities';
+import useDeleteMyActivity from '@/hooks/mutation/useDeleteActivities';
 import ModalType1 from './ModalType1';
 
 interface KebabDropdownProps {

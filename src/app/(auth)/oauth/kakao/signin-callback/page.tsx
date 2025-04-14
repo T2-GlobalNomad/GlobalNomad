@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useKakaoSignInMutation } from '@/hooks/useAuth';
+import { useKakaoSignInMutation } from '@/hooks/mutation/useAuth';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function KakaoSignInCallbackPage() {

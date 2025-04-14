@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './customModal.module.css';
 
@@ -15,6 +18,18 @@ export default function CustomModal({
   children,
   className,
 }: ModalProps) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return createPortal(

@@ -41,6 +41,8 @@ export default function KakaoMap({ address }: KakaoMapProps) {
       );
     };
 
+    if (typeof window === 'undefined') return;
+
     const scriptId = 'kakao-map-script';
     const scriptExist = document.getElementById(scriptId);
 
@@ -57,11 +59,14 @@ export default function KakaoMap({ address }: KakaoMapProps) {
       };
       document.head.appendChild(script);
     } else {
-      if (window.kakao?.maps?.load) {
-        window.kakao.maps.load(() => {
-          loadMap();
-        });
-      }
+      const interval = setInterval(() => {
+        if (window.kakao?.maps?.load) {
+          clearInterval(interval);
+          window.kakao.maps.load(() => {
+            loadMap();
+          });
+        }
+      }, 100);
     }
   }, [address]);
 

@@ -1,5 +1,8 @@
 # GlobalNomad
-[대표이미지]() 및 링크걸기
+<p align="center">
+   <a href="https://globalnomad-t2.vercel.app/">
+  <img src="https://raw.githubusercontent.com/T2-GlobalNomad/GlobalNomad/main/public/images/auth_logo.svg" width="30%" />
+</p>
 
 <br/>
 <br/>
@@ -119,34 +122,51 @@ $ npm run
 # 5. Project Structure **미완
 
 ```plaintext
-PROJECT-TEAM2-WINE/
+GLOBALNOMAD/
+├── .github/                    # GitHub 관련 파일 (예: 워크플로우, 이슈 템플릿)
 ├── .next/                      # Next.js 빌드 결과물
-├── node_modules/               # npm 패키지 모듈
-├── public/                     # 정적 파일 저장소
-│   ├── assets/                 # 정적 리소스 (예: 이미지, 아이콘 등)
-│   ├── fonts/                  # 웹 폰트 저장소
+├── .storybook/                 # Storybook 설정 및 구성 파일
+├── node_modules/               # npm 패키지 모듈 저장소
+├── public/                     # 정적 파일 저장소 (예: 이미지, 폰트)
 ├── src/                        # 소스 코드 디렉토리
-│   ├── components/             # 재사용 가능한 컴포넌트
-│   ├── libs/                   # 유틸리티 및 API 호출 관련 함수
-│   ├── pages/                  # Next.js 페이지 폴더 (라우팅 처리)
-│   │   ├── myprofile/          # 마이프로필 관련 페이지
-│   │   ├── signin/             # 로그인 페이지
-│   │   ├── signup/             # 회원가입 페이지
-│   │   ├── wines/              # 와인 관련 페이지
-│   │   ├── _app.tsx            # Next.js의 글로벌 설정 파일
-│   │   ├── _document.tsx       # HTML 문서 구조 설정 파일
-│   │   ├── index.tsx           # 메인 페이지
-│   ├── styles/                 # 스타일 관련 파일 저장
-│   │   ├── Landing.module.css  # 특정 컴포넌트 스타일
-├── .env.local                  # 환경 변수 설정 파일
-├── .gitignore                  # Git에서 제외할 파일 목록
+│   ├── api/                    # API 요청 관련 함수들
+│   ├── app/                    # Next.js App Router 구조
+│   │   ├── (auth)/             # 인증 관련 페이지 및 기능
+│   │   ├── activities/         # 액티비티 상세 페이지
+│   │   │   └── [id]/           # 액티비티 개별 상세 (동적 라우팅)
+│   │   ├── landingComponents/  # 랜딩 페이지 관련 컴포넌트 모음
+│   │   ├── myactivities/       # 내 활동 페이지
+│   │   ├── mynotification/     # 알림 관련 페이지
+│   │   ├── mypage/             # 마이페이지
+│   │   ├── myreservation/      # 예약 관련 페이지
+│   │   └── postMyActivity/     # 액티비티 등록 페이지
+│   ├── utils/                  # 공통 유틸리티 함수들
+│   ├── ClientLayout.tsx        # 클라이언트 전용 레이아웃 컴포넌트
+│   ├── layout.tsx              # 루트 레벨 레이아웃 설정
+│   ├── not-found.module.css    # 404 페이지 전용 스타일
+│   ├── not-found.tsx           # 404 페이지 컴포넌트
+│   └── page.tsx                # 루트 메인 페이지
+├── components/                 # 프로젝트 전역 재사용 컴포넌트
+├── constants/                  # 상수 정의 파일 모음
+├── hooks/                      # 커스텀 훅 모음
+├── lib/                        # 외부 라이브러리, 헬퍼 함수 모음
+├── stores/                     # 상태관리 (예: Zustand, Redux 등)
+├── stories/                    # Storybook 스토리 파일
+├── styles/                     # 글로벌 스타일 파일 (CSS, SCSS)
+├── types/                      # TypeScript 타입 정의
+├── utils/                      # 유틸리티 함수 (src/utils와 다를 경우 확인 필요)
+├── .env.local                  # 로컬 환경 변수 파일
+├── .gitignore                  # Git 추적 제외 설정
+├── .prettierrc                 # Prettier 코드 포맷 설정
 ├── eslint.config.mjs           # ESLint 설정 파일
-├── next-env.d.ts               # Next.js 환경 타입 정의
+├── next-env.d.ts               # Next.js 타입 정의 파일
 ├── next.config.ts              # Next.js 설정 파일
-├── package-lock.json           # 종속성 버전 고정 파일
-├── package.json                # 프로젝트 종속성 및 스크립트 정의
-├── README.md                   # 프로젝트 개요 및 사용법 설명
-└── tsconfig.json               # TypeScript 설정 파일
+├── package-lock.json           # 의존성 버전 고정 파일
+├── package.json                # 프로젝트 의존성 및 스크립트 설정
+├── postcss.config.mjs          # PostCSS 설정 파일
+├── README.md                   # 프로젝트 개요 및 설명
+├── tsconfig.json               # TypeScript 설정 파일
+└── vitest.config.ts            # Vitest 테스트 설정 파일
 
 
 ```

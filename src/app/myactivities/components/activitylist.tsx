@@ -6,6 +6,7 @@ import styles from './activitylistcard.module.css';
 import { useScrollDetector } from '@/utils/useScrollDetector';
 import { RefObject } from 'react';
 import { useScrollPositioning } from '@/utils/useScrollPositioning';
+import LoadingSpinner from '@/components/loadingSpinner/LoadingSpinner';
 import Empty from '@/components/empty/Empty';
 
 export default function ActivityList({ status }: { status: string }) {
@@ -15,8 +16,8 @@ export default function ActivityList({ status }: { status: string }) {
     isError,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage, // ✅ 오타 수정
-  } = useMyActivities(status); // ✅ status 제거
+    isFetchingNextPage,
+  } = useMyActivities(status);
 
   const activityData = data?.pages.flatMap((page) => page.activities) ?? [];
 
@@ -38,14 +39,9 @@ export default function ActivityList({ status }: { status: string }) {
     }
   });
 
-  if (isLoading)
-    return <p className='text-center'>⏳ 활동 목록을 불러오는 중...</p>;
-
   if (isError)
     return (
-      <p className='text-center text-red-500'>
-        ❌ 데이터를 불러오지 못했습니다.
-      </p>
+      <p className='text-center text-red-500'>데이터를 불러오지 못했습니다.</p>
     );
 
   if (!activityData || activityData.length === 0) {
@@ -53,13 +49,16 @@ export default function ActivityList({ status }: { status: string }) {
   }
 
   return (
-    <div
-      className={styles.listcardcontainer}
-      ref={listRef} // ✅ 이 줄 꼭 추가해야 스크롤 감지됨
-    >
-      {activityData.map((activity) => (
-        <ActivityListCard key={activity.id} activities={activity} />
-      ))}
-    </div>
+    <>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className={styles.listcardcontainer} ref={listRef}>
+          {activityData.map((activity) => (
+            <ActivityListCard key={activity.id} activities={activity} />
+          ))}
+        </div>
+      )}
+    </>
   );
 }

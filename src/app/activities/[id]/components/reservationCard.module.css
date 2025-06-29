@@ -1,0 +1,177 @@
+.priceSection {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-lighter);
+  padding-bottom: 11px;
+  margin-bottom: 15px;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 42px;
+  color: var(--nomad-black);
+}
+
+.perPerson {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+  color: var(--gray-dark);
+}
+
+.dateButton {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.infoSection {
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--gray-lighter);
+}
+
+.dateLabel {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  color: var(--nomad-black);
+  margin-bottom: 16px;
+}
+
+.headCount {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  margin: 11px 0 15px;
+  color: var(--nomad-black);
+}
+
+.headCountButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 120px;
+  height: 40px;
+  border-radius: 6px;
+  margin-bottom: 24px;
+  border: 1px solid var(--gray-muted);
+}
+
+.headButton {
+  width: 40px;
+  height: 40px;
+}
+
+.reservationButton {
+  width: 100%;
+  height: 56px;
+  margin-bottom: 23px;
+}
+
+.reservationButton:hover{
+  background-color: var(--green);
+}
+
+.totalSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--gray-lighter);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+}
+
+.successModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 !important;
+  min-width: 540px !important;
+  min-height: 250px !important;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+}
+
+.successModalButton {
+  position: absolute;
+  bottom: 30px;
+  right: 24px;
+  width: 120px;
+  height: 48px;
+  font-weight: 500 !important;
+}
+
+@media (max-width: 1200) {
+  .dateLabel {
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 768) {
+  .reservationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .totalSection {
+    justify-content: space-between;
+    align-items: center;
+    border-top: none;
+    padding: none;
+  }
+  
+  .totalPrice {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 32px;
+    color: var(--nomad-black);
+  }
+
+  .perPerson {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--green);
+  }
+
+  .dateButton {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 100%;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  color: var(--green);
+  }
+
+  .reservationButton {
+    width: 106px;
+    height: 48px;
+    border-radius: 6px;  
+    margin: 0; 
+  }
+
+  .OKButton {
+    width: 100%;
+    height: 56px;
+  }
+
+  .successModal {
+    min-width: 368px !important;
+    min-height: 204px !important;
+  }
+  
+  .successModalButton {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 100px;
+    height: 40px;
+    font-weight: 500 !important;
+  }
+}

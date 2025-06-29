@@ -31,7 +31,7 @@ const tab = [
     label: '내 체험 관리',
     href: '/myactivities',
     img: '/images/icon_menu3.svg',
-    activeImg: '/images/icon_menu2_active.svg',
+    activeImg: '/images/icon_menu3_active.svg',
   },
   {
     key: 'mynotification',
@@ -49,17 +49,12 @@ type ProfileCardProps = {
 const ProfileCard = ({
   activeTab = 'mynotification',
 }: ProfileCardProps): ReactElement => {
-  const {
-    data: user,
-    isLoading,
-    error,
-  } = useUser() as {
+  const { data: user, error } = useUser() as {
     data: User;
     isLoading: boolean;
     error: unknown;
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
   if (error) {
     console.error(error);
     return <div>에러가 발생했습니다.</div>;

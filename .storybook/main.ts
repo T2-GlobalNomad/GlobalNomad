@@ -1,22 +1,23 @@
 import type { StorybookConfig } from '@storybook/nextjs';
+import path from 'path';
 
 const config: StorybookConfig = {
-  "stories": [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
-  ],
-  "addons": [
-    "@storybook/addon-essentials",
-    "@storybook/addon-onboarding",
-    "@chromatic-com/storybook",
-    "@storybook/experimental-addon-test"
-  ],
-  "framework": {
-    "name": "@storybook/nextjs",
-    "options": {}
+  stories: ['../src/stories/**/*.stories.@(ts|tsx)'],
+  addons: ['@storybook/addon-essentials'],
+  staticDirs: ['../public'],
+  framework: {
+    name: '@storybook/nextjs',
+    options: {},
   },
-  "staticDirs": [
-    "../public"
-  ]
+  webpackFinal: async (config) => {
+    config.resolve = config.resolve || {};
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      'next/image': path.resolve(__dirname, 'mocks/NextImage.tsx'),
+    };
+
+    return config;
+  },
 };
+
 export default config;

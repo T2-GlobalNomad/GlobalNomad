@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import instance from '@/lib/api';
+import Cookies from 'js-cookie';
 import { User } from '@/lib/types';
 
 // API 요청 함수
-const fetchUser = async (): Promise<User[]> => {
+const fetchUser = async (): Promise<User> => {
   try {
     const response = await instance.get('/users/me');
     //console.log('API 응답 데이터:', response.data); // 응답 데이터 확인
@@ -16,9 +17,12 @@ const fetchUser = async (): Promise<User[]> => {
 
 // React Query 훅
 const useUser = () => {
-  return useQuery<User[]>({
+  const token =
+    typeof window !== 'undefined' ? Cookies.get('accessToken') : null;
+  return useQuery<User>({
     queryKey: ['user'],
     queryFn: fetchUser,
+    enabled: !!token,
   });
 };
 

@@ -9,7 +9,7 @@
 }
 
 .customButton:disabled {
-  cursor: none;
+  cursor: default;
   background-color: var(--gray-medium);
   color: var(--white);
   border: none;

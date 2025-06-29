@@ -6,7 +6,7 @@
 .pageContainer {
   flex: 1;
   position: relative;
-  min-height: calc(100vh - calc(env(safe-area-inset-bottom)) - 235px);
+  min-height: calc(100vh - calc(env(safe-area-inset-bottom)) - 379px);
 }
 
 .loading {
@@ -151,6 +151,10 @@
       color: var(--gray);
     }
   }
+}
+
+.dropdownList {
+  width: 130px;
 }
 
 .reservationBox.noClick {

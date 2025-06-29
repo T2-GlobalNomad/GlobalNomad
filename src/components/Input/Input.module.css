@@ -68,3 +68,68 @@
 .errorBorder {
   border-color: var(--red);
 }
+
+
+
+
+@media(max-width: 768px){
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 429px;
+    width: 100%;
+  }
+  
+  
+  .datePickerWrapper {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 1px solid #79747e;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+  .dateIcon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .errorBorder {
+    border-color: var(--red);
+  }
+
+}
+
+@media(max-width:375px){
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 343px;
+    width: 100%;
+  }
+
+  .input {
+    width: 100%;
+    height: 44px;
+    padding: 16px 20px;
+    border: 1px solid #79747e;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .selectInput{
+    height: 44px;
+  }
+}

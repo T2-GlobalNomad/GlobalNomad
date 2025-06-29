@@ -8,6 +8,7 @@ import useMyActivitiesCalendar from '@/hooks/query/useMyActivitiesCalendar';
 import useScheduleByMonth from '@/hooks/query/useScheduleByMonth';
 import ProfileCard from '@/components/ProfileCard/ProfileCard';
 import Footer from '@/components/footer/Footer';
+import LoadingSpinner from '@/components/loadingSpinner/LoadingSpinner';
 import styles from './MyNotification.module.css';
 
 type Activity = {
@@ -35,6 +36,7 @@ export default function MyNotification() {
     String(new Date().getMonth() + 1).padStart(2, '0'),
   );
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const isLoading = isActivitiesLoading;
 
   // 활동 목록이 로드되면 첫 항목 기본 선택
   useEffect(() => {
@@ -81,47 +83,50 @@ export default function MyNotification() {
         <div className={styles.sidebar}>
           <ProfileCard activeTab='mynotification' />
         </div>
-
-        <div className={styles.container}>
-          <p className={styles.title}>예약 현황</p>
-          <p className={styles.dropdownTitle}>체험명 선택</p>
-          <Dropdown
-            dropdownClassName={styles.dropdownList ?? ''}
-            toggleClassName={styles.dropdownList}
-            menuClassName={styles.dropdownList}
-            menuItemClassName={styles.dropdownList}
-            options={activities.map((activity) => ({
-              value: activity.id,
-              label: activity.title,
-            }))}
-            selectedValue={selectedActivityId}
-            onChange={(value) => {
-              const selected =
-                activities.find((activity) => activity.id === value) || null;
-              setSelectedActivity(selected);
-            }}
-          />
-          {selectedActivity && (
-            <>
-              <MyNotificationCalendar
-                activeStartDate={activeStartDate}
-                schedule={schedule}
-                onMonthChange={handleMonthChange}
-                onDateClick={handleDateClick}
-                activityId={selectedActivity.id}
-                isLoading={isActivitiesLoading}
-              />
-
-              {selectedDate && (
-                <ReservationInfoModal
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <div className={styles.container}>
+            <p className={styles.title}>예약 현황</p>
+            <p className={styles.dropdownTitle}>체험명 선택</p>
+            <Dropdown
+              dropdownClassName={styles.dropdownList ?? ''}
+              toggleClassName={styles.dropdownList}
+              menuClassName={styles.dropdownList}
+              menuItemClassName={styles.dropdownList}
+              options={activities.map((activity) => ({
+                value: activity.id,
+                label: activity.title,
+              }))}
+              selectedValue={selectedActivityId}
+              onChange={(value) => {
+                const selected =
+                  activities.find((activity) => activity.id === value) || null;
+                setSelectedActivity(selected);
+              }}
+            />
+            {selectedActivity && (
+              <>
+                <MyNotificationCalendar
+                  activeStartDate={activeStartDate}
+                  schedule={schedule}
+                  onMonthChange={handleMonthChange}
+                  onDateClick={handleDateClick}
                   activityId={selectedActivity.id}
-                  date={selectedDate}
-                  onClose={() => setSelectedDate(null)}
+                  isLoading={isActivitiesLoading}
                 />
-              )}
-            </>
-          )}
-        </div>
+
+                {selectedDate && (
+                  <ReservationInfoModal
+                    activityId={selectedActivity.id}
+                    date={selectedDate}
+                    onClose={() => setSelectedDate(null)}
+                  />
+                )}
+              </>
+            )}
+          </div>
+        )}
       </div>
       <footer>
         <Footer />

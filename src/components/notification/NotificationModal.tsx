@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import instance from '@/lib/api';
-import { Notification } from '@/lib/types';
+import React from 'react';
+import useNotifications from '@/hooks/query/useNotifications';
 import CloseButton from '../CloseButton';
 import NotificationCard from './NotificationCard';
 import styles from './NotificationModal.module.css';
@@ -14,19 +13,8 @@ export default function NotificationModal({
   isOpen,
   onClose,
 }: NotificationModalProps) {
-  const [totalCount, setTotalCount] = useState<Notification>();
-
-  useEffect(() => {
-    const fetchNotificationsCount = async () => {
-      try {
-        const response = await instance.get('/my-notifications');
-        setTotalCount(response.data);
-      } catch (error) {
-        console.error('알림 개수를 불러오는 데 실패했습니다.', error);
-      }
-    };
-    fetchNotificationsCount();
-  }, []);
+  const { data: notifications = [] } = useNotifications();
+  const totalCount = notifications.length;
 
   if (!isOpen) return null;
 
@@ -34,7 +22,7 @@ export default function NotificationModal({
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <p className={styles.totalCount}>알림 {totalCount?.totalCount}개</p>
+          <p className={styles.totalCount}>알림 {totalCount}개</p>
           <CloseButton onClick={onClose} className={styles.closeBtn} />
         </div>
         <div className={styles.notificationContainer}>

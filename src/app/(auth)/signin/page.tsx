@@ -6,9 +6,11 @@ import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import OauthSignIn from './components/OauthSignIn';
 
 export default function SignIn() {
   const router = useRouter();
+
   useEffect(() => {
     const token = Cookies.get('accessToken');
 
@@ -26,6 +28,7 @@ export default function SignIn() {
           회원가입하기
         </Link>
       </p>
+      <OauthSignIn />
     </div>
   );
 }

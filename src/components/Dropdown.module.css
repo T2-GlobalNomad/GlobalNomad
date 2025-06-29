@@ -9,7 +9,7 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 26px;
-  width: 130px;
+  /* width: 130px; */
   border: 1px solid var(--green);
   border-radius: 15px;
   padding: 11px 14px 8px 15px;
@@ -21,11 +21,11 @@
   @media (max-width: 768px) {
     font-size: 14px;
     line-height: 20px;
-    width: 120px;
+    /* width: 120px; */
   }
   @media (max-width: 448px) {
     font-size: 12px;
-    width: 96px;
+    /* width: 96px; */
     padding: 9px 9px 6px 12px;
   }
 }
@@ -35,7 +35,7 @@
   top: 100%;
   left: 0;
   background: var(--white);
-  width: 130px;
+  /* width: 130px; */
   border: 1px solid var(--gray-lighter);
   border-radius: 6px;
   box-shadow: 0 4px 16px rgba(17, 34, 17, 0.05);
@@ -44,11 +44,11 @@
   z-index: 10;
 
   @media (max-width: 768px) {
-    width: 120px;
+    /* width: 120px; */
     margin-top: 4px;
   }
   @media (max-width: 448px) {
-    width: 96px;
+    /* width: 96px; */
   }
 }
 .menuItem {

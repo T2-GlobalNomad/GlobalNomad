@@ -5,6 +5,7 @@
   border: 1px solid var(--gray-lighter);
   border-radius: 4px;
   overflow-y: auto;
+  margin-bottom: 12px;
 }
 
 .infoContainer {
@@ -69,6 +70,7 @@
 @media (max-width: 768px) {
   .container {
     padding: 8px;
+    border: 1px solid var(--gray-lighter);
   }
 
   .infoContainer {
@@ -83,12 +85,12 @@
   }
 
   .buttons {
-    justify-content: center;
+    justify-content: flex-end;
     flex-wrap: wrap;
   }
 
   .button {
-    width: 100%;
+    width: 80px;
     padding: 10px;
     font-size: 14px;
   }

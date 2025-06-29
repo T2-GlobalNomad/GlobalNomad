@@ -30,7 +30,7 @@ type SubImages = {
   imageUrl: string;
 };
 
-type Schedules = {
+export type Schedules = {
   id: number;
   date: string;
   startTime: string;
@@ -53,16 +53,16 @@ type Schedules = {
  * @type {string} updatedAt - 수정일
  */
 export interface Activities {
-  id?: number;
+  id: number;
   userId?: number;
   title?: string;
   description?: string;
   category?: '문화 · 예술' | '식음료' | '스포츠' | '투어' | '관광' | '웰빙';
   price?: number;
   address?: string;
-  bannerImageUrl?: string;
-  subImages?: SubImages[];
-  schedule?: Schedules[];
+  bannerImageUrl: string;
+  subImages: SubImages[];
+  schedules?: Schedules[];
   rating?: number;
   reviewCount?: number;
   createdAt?: string;
@@ -153,4 +153,21 @@ export interface Notifications {
 export interface Notification {
   notifications: Notifications[];
   totalCount: number;
+}
+
+/* ReservationCard */
+
+export interface ReservationState {
+  headCount: number;
+  isModalOpen: boolean;
+  selectedSchedule: Schedules | undefined;
+  selectedScheduleId: number;
+}
+
+export interface ReservationHandlers {
+  setSelectedScheduleId: (id: number) => void;
+  setIsModalOpen: (value: boolean) => void;
+  handleMinusClick: () => void;
+  handlePlusClick: () => void;
+  handlePostReservation: () => void;
 }

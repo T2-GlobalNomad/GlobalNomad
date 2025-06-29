@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from '@/components/modal/customModal.module.css';
 import CustomButton from '@/components/CustomButton';
-import useCancelReservation from '@/hooks/query/useCancelReservation';
+import useCancelReservation from '@/hooks/mutation/useCancelReservation';
 import { SetStateAction } from 'react';
 
 interface Props {
@@ -17,17 +17,6 @@ export default function CancelModal({
   isModalMessage,
   setShowToast,
 }: Props) {
-  const closeButton: React.CSSProperties = {
-    fontWeight: '700',
-    color: '#121',
-  };
-  const cancelReservationButton: React.CSSProperties = {
-    marginLeft: '8px',
-    fontWeight: '700',
-    color: '#fff',
-    background: '#121',
-  };
-
   const { mutate: cancelReservation } = useCancelReservation(setShowToast);
 
   function handleCancelReservation() {
@@ -60,7 +49,6 @@ export default function CancelModal({
             type='button'
             fontSize='sm'
             variant='white'
-            style={closeButton}
             onClick={() => setShowModal(false)}
           >
             아니오
@@ -69,7 +57,7 @@ export default function CancelModal({
             type='button'
             fontSize='sm'
             variant='black'
-            style={cancelReservationButton}
+            style={{ marginLeft: '10px' }}
             onClick={handleCancelReservation}
           >
             취소하기

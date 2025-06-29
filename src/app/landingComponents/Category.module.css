@@ -8,7 +8,7 @@
     max-width: auto; 
     padding: 0 24px; 
   } 
-  @media (max-width: 375px) { 
+  @media (max-width: 450px) { 
     padding: 0 16px; 
   }
 }
@@ -61,4 +61,8 @@
 .category .deselected {
   background-color: var(--white);
   color: var(--green);
+}
+
+.dropdownList {
+  width: 130px;
 }

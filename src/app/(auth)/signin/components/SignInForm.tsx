@@ -5,37 +5,26 @@ import styles from './SignInForm.module.css';
 import Input from '@/components/Input/Input';
 import PasswordInput from '@/components/Input/PasswordInput';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-import { signIn } from '@/lib/auth-api';
-import { signInSchema, type LoginFormValues } from '@/lib/schemas/auth-schemas';
+import { signInSchema } from '@/lib/schemas/auth-schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAuthStore } from '@/stores/useAuthStore';
+import { SignInData } from '@/lib/auth-types';
+import { useSignInMutation } from '@/hooks/mutation/useAuth';
 
 export default function SignInForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<LoginFormValues>({
+  } = useForm<SignInData>({
     mode: 'onChange',
     resolver: zodResolver(signInSchema),
   });
 
-  const router = useRouter();
+  const signInMutation = useSignInMutation();
 
-  const onSubmit = async (data: LoginFormValues) => {
-    try {
-      const response = await signIn(data);
-      if (response) {
-        useAuthStore.getState().setAuth(response.user);
-      }
-      router.push('/');
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+  const onSubmit = (data: SignInData) => {
+    signInMutation.mutate(data);
   };
-
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.input}>

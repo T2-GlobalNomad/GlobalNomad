@@ -5,13 +5,12 @@ import styles from './SignUpForm.module.css';
 import Input from '@/components/Input/Input';
 import { useForm } from 'react-hook-form';
 import CustomButton from '@/components/CustomButton';
-import { signUp } from '@/lib/auth-api';
-import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   signUpSchema,
   type SignUpFormValues,
 } from '@/lib/schemas/auth-schemas';
+import { useSignUpMutation } from '@/hooks/mutation/useAuth';
 
 export default function SignUpForm() {
   const {
@@ -22,17 +21,10 @@ export default function SignUpForm() {
     mode: 'onChange',
     resolver: zodResolver(signUpSchema),
   });
-
-  const router = useRouter();
+  const signUpMutation = useSignUpMutation();
 
   const onSubmit = async (data: SignUpFormValues) => {
-    try {
-      const response = await signUp(data);
-      router.push('/signin');
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+    signUpMutation.mutate(data);
   };
 
   return (

@@ -1,0 +1,106 @@
+.infoSection {
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--gray-lighter);
+  margin-bottom: 15px;
+}
+
+.availableTimes {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  margin: 11px 0 15px;
+  color: var(--nomad-black);
+}
+
+.timeButtonSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.timeButton {
+  padding: 10px 12px;
+}
+
+.timeButton:hover {
+  background-color: var(--gray-lighter);
+}
+
+.calendar {
+  border: 1px solid var(--gray-lightest);
+  border-radius: 8px;
+  padding: 10px;
+  width: 305px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--white);
+  margin: 0 auto 16px;
+}
+
+.calendar :global(.react-calendar__navigation) {
+  width: 250px;
+  height: 29px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.calendar :global(.react-calendar__navigation__label__labelText) {
+  font-family: Open Sans;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.calendar :global(.react-calendar__month-view__weekdays) {
+  width: 250px;
+  height: 32px;
+  margin: 0 auto;
+  font-family: Open Sans;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  color: var(--gray-dark);
+}
+
+.calendar :global(.react-calendar__month-view__weekdays abbr) {
+  text-decoration: none !important;
+}
+
+.calendar :global(.react-calendar__month-view__days) {
+  width: 250px;
+  font-family: Open Sans;
+}
+
+.calendar :global(.react-calendar__month-view__days__day) {
+  height: 32px;
+  font-family: Open Sans;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.calendar :global(.react-calendar__month-view__days__day:disabled) {
+  color: var(--gray-dark);
+  cursor: default;
+}
+
+.calendar :global(.react-calendar__month-view__days__day--neighboringMonth:disabled) {
+  color: var(--gray-light);
+}
+
+.calendar :global(.react-calendar__month-view__days__day:not(:disabled)) {
+  background-color: var(--gray-green);
+  border-radius: 8px;
+  color: var(--green);
+}
+
+.calendar :global(.react-calendar__month-view__days__day:not(:disabled):hover) {
+  background-color: var(--light-green);
+}
+
+.calendar :global(.react-calendar__tile--active) {
+  background-color: var(--green) !important;
+  color: var(--white) !important;
+}

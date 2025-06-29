@@ -73,3 +73,83 @@
 .errorBorder {
   border-color: var(--red);
 }
+
+@media(max-width: 768px){
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 142px;
+    width: 100%;
+  }
+  .datePickerWrapper {
+    max-width: 142px;
+    width: 100%;
+    display: flex;
+  }
+  
+  .input {
+    width: 142px;
+    height: 53px;
+    padding: 16px 20px;
+    border: 1px solid #79747e;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+  
+  
+  }
+
+  .dateIcon {
+    position: absolute;
+    right: 16px;
+    top: 45%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 23px;
+    height: 21px;
+  }
+}
+
+@media(max-width: 375px){
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 130px;
+    width: 100%;
+  }
+  .datePickerWrapper {
+    max-width: 130px;
+    width: 100%;
+    display: flex;
+  }
+  
+  .input {
+    width: 130px;
+    height: 44px;
+    padding: 16px 20px;
+    border: 1px solid #79747e;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+  
+  
+  }
+
+  .dateIcon {
+    position: absolute;
+    right: 16px;
+    top: 35%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 23px;
+    height: 21px;
+  }
+
+  .input::placeholder {
+    font-size: 14px;
+    font-weight: 400;
+    color: #a4a1aa;
+  }
+}
